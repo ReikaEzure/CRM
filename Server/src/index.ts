@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 
 import indexRoute from './routes/IndexRoute';
+import loginRoute from './routes/LoginRoute';
 
 class Server {
     
@@ -30,6 +31,7 @@ class Server {
 
     routes(): void{
         this.app.use('/', indexRoute);
+        this.app.use('/login', loginRoute);
     }
 
 }
