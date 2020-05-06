@@ -9,6 +9,10 @@ class LoginController {
         }
         res.status(404).json({text: "The user doesn't exist"});
     }
+
+    public test(req: Request, res: Response){
+        res.json({text: 'Hi! from logincontroller'});
+    }
 }
 
 export const loginController = new LoginController();

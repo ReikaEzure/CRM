@@ -1,4 +1,4 @@
-class Login {
+export interface Login {
     id?: number;
     username?: String;
     password?: String;

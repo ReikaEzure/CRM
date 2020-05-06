@@ -6,10 +6,11 @@ class LoginRoute {
     public router: Router = Router();
 
     constructor(){
-        
+        this.config();
     }
 
     config(): void{
+        this.router.get('/test', loginController.test);
         this.router.post('/', loginController.login);
     }
 
