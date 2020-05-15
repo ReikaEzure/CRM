@@ -9,11 +9,11 @@ import { Login } from '../models/Login';
 })
 export class AuthenticationService {
 
-  _url = 'http://localhost:3000';
+  _url = 'http://localhost:3000/login';
 
   constructor( private _http: HttpClient ) { }
 
   login(userData: any){
-    return this._http.post(`${this._url}/login`, userData);
+    return this._http.post(`${this._url}`, userData);
   }
 }

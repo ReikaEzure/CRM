@@ -1,68 +1,69 @@
-<div class="container">
-    <h2>Registration Form</h2>
-    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label>Username</label>
-            <input [class.is-invalid]="userName.invalid && userName.touched" 
-            formControlName="userName" type="text" class="form-control">
-            <!--<small class="text-danger" [class.d-none]="userName.valid || userName.untouched">Username is required</small>-->
-            <div *ngIf="userName.invalid && userName.touched">
-                <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
-                <small *ngIf="userName.errors?.minlength" class="text-danger">Username must be 3 caracter</small>
-                <small *ngIf="userName.errors?.forbiddenName" class="text-danger">Username "{{userName.errors?.forbiddenName.value}}" is not allowed</small>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label>Password</label>
-            <input [class.is-invalid]="password.invalid && password.touched"
-            formControlName="password" type="password" class="form-control">
-            <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
-        </div>
+<div class="card-body">
+  <h2>Registration Form</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Username</label>
+      <input [class.is-invalid]="userName.invalid && userName.touched" 
+        formControlName="userName" type="text" class="form-control">
+      <div *ngIf="userName.invalid && userName.touched">
+          <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
+          <small *ngIf="userName.errors?.minlength" class="text-danger">Username must be 3 caracter</small>
+          <small *ngIf="userName.errors?.forbiddenName" class="text-danger">Username "{{userName.errors?.forbiddenName.value}}" is not allowed</small>
+      </div>  
+    </div>
 
-        <div class="form-group">
-            <label>Confirm Password</label>
-            <input [class.is-invalid]="(confirmPassword.invalid && confirmPassword.touched) ||  registrationForm.errors?.misMatch" 
-            formControlName="confirmPassword" type="password" class="form-control">
-            <small class="text-danger" [class.d-none]="confirmPassword.valid || confirmPassword.untouched">Password is required</small>
-            <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Passwords do not match</small>
-        </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input [class.is-invalid]="password.invalid && password.touched"
+      formControlName="password" type="password" class="form-control">
+      <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
+    </div>
 
-        <div formGroupName="address">
-            <div class="form-group">
-              <label>Street</label>
-              <input type="text" class="form-control" formControlName="street" >
-            </div>
-            <div class="form-group">
-              <label>City</label>
-              <input type="text" class="form-control" formControlName="city" >
-            </div>
-            <div class="form-group">
-              <label>State</label>
-              <input type="text" class="form-control" formControlName="state" >
-            </div>
-            <div class="form-group">
-              <label>Postal Code</label>
-              <input type="text" class="form-control" formControlName="postalCode" >
-            </div>
-          </div>
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input [class.is-invalid]="(confirmPassword.invalid && confirmPassword.touched) ||  registrationForm.errors?.misMatch" 
+        formControlName="confirmPassword" type="password" class="form-control">
+      <small class="text-danger" [class.d-none]="confirmPassword.valid || confirmPassword.untouched">Password is required</small>
+      <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Passwords do not match</small>
+    </div>
 
-          <div class="form-group">
-            <label>Email</label>
-            <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternateEmails()">Add Email</button>
-            <input [class.is-invalid]="email.invalid && email.touched" type="text" formControlName="email" class="form-control" >
-            <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
-            <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">
-                <input type="text" class="form-control my-1" [formControlName]="i">
-            </div>
-        </div>
+    <div formGroupName="address">
+      <div class="form-group">
+        <label>Street</label>
+        <input type="text" class="form-control" formControlName="street" >
+      </div>
+      <div class="form-group">
+        <label>City</label>
+        <input type="text" class="form-control" formControlName="city" >
+      </div>
+      <div class="form-group">
+        <label>State</label>
+        <input type="text" class="form-control" formControlName="state" >
+      </div>
+      <div class="form-group">
+        <label>Postal Code</label>
+        <input type="text" class="form-control" formControlName="postalCode" >
+      </div>
+    </div>
 
-          <div class="form-group">
-            <input type="checkbox" formControlName="subscribe" class="form-check-input" >
-            <label class="form-check-label">Send me promotional offers</label>
-          </div>
+    <div class="form-group">
+      <label>Email</label>
+      <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternateEmails()">Add Email</button>
+      <input [class.is-invalid]="email.invalid && email.touched" type="text" formControlName="email" class="form-control" >
+      <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+      <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">
+        <input type="text" class="form-control my-1" [formControlName]="i">
+      </div>
+    </div>
 
-        <button   class="btn btn-primary" [disabled]="!registrationForm.valid" type="submit">Register</button>
-    
-    </form>
+    <div class="form-group">
+      <input type="checkbox" formControlName="subscribe" class="form-check-input" >
+      <label class="form-check-label">Send me promotional offers</label>
+    </div>
+
+    <button   class="btn btn-primary" [disabled]="!registrationForm.valid" type="submit">Register</button>
+  
+  </form>
 </div>
+

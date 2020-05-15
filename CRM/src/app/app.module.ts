@@ -7,11 +7,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginNavComponent } from './components/login-nav/login-nav.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
+    LoginNavComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

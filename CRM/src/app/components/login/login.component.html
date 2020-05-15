@@ -1,22 +1,20 @@
-<div class="container">
-    <div class="card">
-        <div class="card-body">
-            <h2>Log In</h2>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" class="form-control" formControlName="username">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" formControlName="password">
-                </div>
-                <button class="btn btn-primary" [disabled]="!loginForm.valid" type="submit">Login</button>
-            </form> 
+     
+<div class="card-body">
+    <h2>Log In</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" formControlName="username">
         </div>
-        <div *ngIf="loginFailed" class="card-body">
-            <p class="text-danger">Woops!! There is wrong username or password!</p>
-            <button class="btn btn-danger">Forgot your password?</button>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password">
         </div>
-    </div>
+        <button class="btn btn-primary" [disabled]="!loginForm.valid" type="submit">Login</button>
+    </form> 
 </div>
+<div *ngIf="loginFailed" class="card-body">
+    <p class="text-danger">Woops!! There is wrong username or password!</p>
+    <button class="btn btn-danger">Forgot your password?</button>
+</div>
+
