@@ -10,7 +10,7 @@ class UserRoute {
     config() {
         this.router.get('/test', UserController_1.userController.test);
         this.router.get('/:id', UserController_1.userController.getUser);
-        this.router.post('/', UserController_1.userController.create);
+        this.router.post('/register', UserController_1.userController.register);
         this.router.put('/:id', UserController_1.userController.update);
     }
 }

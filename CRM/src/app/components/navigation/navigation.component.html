@@ -1,17 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">ng MySQL CRUD</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-        <a class="nav-link" routerLink="/games" routerLinkActive="active"><i class="fas fa-gamepad"></i>Games</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="/games/add" routerLinkActive="active"><i class="fas fa-plus circle"></i>Add Games</a>
-        </li>
-    </ul>
-    </div>
-</nav>
-
+<div class="col-md-3">
+    <nav class="navbar bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">ROOTLETS</a>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" routerLink="/user" routerLinkActive="active"><i class="fas fa-user"></i>User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" routerLink="/client" routerLinkActive="active"><i class="fas fa-address-book"></i>Client</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" routerLink="/appointment" routerLinkActive="active"><i class="far fa-calendar-alt"></i>Appointment</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" routerLink="/project" routerLinkActive="active"><i class="fas fa-project-diagram"></i>Project</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item active" routerLink="/team" routerLinkActive="active"><i class="fas fa-users"></i>Team</a>
+                    <a class="dropdown-item active" routerLink="/task" routerLinkActive="active"><i class="fas fa-tasks"></i>Task</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item active" routerLink="/promotion" routerLinkActive="active"><i class="fas fa-tag"></i>Promotion</a>
+                    <a class="dropdown-item active" routerLink="/invoice" routerLinkActive="active"><i class="fas fa-file-invoice-dollar"></i>Invoice</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" routerLink="/contact" routerLinkActive="active"><i class="far fa-id-card"></i>Contacts</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="col-md-8" style="background-color: aliceblue;">
+    <router-outlet></router-outlet>
+</div>

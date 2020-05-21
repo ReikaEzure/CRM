@@ -1,0 +1,21 @@
+import { Router } from 'express';
+import { phoneController } from '../controllers/PhoneController';
+
+class PhoneRoute {
+
+    public router: Router = Router();
+
+    constructor(){
+        this.config();
+    }
+
+    config(): void{
+        this.router.get('/test', phoneController.test);
+        this.router.get('/', phoneController.load);
+        this.router.post('/', phoneController.create);
+    }
+
+}
+
+const phoneRoute = new PhoneRoute();
+export default phoneRoute.router;

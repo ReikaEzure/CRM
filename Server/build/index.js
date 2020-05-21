@@ -8,6 +8,15 @@ const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const IndexRoute_1 = __importDefault(require("./routes/IndexRoute"));
 const LoginRoute_1 = __importDefault(require("./routes/LoginRoute"));
+const UserRoute_1 = __importDefault(require("./routes/UserRoute"));
+const UserStatusRoute_1 = __importDefault(require("./routes/UserStatusRoute"));
+const UserRoleRoute_1 = __importDefault(require("./routes/UserRoleRoute"));
+const OfficeRoute_1 = __importDefault(require("./routes/OfficeRoute"));
+const ClienteCompanyRoute_1 = __importDefault(require("./routes/ClienteCompanyRoute"));
+const PhoneRoute_1 = __importDefault(require("./routes/PhoneRoute"));
+const AddressRoute_1 = __importDefault(require("./routes/AddressRoute"));
+const SnsRoute_1 = __importDefault(require("./routes/SnsRoute"));
+const ClientTypeRoute_1 = __importDefault(require("./routes/ClientTypeRoute"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -29,6 +38,15 @@ class Server {
     routes() {
         this.app.use('/', IndexRoute_1.default);
         this.app.use('/login', LoginRoute_1.default);
+        this.app.use('/user', UserRoute_1.default);
+        this.app.use('/userStatus', UserStatusRoute_1.default);
+        this.app.use('/userRole', UserRoleRoute_1.default);
+        this.app.use('/office', OfficeRoute_1.default);
+        this.app.use('/client', ClienteCompanyRoute_1.default);
+        this.app.use('/phone', PhoneRoute_1.default);
+        this.app.use('/address', AddressRoute_1.default);
+        this.app.use('/sns', SnsRoute_1.default);
+        this.app.use('/clientType', ClientTypeRoute_1.default);
     }
 }
 const server = new Server();

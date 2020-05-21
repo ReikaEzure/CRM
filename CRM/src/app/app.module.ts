@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 import { LoginNavComponent } from './components/login-nav/login-nav.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
+import { AuthenticationService } from './services/authentication.service';
+import { UserService } from './services/user.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +28,10 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     CommonModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AuthenticationService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

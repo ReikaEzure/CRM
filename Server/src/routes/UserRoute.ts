@@ -12,7 +12,7 @@ class UserRoute {
     config(): void{
         this.router.get('/test', userController.test);
         this.router.get('/:id', userController.getUser);
-        this.router.post('/', userController.create);
+        this.router.post('/register', userController.register);
         this.router.put('/:id', userController.update);
     }
 

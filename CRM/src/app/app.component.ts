@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +12,30 @@ export class AppComponent {
   bgimgs = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg'];
   img = '';
 
-  constructor(){
-    this.img=this.bgimgs[this.getRandomInt(this.bgimgs.length)];
-    document.body.style.backgroundImage = "url('/assets/img/"+this.img+"')";
-    document.body.style.backgroundSize = 'cover';
+  isLoggedin=false;
+
+  constructor(private _router: Router, private _authService: AuthenticationService){
+    if(!this.isLoggedin){
+      this.img=this.bgimgs[this.getRandomInt(this.bgimgs.length)];
+      document.body.style.backgroundImage = "url('/assets/img/"+this.img+"')";
+    }else{
+      document.body.removeAttribute("style");
+    }
+    
+  }
+
+  ngOnInit(){
+    this._router.events.subscribe(event => {
+      if (event.constructor.name === "NavigationEnd") {
+       this.isLoggedin = this._authService.isLoggedIn;
+      }
+    })
+    console.log(this.isLoggedin);
   }
 
   getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
+
   
 }

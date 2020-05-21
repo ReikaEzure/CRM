@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
 
@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   loginFailed: boolean = false;
+  
 
   constructor(private _fb: FormBuilder, private _service: AuthenticationService, private _router: Router) { }
 
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
     this._service.login(this.loginForm.value).subscribe(
       res => { 
         console.log(res);
+        this._service.isLoggedIn=true;
         this._router.navigate(['/home']);
       },
       err => { 

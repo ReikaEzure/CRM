@@ -25,6 +25,36 @@
             <small class="text-danger" [class.d-none]="industry.valid || industry.untouched">Industry is required</small>
         </div>
 
+        <div class="form-group">
+            <label>Email</label>
+            <input [class.is-invalid]="email.invalid && email.touched"
+            formControlName="email" type="text" class="form-control">
+            <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+        </div>
+
+        <div class="form-group">
+            <label>Preference</label>
+            <input type="text" formControlName="preference" class="form-control" >
+        </div>
+
+        <div class="form-group">
+            <label>Client type</label>
+            <select class="custom-select" (change)="changeClientType($event)" formControlName="clientType">
+              <option value="" disabled>Choose the client type</option>
+              <option *ngFor="let ct of clientType" [ngValue]="ct.idClientType">{{ ct.type }}</option>
+            </select>
+          </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternatePhones()">Add Phone Number</button>
+            <input [class.is-invalid]="phone.invalid && phone.touched" type="text" formControlName="phone" class="form-control" >
+            <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">phone is required</small>
+            <div formArrayName="alternatePhones" *ngFor="let phone of alternatePhones.controls; let i=index">
+                <input type="text" class="form-control my-1" [formControlName]="i">
+            </div>
+        </div>
+
         <div formGroupName="address">
             <div class="form-group">
               <label>Street</label>
@@ -46,28 +76,6 @@
               <label>Postal Code</label>
               <input type="text" class="form-control" formControlName="postalCode" >
             </div>
-          </div>
-
-        <div class="form-group">
-            <label>Phone</label>
-            <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternatePhones()">Add Phone Number</button>
-            <input [class.is-invalid]="phone.invalid && phone.touched" type="text" formControlName="phone" class="form-control" >
-            <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">phone is required</small>
-            <div formArrayName="alternatePhones" *ngFor="let phone of alternatePhones.controls; let i=index">
-                <input type="text" class="form-control my-1" [formControlName]="i">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Email</label>
-            <input [class.is-invalid]="email.invalid && email.touched"
-            formControlName="email" type="text" class="form-control">
-            <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
-        </div>
-
-        <div class="form-group">
-            <input type="checkbox" formControlName="subscribe" class="form-check-input" >
-            <label class="form-check-label">Send promotional offers</label>
         </div>
 
         <div class="form-group">

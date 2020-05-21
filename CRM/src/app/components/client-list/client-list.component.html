@@ -1,0 +1,14 @@
+<div class="col-md-4" *ngFor="let c of clients">
+    <div class="card text-center" width="500">
+        <div class="card-header bg-dark text-white d-flex justify-content-btween align-items-center">
+            {{ c.companyName }}
+        </div>
+        <div class="card card-body">
+            <button class="btn btn-danger" (click)="deleteClient(c.id)">
+                <i class="far fa-trash-alt"></i>
+            </button>
+            <p>{{ g.description }}</p>
+            <a [routerLink]="['/games/edit', g.id]"class="btn btn-info btn-block">Edit Game</a>
+        </div>
+    </div>
+</div>

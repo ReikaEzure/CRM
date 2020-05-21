@@ -23,6 +23,19 @@ class LoginController {
             res.status(404).json({ text: "The user doesn't exist" });
         });
     }
+    register(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            try {
+                yield database_1.default.then((r) => r.query('INSERT INTO login SET ?', [req.body]));
+                const lastInserted = yield database_1.default.then((r) => r.query('SELECT * from login WHERE username = ? AND password = ?', [req.body.username, req.body.password]));
+                res.json(lastInserted);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     test(req, res) {
         res.json({ text: 'Hi! from logincontroller' });
     }

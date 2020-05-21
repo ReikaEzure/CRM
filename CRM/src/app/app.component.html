@@ -1,4 +1,13 @@
 
-  <div class="container mt-5 pt-5">
-    <app-login-nav></app-login-nav>
+  <div *ngIf="!isLoggedin">
+    <div class="container mt-5 pt-5">
+      <app-login-nav></app-login-nav>
+    </div>
   </div>
+  <div *ngIf="isLoggedin" >
+    <div class="container m-0 p-0">
+      <app-navigation></app-navigation>
+    </div>
+  </div>
+  
+  <router-outlet></router-outlet>

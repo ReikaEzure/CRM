@@ -4,7 +4,7 @@ export interface User{
     lastName?: String;
     birthDate?: Date;
     phone?: String;
-    joinedate?: Date;
+    joinedDate?: Date;
     lastLogin?: Date;
     id?: String;
     idType: String;

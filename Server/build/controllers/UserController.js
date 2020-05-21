@@ -24,7 +24,7 @@ class UserController {
             res.status(404).json({ text: "can't find the user" });
         });
     }
-    create(req, res) {
+    register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
             try {

@@ -1,1 +1,14 @@
-.card-body { background-color: rgba(255, 244, 234, 0.7); }
+body{
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-body { 
+    background-color: rgba(255, 244, 234, 0.7); 
+    color: #2B3E50;
+}
+
+.scrollableForm{
+    max-height: 450px;
+    overflow-y: scroll;
+}

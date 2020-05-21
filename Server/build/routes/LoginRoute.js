@@ -10,6 +10,7 @@ class LoginRoute {
     config() {
         this.router.get('/test', LoginController_1.loginController.test);
         this.router.post('/', LoginController_1.loginController.login);
+        this.router.post('/register', LoginController_1.loginController.register);
     }
 }
 const loginRoute = new LoginRoute();

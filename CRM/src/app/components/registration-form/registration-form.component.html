@@ -1,15 +1,62 @@
 
-<div class="card-body">
+<div class="card-body scrollableForm">
   <h2>Registration Form</h2>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>First name</label>
+      <input [class.is-invalid]="firstname.invalid && firstname.touched" 
+        formControlName="firstname" type="text" class="form-control">
+      <small class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">Firstname is required</small>
+    </div>
+
+    <div class="form-group">
+      <label>Last name</label>
+      <input [class.is-invalid]="lastname.invalid && lastname.touched" 
+        formControlName="lastname" type="text" class="form-control">
+      <small class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">Lastname is required</small>
+    </div>
+
+    <div formGroupName="id">
+      <div class="form-group">
+        <label>ID</label>
+        <select class="custom-select" (change)="changeIdType($event)" formControlName="idType">
+          <option value="" disabled>Choose your ID type</option>
+          <option *ngFor="let id of idTypes" [ngValue]="id">{{ id }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input [class.is-invalid]="id.invalid && id.touched" 
+        formControlName="id" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Date of birth</label>
+      <input [class.is-invalid]="birthdate.invalid && birthdate.touched" 
+        formControlName="birthdate" type="date" class="form-control">
+        <small class="text-danger" [class.d-none]="birthdate.valid || birthdate.untouched">Date of birth is required</small>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input [class.is-invalid]="email.invalid && email.touched" type="text" formControlName="email" class="form-control" >
+      <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+    </div>
+
+    <div class="form-group">
+      <label>Phone</label>
+      <input type="text" formControlName="phone" class="form-control" >
+    </div>
+
     <div class="form-group">
       <label>Username</label>
-      <input [class.is-invalid]="userName.invalid && userName.touched" 
-        formControlName="userName" type="text" class="form-control">
-      <div *ngIf="userName.invalid && userName.touched">
-          <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
-          <small *ngIf="userName.errors?.minlength" class="text-danger">Username must be 3 caracter</small>
-          <small *ngIf="userName.errors?.forbiddenName" class="text-danger">Username "{{userName.errors?.forbiddenName.value}}" is not allowed</small>
+      <input [class.is-invalid]="username.invalid && username.touched" 
+        formControlName="username" type="text" class="form-control">
+      <div *ngIf="username.invalid && username.touched">
+          <small *ngIf="username.errors?.required" class="text-danger">Username is required</small>
+          <small *ngIf="username.errors?.minlength" class="text-danger">Username must be 3 caracter</small>
+          <small *ngIf="username.errors?.forbiddenName" class="text-danger">Username "{{username.errors?.forbiddenName.value}}" is not allowed</small>
       </div>  
     </div>
 
@@ -17,7 +64,10 @@
       <label>Password</label>
       <input [class.is-invalid]="password.invalid && password.touched"
       formControlName="password" type="password" class="form-control">
-      <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
+      <div *ngIf="password.invalid && password.touched">
+        <small *ngIf="password.errors?.required" class="text-danger">Password is required</small>
+        <small *ngIf="password.errors?.pattern" class="text-danger">Password must contain at least 8 character with one uppercase, one lowercase and one number.</small>
+      </div>
     </div>
 
     <div class="form-group">
@@ -28,37 +78,16 @@
       <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Passwords do not match</small>
     </div>
 
-    <div formGroupName="address">
-      <div class="form-group">
-        <label>Street</label>
-        <input type="text" class="form-control" formControlName="street" >
-      </div>
-      <div class="form-group">
-        <label>City</label>
-        <input type="text" class="form-control" formControlName="city" >
-      </div>
-      <div class="form-group">
-        <label>State</label>
-        <input type="text" class="form-control" formControlName="state" >
-      </div>
-      <div class="form-group">
-        <label>Postal Code</label>
-        <input type="text" class="form-control" formControlName="postalCode" >
-      </div>
+    <div class="form-group">
+      <label>Role</label>
+      <select class="custom-select" (change)="changeRole($event)" formControlName="role">
+        <option value="" disabled>Choose your role</option>
+        <option *ngFor="let role of roles" [ngValue]="role.idUserRole">{{ role.Role }} - {{ role.Description }}</option>
+      </select>
     </div>
 
     <div class="form-group">
-      <label>Email</label>
-      <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternateEmails()">Add Email</button>
-      <input [class.is-invalid]="email.invalid && email.touched" type="text" formControlName="email" class="form-control" >
-      <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
-      <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">
-        <input type="text" class="form-control my-1" [formControlName]="i">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <input type="checkbox" formControlName="subscribe" class="form-check-input" >
+      <input type="checkbox" formControlName="subscribe">
       <label class="form-check-label">Send me promotional offers</label>
     </div>
 

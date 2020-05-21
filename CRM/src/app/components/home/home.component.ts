@@ -9,7 +9,7 @@ import { Login } from '../../models/Login';
 export class HomeComponent implements OnInit {
 
   loginUser: Login = {
-    id: 0,
+    idLogin: 0,
     username: '',
     password: '',
     email: ''  

@@ -12,6 +12,7 @@ class LoginRoute {
     config(): void{
         this.router.get('/test', loginController.test);
         this.router.post('/', loginController.login);
+        this.router.post('/register', loginController.register);
     }
 
 }
