@@ -20,6 +20,18 @@ class SnsController {
             res.json(sns);
         });
     }
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            try {
+                yield database_1.default.then((r) => r.query('INSERT INTO SNS SET ?', [req.body]));
+                res.json({ text: "The sns was saved" });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     test(req, res) {
         res.json({ text: 'Hi! from snsController' });
     }

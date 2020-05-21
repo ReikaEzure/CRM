@@ -10,6 +10,7 @@ class AddressRoute {
     config() {
         this.router.get('/test', AddressController_1.addressController.test);
         this.router.get('/', AddressController_1.addressController.load);
+        this.router.post('/', AddressController_1.addressController.create);
     }
 }
 const addressRoute = new AddressRoute();

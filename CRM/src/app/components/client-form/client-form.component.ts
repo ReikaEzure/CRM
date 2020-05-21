@@ -5,13 +5,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ClientService } from '../../services/client.service';
 
+
 @Component({
   selector: 'app-client-form',
   templateUrl: './client-form.component.html',
   styleUrls: ['./client-form.component.scss']
 })
 export class ClientFormComponent implements OnInit {
-
+  snsTypes = ['Website', 'Twitter', 'Instagram', 'Facebook'];
   clientTypes: any = [];
 
   clientForm: FormGroup;
@@ -46,7 +47,7 @@ export class ClientFormComponent implements OnInit {
     createdDate: new Date,
     updatedDate: new Date,
     preference: '',
-    clientType: 0,
+    ClientType_idClientType: 0,
     phone: [],
     address: this.addr,
     sns: []
@@ -58,14 +59,16 @@ export class ClientFormComponent implements OnInit {
   }
 
   
-  constructor(private _fb: FormBuilder, private _service: ClientService, private _route: Router, private _activate: ActivatedRoute) { }
+  constructor(private _fb: FormBuilder, private _service: ClientService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.loadClientTypes();
+
     this.clientForm=this._fb.group({
       companyName: ['Company Name', [Validators.required, Validators.minLength(3)]],
       nif: ['', [Validators.required]],
       industry: ['', Validators.required],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       preference: [],
       clientType: [],
       phone: ['', [Validators.required]],
@@ -77,7 +80,10 @@ export class ClientFormComponent implements OnInit {
         country: [''],
         postalCode: ['']
       }),
-      sns: ['', [Validators.required]],
+      sns: this._fb.group({
+        snsType: [''],
+        url: [''],
+      }),
       otherSns: this._fb.array([])
     });
 
@@ -126,6 +132,29 @@ export class ClientFormComponent implements OnInit {
     return this.clientForm.get('alternatePhones') as FormArray;
   }
 
+  get addressLine(){
+    return this.clientForm.get('address').get('street');
+  }
+  get city(){
+    return this.clientForm.get('address').get('city');
+  }
+  get state(){
+    return this.clientForm.get('address').get('state');
+  }
+  get coutry(){
+    return this.clientForm.get('address').get('country');
+  }
+  get postalCode(){
+    return this.clientForm.get('address').get('postalCode');
+  }
+
+  get snsType(){
+    return this.clientForm.get('sns').get('snsType');
+  }
+  get url(){
+    return this.clientForm.get('sns').get('url');
+  }
+
   get sns(){
     return this.clientForm.get('sns');
   }
@@ -140,6 +169,12 @@ export class ClientFormComponent implements OnInit {
 
   addOtherSns(){
     this.otherSns.push(this._fb.control(''));
+  }
+
+  changeSnsType(e) {
+    this.snsType.setValue(e.target.value, {
+      onlySelf: true
+    })
   }
 
   changeClientType(e) {
@@ -167,24 +202,94 @@ export class ClientFormComponent implements OnInit {
     delete this.client.createdDate;
     delete this.client.updatedDate;
     this.client.preference=this.preference.value;
-    this.client.clientType=this.clientType.value;
+    this.client.ClientType_idClientType=parseInt(this.clientType.value);
     delete this.client.phone;
     delete this.client.address;
     delete this.client.sns;
+
+    console.log(this.client);
 
     this._service.saveClient(this.client).subscribe(
       res => {
         console.log(res);
         this.lastInserted = res;
         console.log("last inserted id is: "+this.lastInserted[0].idClient);
-        this._route.navigate(['/client']);
+
+        this._router.navigate(['/client']);
       },
-      err => {console.log(err)}
+      err => {
+        console.log(err);
+      }
     );
     console.log(this.client);
   }
 
   saveMoreDetail(){
+    this.phones.client_idClient=this.lastInserted[0].idClient;
+    this.phones.phoneNumber=this.phone.value;
+    if(this.savePhone(this.phones)!=null && this.alternatePhones.length>0){
+      for(var i=0; i<this.alternatePhones.length; i++){
+        this.phones.client_idClient=this.lastInserted[0].idClient;
+        this.phones.phoneNumber=this.alternatePhones[i].value;
+        this.savePhone(this.phones);
+      }
+    }
+
+    this.addr.client_idClient=this.lastInserted[0].idClient;
+    this.addr.addressLine=this.addressLine.value;
+    this.addr.city=this.city.value;
+    this.addr.country=this.coutry.value;
+    this.addr.state=this.state.value;
+    this.addr.postalcode=this.postalCode.value;
+    this.saveAddress(this.addr);
+
+    this.socials.client_idClient=this.lastInserted[0].idClient;
+    this.socials.sns=this.snsType.value;
+    this.socials.url=this.url.value;
+    if(this.saveSns(this.socials)!=null && this.otherSns.length>0){
+      for(var i=0; i<this.otherSns.length; i++){
+        this.socials.client_idClient=this.lastInserted[0].idClient;
+        this.socials.url=this.otherSns[i].value;
+        this.saveSns(this.socials);
+      }
+    }
+    
+  }
+
+  savePhone(p: Phone){
+    this._service.savePhone(p).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err); 
+        return null;
+      }
+    );
+  }
+
+  saveAddress(a: Address){
+    this._service.saveAddress(a).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+        return null;
+      }
+    );
+  }
+
+  saveSns(s: Sns){
+    this._service.saveSns(s).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+        return null;
+      }
+    );
   }
 
   updateClient(){
@@ -193,7 +298,7 @@ export class ClientFormComponent implements OnInit {
     this._service.updateClient(this.client.idClient, this.client).subscribe(
       res => {
         console.log(res);
-        this._route.navigate(['/games']);
+        this._router.navigate(['/client']);
       },
       err => {console.log(err)}
     );
@@ -202,6 +307,7 @@ export class ClientFormComponent implements OnInit {
 
   onSubmit(){
     console.log(this.clientForm.value);
+    this.saveNewClient();
   }
 
 }

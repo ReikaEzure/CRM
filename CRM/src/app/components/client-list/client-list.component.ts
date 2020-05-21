@@ -18,7 +18,10 @@ export class ClientListComponent implements OnInit {
 
   getClients(){
     this._service.getClients().subscribe(
-      res => {this.clients = res},
+      res => {
+        this.clients = res;
+        console.log(res);
+      },
       error => console.log(error)
     );
   }

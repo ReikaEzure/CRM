@@ -10,6 +10,7 @@ class SnsRoute {
     config() {
         this.router.get('/test', SnsController_1.snsController.test);
         this.router.get('/', SnsController_1.snsController.load);
+        this.router.post('/', SnsController_1.snsController.create);
     }
 }
 const snsRoute = new SnsRoute();

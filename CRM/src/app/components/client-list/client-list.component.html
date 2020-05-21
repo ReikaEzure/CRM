@@ -1,14 +1,16 @@
-<div class="col-md-4" *ngFor="let c of clients">
-    <div class="card text-center" width="500">
-        <div class="card-header bg-dark text-white d-flex justify-content-btween align-items-center">
-            {{ c.companyName }}
+<div class="header">
+    <h3>Clients</h3>
+    <a class="nav-link active" routerLink="/clientForm" routerLinkActive="active"><i class="fas fa-user-plus"></i>Add new client</a>
+</div>    
+<div *ngFor="let c of clients">
+    <div class="card bg-secondary m-2">
+        <div class="card-body list">
+            <h4 class="card-title">{{ c.CompanyName }}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Industry: {{c.Industry}}</h6>
+            <a [routerLink]="['/client', c.idClient]"class="card-link">Info</a>
+            <a [routerLink]="['/client', c.idClient]"class="card-link">Appointment</a>
+            <a [routerLink]="['/client', c.idClient]"class="card-link">Current project</a>
+            <a [routerLink]="['/client', c.idClient]"class="card-link">Contact</a>
         </div>
-        <div class="card card-body">
-            <button class="btn btn-danger" (click)="deleteClient(c.id)">
-                <i class="far fa-trash-alt"></i>
-            </button>
-            <p>{{ g.description }}</p>
-            <a [routerLink]="['/games/edit', g.id]"class="btn btn-info btn-block">Edit Game</a>
-        </div>
-    </div>
+      </div>
 </div>

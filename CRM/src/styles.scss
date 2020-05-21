@@ -1,6 +1,8 @@
 body{
     background-repeat: no-repeat;
     background-size: cover;
+    color: #2B3E50;
+    
 }
 
 .card-body { 
@@ -11,4 +13,25 @@ body{
 .scrollableForm{
     max-height: 450px;
     overflow-y: scroll;
+}
+
+.navbar{
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+}
+
+.list { 
+    background-color:white; 
+}
+
+.list a {
+    border: 1px solid #DF691A;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.list a:hover{
+    background-color: #DF691A;
+    color: white;
 }

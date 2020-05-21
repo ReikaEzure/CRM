@@ -1,7 +1,10 @@
+<div class="row">
 <div class="col-md-3">
     <nav class="navbar bg-dark navbar-dark">
-        <a class="navbar-brand" href="#">ROOTLETS</a>
         <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="navbar-brand" href="#">ROOTLETS</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link active" routerLink="/user" routerLinkActive="active"><i class="fas fa-user"></i>User</a>
             </li>
@@ -27,6 +30,7 @@
         </ul>
     </nav>
 </div>
-<div class="col-md-8" style="background-color: aliceblue;">
+<div class="col-md-9 p-5">
     <router-outlet></router-outlet>
+</div>
 </div>

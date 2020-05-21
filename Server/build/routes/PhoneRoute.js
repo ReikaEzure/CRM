@@ -10,6 +10,7 @@ class PhoneRoute {
     config() {
         this.router.get('/test', PhoneController_1.phoneController.test);
         this.router.get('/', PhoneController_1.phoneController.load);
+        this.router.post('/', PhoneController_1.phoneController.create);
     }
 }
 const phoneRoute = new PhoneRoute();

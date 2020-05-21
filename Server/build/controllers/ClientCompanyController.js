@@ -16,14 +16,14 @@ const database_1 = __importDefault(require("../database"));
 class ClientCompanyController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const clients = yield database_1.default.then((r) => r.query('SELECT * FROM client'));
+            const clients = yield database_1.default.then((r) => r.query('SELECT * FROM ClientCompany'));
             res.json(clients);
         });
     }
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const client = yield database_1.default.then((r) => r.query('SELECT * FROM client WHERE idClient = ?', [id]));
+            const client = yield database_1.default.then((r) => r.query('SELECT * FROM ClientCompany WHERE idClient = ?', [id]));
             if (client.length > 0) {
                 return res.json(client[0]);
             }
@@ -34,8 +34,9 @@ class ClientCompanyController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
             try {
-                yield database_1.default.then((r) => r.query('INSERT INTO client SET ?', [req.body]));
-                res.json({ text: "The client was saved" });
+                yield database_1.default.then((r) => r.query('INSERT INTO ClientCompany SET ?', [req.body]));
+                const lastInserted = yield database_1.default.then((r) => r.query('SELECT * from ClientCompany WHERE companyName = ? AND nif = ? AND email = ?', [req.body.companyName, req.body.nif, req.body.email]));
+                res.json(lastInserted);
             }
             catch (err) {
                 res.json({ text: "Error" + err.message });
@@ -45,14 +46,14 @@ class ClientCompanyController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.then((r) => r.query('DELETE FROM client WHERE idClient = ?', [id]));
+            yield database_1.default.then((r) => r.query('DELETE FROM ClientCompany WHERE idClient = ?', [id]));
             res.json({ text: "The client was deleted" + req.params.id });
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.then((r) => r.query('UPDATE client set ? WHERE idClient = ?', [req.body, id]));
+            yield database_1.default.then((r) => r.query('UPDATE ClientCompany set ? WHERE idClient = ?', [req.body, id]));
             res.json({ text: "The client was updated" + req.params.id });
         });
     }

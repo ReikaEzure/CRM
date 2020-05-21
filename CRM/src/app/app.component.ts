@@ -19,7 +19,8 @@ export class AppComponent {
       this.img=this.bgimgs[this.getRandomInt(this.bgimgs.length)];
       document.body.style.backgroundImage = "url('/assets/img/"+this.img+"')";
     }else{
-      document.body.removeAttribute("style");
+      document.body.style.backgroundImage = null;
+      document.body.style.backgroundColor = "white";
     }
     
   }

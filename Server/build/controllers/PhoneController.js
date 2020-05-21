@@ -20,6 +20,18 @@ class PhoneController {
             res.json(phone);
         });
     }
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            try {
+                yield database_1.default.then((r) => r.query('INSERT INTO Phone SET ?', [req.body]));
+                res.json({ text: "The phone was saved" });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     test(req, res) {
         res.json({ text: 'Hi! from phoneController' });
     }
