@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     this._service.login(this.loginForm.value).subscribe(
       res => { 
         console.log(res);
+        this._service.loggedInUser=res;
         this._service.isLoggedIn=true;
         this._router.navigate(['/home']);
       },

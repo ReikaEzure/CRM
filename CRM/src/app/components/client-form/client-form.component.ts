@@ -84,7 +84,12 @@ export class ClientFormComponent implements OnInit {
         snsType: [''],
         url: [''],
       }),
-      otherSns: this._fb.array([])
+      otherSns: this._fb.array([
+        this._fb.group({
+          snsType: [],
+          url: [],
+        })
+      ])
     });
 
     const params = this._activate.snapshot.params;
@@ -214,8 +219,8 @@ export class ClientFormComponent implements OnInit {
         console.log(res);
         this.lastInserted = res;
         console.log("last inserted id is: "+this.lastInserted[0].idClient);
-
-        this._router.navigate(['/client']);
+        this.saveMoreDetail();
+        
       },
       err => {
         console.log(err);
@@ -254,6 +259,7 @@ export class ClientFormComponent implements OnInit {
       }
     }
     
+    this._router.navigate(['/client']);
   }
 
   savePhone(p: Phone){

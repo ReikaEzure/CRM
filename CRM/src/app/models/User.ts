@@ -7,7 +7,7 @@ export interface User{
     joinedDate?: Date;
     lastLogin?: Date;
     id?: String;
-    idType: String;
+    idType?: String;
     Avatar?;
     role?: number;
     status?: number;

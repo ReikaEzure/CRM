@@ -22,6 +22,10 @@ export class UserService {
   registerUser(user: User){
     return this._http.post(`${this._url}/user/register`, user);
   }
+  
+  getUser(id: number){
+    return this._http.get(`${this._url}/user/${id}`);
+  }
 
   
 

@@ -13,6 +13,15 @@ import phoneRoute from './routes/PhoneRoute';
 import addressRoute from './routes/AddressRoute';
 import snsRoute from './routes/SnsRoute';
 import clientTypeRoute from './routes/ClientTypeRoute';
+import appointmentRoute from './routes/AppointmentRoute';
+import invoiceRoute from './routes/InvoiceRoute';
+import personalityTypeRoute from './routes/PersonalityTypeRoute';
+import projectRoute from './routes/ProjectRoute';
+import projectStatusRoute from './routes/ProjectStatusRoute';
+import promotionRoute from './routes/PromotionRoute';
+import taskRoute from './routes/TaskRoute';
+import teamLeaderRoute from './routes/TeamLeaderRoute';
+import teamRoute from './routes/TeamRoute';
 
 class Server {
     
@@ -50,7 +59,15 @@ class Server {
         this.app.use('/address', addressRoute);
         this.app.use('/sns', snsRoute);
         this.app.use('/clientType', clientTypeRoute);
-
+        this.app.use('/appointment', appointmentRoute);
+        this.app.use('/invoice', invoiceRoute);
+        this.app.use('/personalityType', personalityTypeRoute);
+        this.app.use('/project', projectRoute);
+        this.app.use('/projectStatus', projectStatusRoute);
+        this.app.use('/promotion', promotionRoute);
+        this.app.use('/task', taskRoute);
+        this.app.use('/teamLeader', teamLeaderRoute);
+        this.app.use('/team', teamRoute);
     }
 
 }
