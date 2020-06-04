@@ -1,5 +1,5 @@
 export interface Promotion {
-    id?: number;
+    idPromotion?: number;
     description?: string;
     offerAmount?: number;
     name?: string;

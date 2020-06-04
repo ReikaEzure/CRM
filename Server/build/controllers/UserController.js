@@ -17,9 +17,10 @@ class UserController {
     getUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const user = yield database_1.default.then((r) => r.query('SELECT * from user WHERE Login_Id = ?', [id]));
+            console.log(id);
+            const user = yield database_1.default.then((r) => r.query('SELECT * from user WHERE login_IdLogin = ?', [id]));
             if (user.length > 0) {
-                return res.json(user);
+                return res.json(user[0]);
             }
             res.status(404).json({ text: "can't find the user" });
         });

@@ -1,5 +1,5 @@
 export interface Task{
-    id?: number;
+    idTask?: number;
     createdDate?: Date;
     description?: String;
     dueDate?: Date;

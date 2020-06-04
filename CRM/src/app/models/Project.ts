@@ -1,5 +1,5 @@
 export interface Project{
-    id?: number;
+    idProject?: number;
     title?: String;
     description?:　String;
     dueDate?: Date;

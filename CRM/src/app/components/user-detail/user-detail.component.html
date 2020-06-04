@@ -1,4 +1,62 @@
 <div>
+    <div class="jumbotron bg-white p-0">
+        <h1 class="display-4 text-center">User Information</h1>
+        <img [src]="loggedInUser.avatar == null ? '/assets/img/noimage.png' : loggedInUser.avatar" style="max-width:100%;">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Change Avatar</a>
+        <a class="btn btn-primary btn-lg" href="#" (click)="logout($event)" role="button">Log out</a>
+        <hr class="my-4">
 
+        <div class="card-body text-center text-dark mb-3">
+            <h3 class="card-title h3 my-4"><strong>{{ loggedInUser.firstName }} {{ loggedInUser.lastName }}</strong></h3>
+            <table class="table table-borderless text-dark">
+                <tbody>
+                  <tr>
+                    <td>Username :</td>
+                    <td>{{ loginDetail.username }}</td>
+                  </tr>
+                  <tr>
+                    <td>Email :</td>
+                    <td>{{ loginDetail.email }}</td>
+                  </tr>
+                  <tr>
+                    <td>Date of birth :</td>
+                    <td>{{ loggedInUser.birthDate }}</td>
+                  </tr>
+                  <tr>
+                      <td>Phone number :</td>
+                      <td>{{ loggedInUser.phone }}</td>
+                  </tr>
+                  <tr>
+                    <td>Joined date :</td>
+                    <td>{{ loggedInUser.joinedDate }}</td>
+                </tr>
+                <tr>
+                    <td>ID :</td>
+                    <td>{{ loggedInUser.idType }} {{ loggedInUser.id }}</td>
+                </tr>
+                <tr>
+                    <td>Role :</td>
+                    <td *ngFor="let r of roles; let i = index">
+                        <div *ngIf="r.idUserRole == loggedInUser.role">
+                            {{ r.role }}
+                        </div>                    
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status :</td>
+                    <td *ngFor="let s of status; let i = index">
+                        <div *ngIf="s.idUserStatus == loggedInUser.status">
+                            {{ s.status }}
+                        </div>                    
+                    </td>
+                </tr>
+                </tbody>
+              </table>
+            <a href="#" class="btn purple-gradient btn-rounded mb-4">Change Password</a>
+            <a class="btn purple-gradient btn-rounded mb-4" routerLink="/registration" routerLinkActive="active current">Edit</a>
+            <a href="#" class="btn purple-gradient btn-rounded mb-4">Add Office</a>
+        </div>
+    </div>
+    
     
 </div>

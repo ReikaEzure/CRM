@@ -1,1 +1,25 @@
-<p>appointment-list works!</p>
+<div class="header">
+    <h3>Appointments</h3>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Today</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Upcoming</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Done</a>
+        </li>
+    </ul>
+    <a class="nav-link active" routerLink="/appointmentForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new appointment</a>
+</div>    
+<div *ngFor="let appo of appointments">
+    <div class="card bg-secondary m-2">
+        <div class="card-body list">
+            <h4 class="card-title">{{ appo.date }}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">with {{ appo.companyName }}</h6>
+            <a [routerLink]="['/appointmentDetail', appo.idAppointment]"class="card-link">Info</a>
+            <a [routerLink]="['/appointment', appo.idAppointment]"class="card-link">Contact</a>
+        </div>
+      </div>
+</div>

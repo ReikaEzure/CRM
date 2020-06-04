@@ -8,10 +8,21 @@ export interface User{
     lastLogin?: Date;
     id?: String;
     idType?: String;
-    Avatar?;
+    avatar?;
     role?: number;
     status?: number;
     login_idLogin?:number;
 
 }
 
+
+export interface UserRole{
+    idUserRole?: number;
+    role?: String;
+    description?: String;
+}
+
+export interface UserStatus{
+    idUserStatus?: number;
+    status?: String;
+}

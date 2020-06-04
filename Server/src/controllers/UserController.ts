@@ -4,9 +4,10 @@ import pool from '../database'
 class UserController {
     public async getUser(req: Request, res: Response): Promise<any>{
         const { id } = req.params;
-        const user = await pool.then((r:any) => r.query('SELECT * from user WHERE Login_Id = ?', [id]));
+        console.log(id);
+        const user = await pool.then((r:any) => r.query('SELECT * from user WHERE login_IdLogin = ?', [id]));
         if(user.length > 0){
-            return res.json (user);
+            return res.json (user[0]);
         }
         res.status(404).json({text: "can't find the user"});
     }

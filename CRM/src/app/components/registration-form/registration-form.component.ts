@@ -19,6 +19,7 @@ import { UserService } from '../../services/user.service'
 export class RegistrationFormComponent implements OnInit {
   idTypes = ['DNI', 'NIE', 'Passport'];
   roles: any = [];
+  edit: boolean = false;
 
   login: Login = {
     idLogin: 0,
@@ -44,7 +45,7 @@ export class RegistrationFormComponent implements OnInit {
     lastLogin: new Date(),
     id: '',
     idType: '',
-    Avatar: '',
+    avatar: '',
     role: 0,
     status: 0,
     login_idLogin: 0
@@ -52,7 +53,7 @@ export class RegistrationFormComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private _fb: FormBuilder, private _userService: UserService, private _authService: AuthenticationService, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _userService: UserService, private _authService: AuthenticationService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loadRoles();
@@ -82,7 +83,14 @@ export class RegistrationFormComponent implements OnInit {
         email.clearValidators();
       }
       email.updateValueAndValidity();
-      });
+    });
+
+
+    if(this._authService.loginDetail!=null && this._userService.loggedInUser!=null){
+      this.login=this._authService.loginDetail;
+      this.user=this._userService.loggedInUser;
+      this.edit=true;
+    }
   }
 
   get firstname(){
@@ -172,7 +180,7 @@ export class RegistrationFormComponent implements OnInit {
   registerUserData(){
     delete this.user.idUser;
     delete this.user.joinedDate;
-    delete this.user.Avatar;
+    delete this.user.avatar;
     delete this.user.lastLogin;
     this.user.firstName=this.firstname.value;
     this.user.lastName=this.lastname.value;
@@ -198,6 +206,18 @@ export class RegistrationFormComponent implements OnInit {
   onSubmit(){
     console.log(this.registrationForm.value);
     this.registerLoginData();
+  }
+
+  updateUser(){
+    delete this.user.joinedDate;
+
+    this._userService.updateUser(this.user.login_idLogin, this.user).subscribe(
+      res => {
+        console.log(res);
+        this._router.navigate(['/home']);
+      },
+      err => {console.log(err);}
+    );
   }
 
 }

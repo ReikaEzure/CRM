@@ -1,5 +1,6 @@
 export interface Appointment{
-    id?: number;
+    idAppointment?: number;
+    date?: Date;
     description?: String;
     createdDate?: Date;
     updatedDate?: Date;

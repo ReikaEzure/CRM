@@ -17,6 +17,15 @@ const PhoneRoute_1 = __importDefault(require("./routes/PhoneRoute"));
 const AddressRoute_1 = __importDefault(require("./routes/AddressRoute"));
 const SnsRoute_1 = __importDefault(require("./routes/SnsRoute"));
 const ClientTypeRoute_1 = __importDefault(require("./routes/ClientTypeRoute"));
+const AppointmentRoute_1 = __importDefault(require("./routes/AppointmentRoute"));
+const InvoiceRoute_1 = __importDefault(require("./routes/InvoiceRoute"));
+const PersonalityTypeRoute_1 = __importDefault(require("./routes/PersonalityTypeRoute"));
+const ProjectRoute_1 = __importDefault(require("./routes/ProjectRoute"));
+const ProjectStatusRoute_1 = __importDefault(require("./routes/ProjectStatusRoute"));
+const PromotionRoute_1 = __importDefault(require("./routes/PromotionRoute"));
+const TaskRoute_1 = __importDefault(require("./routes/TaskRoute"));
+const TeamLeaderRoute_1 = __importDefault(require("./routes/TeamLeaderRoute"));
+const TeamRoute_1 = __importDefault(require("./routes/TeamRoute"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -47,6 +56,15 @@ class Server {
         this.app.use('/address', AddressRoute_1.default);
         this.app.use('/sns', SnsRoute_1.default);
         this.app.use('/clientType', ClientTypeRoute_1.default);
+        this.app.use('/appointment', AppointmentRoute_1.default);
+        this.app.use('/invoice', InvoiceRoute_1.default);
+        this.app.use('/personalityType', PersonalityTypeRoute_1.default);
+        this.app.use('/project', ProjectRoute_1.default);
+        this.app.use('/projectStatus', ProjectStatusRoute_1.default);
+        this.app.use('/promotion', PromotionRoute_1.default);
+        this.app.use('/task', TaskRoute_1.default);
+        this.app.use('/teamLeader', TeamLeaderRoute_1.default);
+        this.app.use('/team', TeamRoute_1.default);
     }
 }
 const server = new Server();

@@ -5,9 +5,9 @@
 <div *ngFor="let c of clients">
     <div class="card bg-secondary m-2">
         <div class="card-body list">
-            <h4 class="card-title">{{ c.CompanyName }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">Industry: {{c.Industry}}</h6>
-            <a [routerLink]="['/client', c.idClient]"class="card-link">Info</a>
+            <h4 class="card-title">{{ c.companyName }}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Industry: {{c.industry}}</h6>
+            <a [routerLink]="['/clientDetail', c.idClient]"class="card-link">Info</a>
             <a [routerLink]="['/client', c.idClient]"class="card-link">Appointment</a>
             <a [routerLink]="['/client', c.idClient]"class="card-link">Current project</a>
             <a [routerLink]="['/client', c.idClient]"class="card-link">Contact</a>

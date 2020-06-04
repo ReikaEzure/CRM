@@ -10,7 +10,7 @@ import { Login } from '../models/Login';
 export class AuthenticationService {
 
   isLoggedIn: boolean = false;
-  loggedInUser: Login;
+  loginDetail: Login;
 
   _url = 'http://localhost:3000/login';
 

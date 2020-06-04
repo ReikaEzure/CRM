@@ -1,5 +1,5 @@
 export interface Office{
-    id?: number;
+    idOffice?: number;
     name?: String;
     phone?: String;
     nif?: String;
