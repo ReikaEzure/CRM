@@ -188,7 +188,7 @@ export class RegistrationFormComponent implements OnInit {
     this.user.phone=this.phone.value;
     this.user.id=this.id.value;
     this.user.idType=this.idType.value;
-    this.user.role=this.role.value;
+    this.user.role=parseInt(this.role.value);
     this.user.status=1;
     this.user.login_idLogin=parseInt(this.lastInserted[0].idLogin);
     console.log(this.user);

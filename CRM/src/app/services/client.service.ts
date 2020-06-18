@@ -17,7 +17,7 @@ export class ClientService {
     return this._http.get(`${this._url}/client`);
   }
 
-  getClient(id: String){
+  getClient(id: number){
     return this._http.get(`${this._url}/client/${id}`);
   }
 

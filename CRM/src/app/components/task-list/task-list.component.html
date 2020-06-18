@@ -1,1 +1,33 @@
-<p>task-list works!</p>
+<div class="header">
+    <h3>Task</h3>
+    <a class="nav-link active" [routerLink]="['/taskForm', projectId]" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Create new task</a>
+</div>  
+<div >
+    <h3>{{ project.title }}</h3>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Status</th>
+            <th scope="col">Due date</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks">
+
+            <td>{{ task.taskName }}</td>
+            <td>                
+              <select class="custom-select" (change)="changeTaskStatus(task.idTask, $event)">
+                <option *ngFor="let ts of taskStatus" [value]="ts.idTaskStatus" [selected]='ts.idTaskStatus == task.status'>{{ ts.status }}</option>
+              </select>
+            </td>
+            <td>{{ task.dueDate | date: 'yyyy-MM-dd' }}</td>
+            <td><a [routerLink]="['/taskDetail', task.idTask]" class="card-link">More Info</a></td>
+          </tr>
+        </tbody>
+    </table>
+    
+</div>
+
+

@@ -20,7 +20,7 @@
                   </tr>
                   <tr>
                     <td>Date of birth :</td>
-                    <td>{{ loggedInUser.birthDate }}</td>
+                    <td>{{ loggedInUser.birthDate | date: 'yyyy-MM-dd' }}</td>
                   </tr>
                   <tr>
                       <td>Phone number :</td>
@@ -39,7 +39,7 @@
                     <td *ngFor="let r of roles; let i = index">
                         <div *ngIf="r.idUserRole == loggedInUser.role">
                             {{ r.role }}
-                        </div>                    
+                        </div> 
                     </td>
                 </tr>
                 <tr>
@@ -52,7 +52,7 @@
                 </tr>
                 </tbody>
               </table>
-            <a href="#" class="btn purple-gradient btn-rounded mb-4">Change Password</a>
+            <a (click)="register()" class="btn purple-gradient btn-rounded mb-4">Change Password</a>
             <a class="btn purple-gradient btn-rounded mb-4" routerLink="/registration" routerLinkActive="active current">Edit</a>
             <a href="#" class="btn purple-gradient btn-rounded mb-4">Add Office</a>
         </div>

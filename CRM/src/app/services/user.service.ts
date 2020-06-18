@@ -39,6 +39,9 @@ export class UserService {
     return this._http.put(`${this._url}/user/${id}`, user);
   }
 
+  sendmail(data) {
+    return this._http.post(`${this._url}/sendmail`, data);
+  }
   
 
 }

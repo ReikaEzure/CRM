@@ -1,1 +1,30 @@
-<p>project-list works!</p>
+<div class="header">
+    <h3>Projects</h3>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Current</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">On hold</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Done</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Cancelled</a>
+          </li>
+    </ul>
+    <a class="nav-link active" routerLink="/projectForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new project</a>
+</div>    
+<div *ngFor="let pro of projects">
+    <div class="card bg-secondary m-2">
+        <div class="card-body list">
+            <h4 class="card-title">{{ pro.title }}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Due date: {{ pro.dueDate }}</h6>
+            <a [routerLink]="['/projectDetail', pro.idProject]"class="card-link">Info</a>
+            <a [routerLink]="['/team', pro.idProject]"class="card-link">Team</a>
+            <a [routerLink]="['/task', pro.idProject]"class="card-link">Tasks</a>
+            
+        </div>
+      </div>
+</div>

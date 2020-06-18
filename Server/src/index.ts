@@ -20,6 +20,7 @@ import projectRoute from './routes/ProjectRoute';
 import projectStatusRoute from './routes/ProjectStatusRoute';
 import promotionRoute from './routes/PromotionRoute';
 import taskRoute from './routes/TaskRoute';
+import taskStatusRoute from './routes/TaskStatusRoute';
 import teamLeaderRoute from './routes/TeamLeaderRoute';
 import teamRoute from './routes/TeamRoute';
 
@@ -66,11 +67,13 @@ class Server {
         this.app.use('/projectStatus', projectStatusRoute);
         this.app.use('/promotion', promotionRoute);
         this.app.use('/task', taskRoute);
+        this.app.use('/taskStatus', taskStatusRoute);
         this.app.use('/teamLeader', teamLeaderRoute);
         this.app.use('/team', teamRoute);
     }
 
 }
+
 
 const server = new Server();
 server.start();

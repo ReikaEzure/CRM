@@ -1,6 +1,6 @@
 <div>
     <h2>Add New Client</h2>
-    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="clientForm" action="">
         <div class="form-group">
             <label>Company Name</label>
             <input [class.is-invalid]="companyName.invalid && companyName.touched" 
@@ -41,7 +41,7 @@
             <label>Client type</label>
             <select class="custom-select" (change)="changeClientType($event)" formControlName="clientType">
               <option value="" disabled>Choose the client type</option>
-              <option *ngFor="let ct of clientTypes" [ngValue]="ct.idClientType">{{ ct.type }}</option>
+              <option *ngFor="let ct of clientTypes" [value]="ct.idClientType">{{ ct.type }}</option>
             </select>
           </div>
 
@@ -84,7 +84,7 @@
             <div class="form-group">
                 <select class="custom-select" (change)="changeSnsType($event)" formControlName="snsType">
                     <option value="" disabled>Choose</option>
-                    <option *ngFor="let sns of snsTypes" [ngValue]="sns">{{ sns }}</option>
+                    <option *ngFor="let sns of snsTypes" [value]="sns">{{ sns }}</option>
                 </select>
             </div>
             <div class="form-group">
@@ -98,7 +98,7 @@
             </div>
         </div>  
 
-        <button class="btn btn-primary" [disabled]="!clientForm.valid" type="submit">Register</button>
+        <button class="btn btn-success btn-block" [disabled]="!clientForm.valid" (click)='edit ? updateClient() : onSubmit()'>Register</button>
     
     </form>
 </div>

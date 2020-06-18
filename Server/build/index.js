@@ -24,6 +24,7 @@ const ProjectRoute_1 = __importDefault(require("./routes/ProjectRoute"));
 const ProjectStatusRoute_1 = __importDefault(require("./routes/ProjectStatusRoute"));
 const PromotionRoute_1 = __importDefault(require("./routes/PromotionRoute"));
 const TaskRoute_1 = __importDefault(require("./routes/TaskRoute"));
+const TaskStatusRoute_1 = __importDefault(require("./routes/TaskStatusRoute"));
 const TeamLeaderRoute_1 = __importDefault(require("./routes/TeamLeaderRoute"));
 const TeamRoute_1 = __importDefault(require("./routes/TeamRoute"));
 class Server {
@@ -63,6 +64,7 @@ class Server {
         this.app.use('/projectStatus', ProjectStatusRoute_1.default);
         this.app.use('/promotion', PromotionRoute_1.default);
         this.app.use('/task', TaskRoute_1.default);
+        this.app.use('/taskStatus', TaskStatusRoute_1.default);
         this.app.use('/teamLeader', TeamLeaderRoute_1.default);
         this.app.use('/team', TeamRoute_1.default);
     }

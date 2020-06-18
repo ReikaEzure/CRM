@@ -1,1 +1,67 @@
-<p>project-detail works!</p>
+<div>
+    <div class="jumbotron bg-white p-0">
+        <h1 class="display-4 text-center">Project detail</h1>
+        <div class="card-body text-center text-dark mb-3">
+            <h3 class="card-title h3 my-4"><strong>{{ project.title }}</strong></h3>
+            <table class="table table-borderless text-dark">
+                <tbody>
+                    <tr>
+                        <td>Client :</td>
+                        <td>{{ client.companyName }}</td>
+                    </tr>
+                  <tr>
+                    <td>Description :</td>
+                    <td>{{ project.description }}</td>
+                  </tr>
+                  <tr>
+                    <td>Created date :</td>
+                    <td>{{ project.createdDate | date: 'yyyy-MM-dd' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Updated date :</td>
+                    <td>{{ project.createdDate | date: 'yyyy-MM-dd' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Due date :</td>
+                    <td>{{ project.dueDate | date: 'yyyy-MM-dd' }}</td>
+                  </tr>
+                  <tr>
+                      <td>Actual completion date :</td>
+                      <td>{{ project.actualCompletionDate | date: 'yyyy-MM-dd' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Budget :</td>
+                    <td>{{ project.budget }}</td>
+                  </tr>
+                  <tr>
+                    <td>Actual price :</td>
+                    <td>{{ project.price }}</td>
+                  </tr>
+                  <tr>
+                    <td>Documentation :</td>
+                    <td>{{ project.documentation }}</td>
+                  </tr>
+                  <tr>
+                    <td>Feedback :</td>
+                    <td>{{ project.feedback }}</td>
+                  </tr>
+                  <tr>
+                    <td>Quantity of change :</td>
+                    <td>{{ project.quantityOfChange }}</td>
+                  </tr>
+                <tr>
+                    <td>Status :</td>
+                    <td *ngFor="let ts of projectStatus; let i = index">
+                        <div *ngIf="ts.idProjectStatus == project.status">
+                            {{ ts.status }}
+                        </div>                    
+                    </td>
+                </tr>
+                </tbody>
+              </table>
+            <a class="btn purple-gradient btn-rounded mb-4" routerLink="/registration" routerLinkActive="active current">Edit</a>
+        </div>
+    </div>
+    
+    
+</div>

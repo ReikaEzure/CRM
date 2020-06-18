@@ -16,8 +16,12 @@ const database_1 = __importDefault(require("../database"));
 class TaskController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const task = yield database_1.default.then((r) => r.query('SELECT * FROM Task'));
-            res.json(task);
+            const { id } = req.params;
+            const task = yield database_1.default.then((r) => r.query('SELECT * FROM Task WHERE project_idProject = ?', [id]));
+            if (task.length > 0) {
+                return res.json(task);
+            }
+            res.status(404).json({ text: "Tasks of that project do not exist" });
         });
     }
     getOne(req, res) {
@@ -53,6 +57,18 @@ class TaskController {
             const { id } = req.params;
             yield database_1.default.then((r) => r.query('UPDATE Task set ? WHERE idTask = ?', [req.body, id]));
             res.json({ text: "The Task was updated" + req.params.id });
+        });
+    }
+    changeStatus(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            try {
+                yield database_1.default.then((r) => r.query('UPDATE Task set status = ? WHERE idTask = ?', [req.body.status, req.body.id]));
+                res.json({ text: "The Task status was updated" + req.params.id });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
         });
     }
     test(req, res) {

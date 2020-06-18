@@ -23,4 +23,12 @@ export class AuthenticationService {
   registerLogin(login: Login){
     return this._http.post(`${this._url}/register`, login);
   }
+
+  getLogin(id: String){
+    return this._http.get(`${this._url}/${id}`);
+  }
+
+  resetPassword(id: String | number, data: Login): Observable<Login>{
+    return this._http.put(`${this._url}/reset/${id}`, data);
+  }
 }

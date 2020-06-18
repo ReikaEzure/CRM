@@ -9,10 +9,11 @@ class TaskRoute {
     }
     config() {
         this.router.get('/test', TaskController_1.taskController.test);
-        this.router.get('/', TaskController_1.taskController.list);
-        this.router.get('/:id', TaskController_1.taskController.getOne);
+        this.router.get('/:id', TaskController_1.taskController.list);
+        this.router.get('/info/:id', TaskController_1.taskController.getOne);
         this.router.post('/', TaskController_1.taskController.create);
         this.router.put('/:id', TaskController_1.taskController.update);
+        this.router.post('/changeStatus', TaskController_1.taskController.changeStatus);
         this.router.delete('/:id', TaskController_1.taskController.delete);
     }
 }

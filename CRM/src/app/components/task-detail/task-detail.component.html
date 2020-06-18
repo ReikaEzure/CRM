@@ -1,1 +1,41 @@
-<p>task-detail works!</p>
+<div>
+    <div class="jumbotron bg-white p-0">
+        <h1 class="display-4 text-center">Task detail</h1>
+        <div class="card-body text-center text-dark mb-3">
+            <h3 class="card-title h3 my-4"><strong>{{ task.taskName }}</strong></h3>
+            <table class="table table-borderless text-dark">
+                <tbody>
+                  
+                  <tr>
+                    <td>Description :</td>
+                    <td>{{ task.description }}</td>
+                  </tr>
+                  <tr>
+                    <td>Created date :</td>
+                    <td>{{ task.createdDate | date: 'yyyy-MM-dd' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Due date :</td>
+                    <td>{{ task.dueDate | date: 'yyyy-MM-dd' }}</td>
+                  </tr>
+                  <tr>
+                      <td>Actual completion date :</td>
+                      <td>{{ task.actualCompletionDate | date: 'yyyy-MM-dd' }}</td>
+                  </tr>
+                  
+                <tr>
+                    <td>Status :</td>
+                    <td *ngFor="let ts of taskStatus; let i = index">
+                        <div *ngIf="ts.idTaskStatus == task.status">
+                            {{ ts.status }}
+                        </div>                    
+                    </td>
+                </tr>
+                </tbody>
+              </table>
+            <a class="btn purple-gradient btn-rounded mb-4" routerLink="/registration" routerLinkActive="active current">Edit</a>
+        </div>
+    </div>
+    
+    
+</div>

@@ -226,7 +226,6 @@ export class ClientFormComponent implements OnInit {
         console.log(err);
       }
     );
-    console.log(this.client);
   }
 
   saveMoreDetail(){

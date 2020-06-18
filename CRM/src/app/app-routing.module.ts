@@ -20,6 +20,8 @@ import { ProjectFormComponent } from './components/project-form/project-form.com
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
 
+import { ReceivingEmailComponent } from './components/receiving-email/receiving-email.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
@@ -32,19 +34,22 @@ const routes: Routes = [
   { path: 'user', component: UserDetailComponent },
   { path: 'clientForm', component: ClientFormComponent },
   { path: 'client', component: ClientListComponent },
-  { path: 'clientDetail', component: ClientDeatilComponent },
+  { path: 'clientDetail/:id', component: ClientDeatilComponent },
   { path: 'appointment', component: AppointmentListComponent },
-  { path: 'appointmentDetail', component: AppointmentDetailComponent },
+  { path: 'appointmentDetail/:id', component: AppointmentDetailComponent },
   { path: 'appointmentForm', component: AppointmentFormComponent },
   { path: 'contact', component: ContactListComponent },
   { path: 'contactDetail', component: ContactDetailComponent },
   { path: 'project', component: ProjectListComponent },
-  { path: 'projectDetail', component: ProjectDetailComponent },
+  { path: 'projectDetail/:id', component: ProjectDetailComponent },
   { path: 'projectForm', component: ProjectFormComponent },
-  { path: 'team', component: TeamComponent },
-  { path: 'task', component: TaskListComponent },
-  { path: 'taskDetail', component: TaskDetailComponent },
-  { path: 'taskForm', component: TaskFormComponent },
+  { path: 'team/:id', component: TeamComponent },
+  { path: 'task/:id', component: TaskListComponent },
+  { path: 'taskDetail/:id', component: TaskDetailComponent },
+  { path: 'taskForm/:projectId', component: TaskFormComponent },
+  { path: 'taskForm/edit/:id', component: TaskFormComponent },
+  { path: 'receivingEmail', component: ReceivingEmailComponent },
+  { path: 'changePass/:id', component: ChangePasswordComponent },
   { path: "**", component: PageNotFoundComponent }
 ];
 
@@ -73,5 +78,7 @@ export const routingComponents = [
                                   TaskListComponent,
                                   TaskDetailComponent,
                                   TaskFormComponent,
+                                  ReceivingEmailComponent,
+                                  ChangePasswordComponent,
                                   PageNotFoundComponent
                                   ];

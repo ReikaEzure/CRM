@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
         this.loginFailed=true;
       }
     );
+    this.loginForm.reset();
   }
 
 }

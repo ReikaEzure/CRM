@@ -11,13 +11,15 @@ export class ProjectService {
 
   _url = 'http://localhost:3000';
 
+  projectStatus: any;
+
   constructor(private _http: HttpClient) { }
 
   getProjects(){
     return this._http.get(`${this._url}/project`);
   }
 
-  getProject(id: String){
+  getProject(id: number){
     return this._http.get(`${this._url}/project/${id}`);
   }
 

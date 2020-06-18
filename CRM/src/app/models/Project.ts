@@ -13,5 +13,5 @@ export interface Project{
     quantityOfChange?: number;
     status?: number;
     promoId?: number;
-    clientId?: number;
+    client_idClient?: number;
 }

@@ -4,7 +4,7 @@ export interface Task{
     description?: String;
     dueDate?: Date;
     actualCompletionDate?: Date;
-    type?: String;
+    taskName?: String;
     status?: number;
-    projectId?: number;
+    project_idProject?: number;
 }

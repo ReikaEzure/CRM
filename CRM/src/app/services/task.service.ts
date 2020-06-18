@@ -11,14 +11,16 @@ export class TaskService {
 
   _url = 'http://localhost:3000';
 
+  taskStatus: any;
+
   constructor(private _http: HttpClient) { }
 
-  getTasks(){
-    return this._http.get(`${this._url}/task`);
+  getTasks(id: String){
+    return this._http.get(`${this._url}/task/${id}`);
   }
 
   getTask(id: String){
-    return this._http.get(`${this._url}/task/${id}`);
+    return this._http.get(`${this._url}/task/info/${id}`);
   }
 
   saveTask(task: Task){
@@ -31,6 +33,13 @@ export class TaskService {
 
   updateTask(id: String | number, task: Task): Observable<Task>{
     return this._http.put(`${this._url}/task/${id}`, task);
+  }
+  
+  changeStatus(data: any){
+    return this._http.post(`${this._url}/task/changeStatus`, data);
+  }
+  loadTaskStatus(){
+    return this._http.get(`${this._url}/taskStatus`);
   }
   
 }
