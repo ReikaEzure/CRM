@@ -24,7 +24,7 @@ class UserController {
 
     public async update(req: Request, res: Response): Promise<void>{
         const { id } = req.params;
-        await pool.then((r:any)=>r.query('UPDATE games set ? WHERE id = ?', [req.body, id]));
+        await pool.then((r:any)=>r.query('UPDATE user set ? WHERE id = ?', [req.body, id]));
         res.json({text: "updating a game "+req.params.id});
     }
 
