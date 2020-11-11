@@ -21,10 +21,11 @@
         <div class="card-body list">
             <h4 class="card-title">{{ pro.title }}</h4>
             <h6 class="card-subtitle mb-2 text-muted">Due date: {{ pro.dueDate }}</h6>
-            <a [routerLink]="['/projectDetail', pro.idProject]"class="card-link">Info</a>
-            <a [routerLink]="['/team', pro.idProject]"class="card-link">Team</a>
-            <a [routerLink]="['/task', pro.idProject]"class="card-link">Tasks</a>
-            
+            <a [routerLink]="['/projectDetail', pro.idProject]"class="card-link"><i class="fas fa-info-circle"></i>Info</a>
+            <a [routerLink]="['/team', pro.idProject]"class="card-link"><i class="fas fa-users"></i>Team</a>
+            <a [routerLink]="['/task', pro.idProject]"class="card-link"><i class="fas fa-tasks"></i>Tasks</a>
+            <a [routerLink]="['/promotion', pro.idProject]"class="card-link"><i class="fas fa-tag"></i>Promotion</a>
+            <a [routerLink]="['/invoive', pro.idProject]"class="card-link"><i class="fas fa-file-invoice-dollar"></i>Invoice</a>
         </div>
       </div>
 </div>
