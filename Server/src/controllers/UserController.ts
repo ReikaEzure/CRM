@@ -24,8 +24,32 @@ class UserController {
 
     public async update(req: Request, res: Response): Promise<void>{
         const { id } = req.params;
-        await pool.then((r:any)=>r.query('UPDATE user set ? WHERE id = ?', [req.body, id]));
-        res.json({text: "updating a game "+req.params.id});
+        try{
+            await pool.then((r:any)=>r.query('UPDATE user set ? WHERE idUser = ?', [req.body, id]));
+            res.json({text: "updating a user id: "+req.params.id});
+        }catch(err){
+            res.json({text: "Error" + err.message});
+        }
+    }
+
+    public async login(req: Request, res: Response): Promise<void>{
+        const { id } = req.params;
+        try{
+            await pool.then((r:any)=>r.query('UPDATE user set status = 1 WHERE login_idLogin = ?', [id]));
+            res.json({text: "user id: "+req.params.id+" change status as Working"});
+        }catch(err){
+            res.json({text: "Error" + err.message});
+        }
+    }
+
+    public async logout(req: Request, res: Response): Promise<void>{
+        const { id } = req.params;
+        try{
+            await pool.then((r:any)=>r.query('UPDATE user set status = 4 WHERE idUser = ?', [id]));
+            res.json({text: "user id: "+req.params.id+" logged out successfully"});
+        }catch(err){
+            res.json({text: "Error" + err.message});
+        }
     }
 
     public test(req: Request, res: Response){

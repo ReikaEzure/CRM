@@ -12,6 +12,7 @@ export class ProjectService {
   _url = 'http://localhost:3000';
 
   projectStatus: any;
+  projects : Project[];
 
   constructor(private _http: HttpClient) { }
 

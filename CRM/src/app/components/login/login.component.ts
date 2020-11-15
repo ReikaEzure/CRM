@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginFailed: boolean = false;
   
 
-  constructor(private _fb: FormBuilder, private _service: AuthenticationService, private _userService: UserService, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _authService: AuthenticationService, private _userService: UserService, private _router: Router) { }
 
   ngOnInit(): void {
     this.loadRoles();
@@ -50,11 +50,15 @@ export class LoginComponent implements OnInit {
   
   onSubmit(){
     console.log(this.loginForm.value);
-    this._service.login(this.loginForm.value).subscribe(
+    //load data from Login table
+    this._authService.login(this.loginForm.value).subscribe(
       res => { 
         console.log(res);
-        this._service.loginDetail=res;
-        this._service.isLoggedIn=true;
+        this._authService.loginDetail=res;
+        this._authService.isLoggedIn=true;
+        //load data of User table
+        this.login();
+        this.getUser();
         this._router.navigate(['/home']);
       },
       err => { 
@@ -63,6 +67,25 @@ export class LoginComponent implements OnInit {
       }
     );
     this.loginForm.reset();
+  }
+
+  getUser(){
+    this._userService.getUser(this._authService.loginDetail.idLogin).subscribe(
+      res => {
+        this._userService.loggedInUser=res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+
+  login(): void {
+    this._userService.login(this._authService.loginDetail.idLogin).subscribe(
+      res => {
+        console.log(res);
+      },
+      error => console.log(error)
+    );
   }
 
 }

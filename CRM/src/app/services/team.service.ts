@@ -11,6 +11,8 @@ export class TeamService {
 
   _url = 'http://localhost:3000';
 
+  teams: Team[];
+
   constructor(private _http: HttpClient) { }
 
   getTeams(){

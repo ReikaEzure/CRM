@@ -207,11 +207,21 @@ export class RegistrationFormComponent implements OnInit {
     console.log(this.registrationForm.value);
     this.registerLoginData();
   }
-
   updateUser(){
+    console.log("entered update user function");
+    this.user.firstName=this.firstname.value;
+    this.user.lastName=this.lastname.value;
+    this.user.birthDate=this.birthdate.value;
+    this.user.phone=this.phone.value;
+    this.user.id=this.id.value;
+    this.user.idType=this.idType.value;
+    this.user.role=parseInt(this.role.value);
+    delete this.user.avatar;
+    delete this.user.lastLogin;
     delete this.user.joinedDate;
+    console.log(this.user);
 
-    this._userService.updateUser(this.user.login_idLogin, this.user).subscribe(
+    this._userService.updateUser(this.user.idUser, this.user).subscribe(
       res => {
         console.log(res);
         this._router.navigate(['/home']);

@@ -11,6 +11,8 @@ export class AppointmentService {
 
   _url = 'http://localhost:3000';
 
+  appointments : Appointment[];
+
   constructor(private _http: HttpClient) { }
 
   getAppointments(){

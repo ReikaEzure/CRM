@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 
 import { ClientCompany, Address, Phone, Sns } from '../models/ClientCompany';
 import { Observable } from 'rxjs';
+import { Client } from '../models/Client';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import { Observable } from 'rxjs';
 export class ClientService {
 
   _url = 'http://localhost:3000';
+
+  clientCompanies : ClientCompany[];
 
   constructor(private _http: HttpClient) { }
 

@@ -30,16 +30,21 @@ export class UserDetailComponent implements OnInit {
     this.loginDetail = this._authService.loginDetail;
     this.roles = this._service.roles;
     this.status = this._service.status;
-    this.getUser();
+    this.loggedInUser = this._service.loggedInUser;
     console.log(this.loginDetail, this.loggedInUser);
 
   }
 
-  getUser(){
-    this._service.getUser(this._authService.loginDetail.idLogin).subscribe(
+  logout(event: Event): void {
+    event.preventDefault(); // Prevents browser following the link
+
+    this._service.logout(this.loggedInUser.idUser).subscribe(
       res => {
-        this._service.loggedInUser=res;
-        this.loggedInUser = res;
+        this._service.loggedInUser=null;
+        this._authService.loginDetail=null;
+        this._authService.isLoggedIn=false;
+        console.clear()
+        this._router.navigate(['/login']);
         
         console.log(res);
       },
@@ -47,22 +52,12 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  logout(event: Event): void {
-    event.preventDefault(); // Prevents browser following the link
-    this._service.loggedInUser=null;
-    this._authService.loginDetail=null;
-    this._authService.isLoggedIn=false;
-    console.clear()
-    this._router.navigate(['/login']);
-    
-  }
-
   changePass(){
     Email.send({
       Host : 'smtp.elasticemail.com',
       Username : 'info.rootlets@gmail.com',
       Password : 'D46160A6E891E75A73FC143A4FAA4E8A622B',
-      To : 'reika.ezure@gmail.com',
+      To : this._authService.loginDetail.email,
       From : 'info.rootlets@gmail.com',
       Subject : 'Change password',
       Body : `

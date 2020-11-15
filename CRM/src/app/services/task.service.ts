@@ -12,6 +12,7 @@ export class TaskService {
   _url = 'http://localhost:3000';
 
   taskStatus: any;
+  tasks: Task[];
 
   constructor(private _http: HttpClient) { }
 

@@ -35,12 +35,20 @@ export class UserService {
     return this._http.get(`${this._url}/user/${id}`);
   }
 
-  updateUser(id: String | number, user: User): Observable<User>{
+  updateUser(id: number | number, user: User): Observable<User>{
     return this._http.put(`${this._url}/user/${id}`, user);
   }
 
   sendmail(data) {
     return this._http.post(`${this._url}/sendmail`, data);
+  }
+
+  login(id: number){
+    return this._http.get(`${this._url}/user/login/${id}`);
+  }
+
+  logout(id: number){
+    return this._http.get(`${this._url}/user/logout/${id}`);
   }
   
 

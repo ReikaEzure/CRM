@@ -41,8 +41,37 @@ class UserController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.then((r) => r.query('UPDATE user set ? WHERE id = ?', [req.body, id]));
-            res.json({ text: "updating a game " + req.params.id });
+            try {
+                yield database_1.default.then((r) => r.query('UPDATE user set ? WHERE idUser = ?', [req.body, id]));
+                res.json({ text: "updating a user id: " + req.params.id });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    login(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                yield database_1.default.then((r) => r.query('UPDATE user set status = 1 WHERE login_idLogin = ?', [id]));
+                res.json({ text: "user id: " + req.params.id + " change status as Working" });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    logout(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                yield database_1.default.then((r) => r.query('UPDATE user set status = 4 WHERE idUser = ?', [id]));
+                res.json({ text: "user id: " + req.params.id + " logged out successfully" });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
         });
     }
     test(req, res) {
