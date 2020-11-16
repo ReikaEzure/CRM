@@ -1,1 +1,22 @@
-<p>appointment-form works!</p>
+<div>
+    <h2>Add New Client</h2>
+    <form [formGroup]="appointmentForm" action="">
+        <div class="form-group">
+            <label>Date</label>
+            <input [class.is-invalid]="date.invalid && date.touched" 
+              formControlName="date" type="datetime-local" [(ngModel)]="appointment.date" class="form-control">
+              <small class="text-danger" [class.d-none]="date.valid || date.untouched">Date is required</small>
+          </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea formControlName="description" type="text" class="form-control" [(ngModel)]="appointment.description" 
+            [class.is-invalid]="description.invalid && description.touched" cols="30" rows="10"></textarea>
+            <small class="text-danger" [class.d-none]="description.valid || description.untouched">Description is required</small>
+        </div>
+
+
+        <button class="btn btn-success btn-block" [disabled]="!appointmentForm.valid" (click)='edit ? updateAppointment() : onSubmit()'>Register</button>
+    
+    </form>
+</div>

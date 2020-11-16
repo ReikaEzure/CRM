@@ -16,7 +16,7 @@
 <div *ngFor="let appo of appointments">
     <div class="card bg-secondary m-2">
         <div class="card-body list">
-            <h4 class="card-title">{{ appo.date | date: 'yyyy-MM-dd' }}</h4>
+            <h4 class="card-title">{{ appo.date | date: 'HH:mm dd-MM-yyyy' }}</h4>
             <h6 class="card-subtitle mb-2 text-muted">with {{ appo.companyName }}</h6>
             <a [routerLink]="['/appointmentDetail', appo.idAppointment]"class="card-link">Info</a>
             <a [routerLink]="['/appointment', appo.idAppointment]"class="card-link">Contact</a>

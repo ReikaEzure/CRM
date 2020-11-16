@@ -1,1 +1,20 @@
-<p>appointment-detail works!</p>
+<div>
+    <div class="jumbotron bg-white p-0">
+        <h1 class="display-4 text-center">Appointment detail</h1>
+        <div class="card-body text-center text-dark mb-3">
+            <h3 class="card-title h3 my-4"><strong>{{ appointment.date }}</strong></h3>
+            <table class="table table-borderless text-dark">
+                <tbody>
+                    <tr>
+                        <td>Description :</td>
+                        <td>{{ appointment.description }}</td>
+                    </tr>
+                </tbody>
+              </table>
+            <a class="btn purple-gradient btn-rounded mb-4" routerLink="/appointmentForm" routerLinkActive="active current"><i class="fas fa-calendar-check"></i>Edit</a>
+            <a class="btn purple-gradient btn-rounded mb-4" href="#" (click)="delete($event)" role="button">Delete</a>
+        </div>
+    </div>
+    
+    
+</div>

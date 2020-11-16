@@ -12,6 +12,7 @@ export class AppointmentService {
   _url = 'http://localhost:3000';
 
   appointments : Appointment[];
+  appointment : Appointment;
 
   constructor(private _http: HttpClient) { }
 
@@ -27,7 +28,7 @@ export class AppointmentService {
     return this._http.post(`${this._url}/appointment`, appointment);
   }
 
-  deleteAppointment(id: String){
+  deleteAppointment(id: String | number){
     return this._http.delete(`${this._url}/appointment/${id}`);
   }
 
