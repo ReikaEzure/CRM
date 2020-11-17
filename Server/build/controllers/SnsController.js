@@ -21,6 +21,16 @@ class SnsController {
             res.json(sns);
         });
     }
+    getForOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const sns = yield database_1.default.then((r) => r.query('SELECT * FROM SNS WHERE client_idClient = ?', [id]));
+            if (sns.length > 0) {
+                return res.json(sns);
+            }
+            res.status(404).json({ text: "The SNS does not exist" });
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);

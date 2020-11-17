@@ -1,1 +1,90 @@
-<p>client-deatil works!</p>
+<div>
+    <div class="jumbotron bg-white p-0">
+        <h1 class="display-4 text-center">Client Information</h1>
+        <hr class="my-4">
+
+        <div class="card-body text-center text-dark mb-3">
+            <h3 class="card-title h3 my-4"><strong>{{ client.companyName }}</strong></h3>
+            <table class="table table-borderless text-dark">
+                <tbody>
+                  <tr>
+                    <td>NIF :</td>
+                    <td>{{ client.nif }}</td>
+                  </tr>
+                  <tr>
+                    <td>Industry :</td>
+                    <td>{{ client.industry }}</td>
+                  </tr>
+                  <tr>
+                    <td>Email :</td>
+                    <td>{{ client.email }}</td>
+                  </tr>
+                  <tr>
+                    <td>Created date :</td>
+                    <td>{{ client.createdDate | date: 'yyyy-MM-dd' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Updated date :</td>
+                    <td>{{ client.updatedDate }}</td>
+                  </tr>
+                  <tr>
+                    <td>Preference :</td>
+                    <td>{{ client.preference }}</td>
+                  </tr>
+                  <tr>
+                    <td>Client type :</td>
+                    <td *ngFor="let c of clientTypes; let i = index">
+                        <div *ngIf="c.idClientType == client.clientType_idClientType">
+                            {{ c.type }}
+                        </div> 
+                    </td>
+                </tr>
+                  <tr>
+                      <td>Phone number :</td>
+                      <td *ngFor="let p of client.phone; let i = index">
+                        <div>
+                            {{ p.phoneNumber }}
+                        </div> 
+                    </td>
+                  </tr>
+                  <tr>
+                      <td>Address :</td>
+                  </tr>
+                  <tr>
+                    <td>Line</td>
+                    <td>{{ addr.addressLine }}</td>
+                  </tr>
+                  <tr>
+                    <td>City</td>
+                    <td>{{ addr.city }}</td>
+                  </tr>
+                  <tr>
+                    <td>State</td>
+                    <td>{{ addr.state }}</td>
+                  </tr>
+                  <tr>
+                    <td>Country</td>
+                    <td>{{ addr.country }}</td>
+                  </tr>
+                  <tr>
+                    <td>Postal code</td>
+                    <td>{{ addr.postalCode }}</td>
+                  </tr>
+                  <tr>
+                    <td>SNS :</td>
+                    <td *ngFor="let s of client.sns; let i = index">
+                      <div>
+                          {{ s.sns }} : {{ s.url }}
+                      </div> 
+                  </td>
+                </tr>
+                
+                
+                </tbody>
+              </table>
+            <a routerLink="/clientForm/" routerLinkActive="active"><button type="button" class="btn btn-dark" >Edit</button></a>
+        </div>
+    </div>
+    
+    
+</div>

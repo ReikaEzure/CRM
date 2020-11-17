@@ -21,6 +21,16 @@ class PhoneController {
             res.json(phone);
         });
     }
+    getForOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const phone = yield database_1.default.then((r) => r.query('SELECT * FROM Phone WHERE client_idClient = ?', [id]));
+            if (phone.length > 0) {
+                return res.json(phone);
+            }
+            res.status(404).json({ text: "The appointment does not exist" });
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);

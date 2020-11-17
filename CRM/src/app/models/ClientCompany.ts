@@ -7,7 +7,7 @@ export interface ClientCompany{
     createdDate?: Date;
     updatedDate?: Date;
     preference?: String;
-    ClientType_idClientType?: number;
+    clientType_idClientType?: number;
     phone?: Array<Phone>;
     address?: Address;
     sns?: Array<Sns>;
@@ -24,11 +24,17 @@ export interface Address{
     city?: String;
     state?: String;
     country?: String;
-    postalcode?: String;
+    postalCode?: String;
 }
 
 export interface Sns{
     client_idClient?: number;
     sns?: String;
     url?: String;
+}
+
+export interface ClientType{
+    idClientType?: number;
+    type?: String;
+    description?: String;
 }

@@ -13,6 +13,10 @@ export class ClientService {
   _url = 'http://localhost:3000';
 
   clientCompanies : ClientCompany[];
+  clientCompany : ClientCompany;
+  phone : any; //Phone[];
+  addr : Address;
+  sns : any; //Sns[];
 
   constructor(private _http: HttpClient) { }
 
@@ -44,11 +48,23 @@ export class ClientService {
     return this._http.post(`${this._url}/address`, address);
   }
 
+  getAddress(id: number){
+    return this._http.get(`${this._url}/address/${id}`);
+  }
+
   savePhone(phone: Phone){
     return this._http.post(`${this._url}/phone`, phone);
   }
 
+  getPhone(id: number){
+    return this._http.get(`${this._url}/phone/${id}`);
+  }
+
   saveSns(sns: Sns){
     return this._http.post(`${this._url}/sns`, sns);
+  }
+
+  getSns(id: number){
+    return this._http.get(`${this._url}/sns/${id}`);
   }
 }

@@ -21,6 +21,16 @@ class AddressController {
             res.json(address);
         });
     }
+    getOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const address = yield database_1.default.then((r) => r.query('SELECT * FROM Address WHERE client_idClient = ?', [id]));
+            if (address.length > 0) {
+                return res.json(address[0]);
+            }
+            res.status(404).json({ text: "The address does not exist" });
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);

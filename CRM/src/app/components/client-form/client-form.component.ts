@@ -24,7 +24,7 @@ export class ClientFormComponent implements OnInit {
     city: '',
     state: '',
     country: '',
-    postalcode: ''
+    postalCode: ''
   }
 
   phones: Phone = {
@@ -47,7 +47,7 @@ export class ClientFormComponent implements OnInit {
     createdDate: new Date,
     updatedDate: new Date,
     preference: '',
-    ClientType_idClientType: 0,
+    clientType_idClientType: 0,
     phone: [],
     address: this.addr,
     sns: []
@@ -102,6 +102,12 @@ export class ClientFormComponent implements OnInit {
         },
         err => {console.log(err.message);}
       );
+    }
+
+    if(this._service.clientCompany!=null){
+      this.client=this._service.clientCompany;
+      this.edit=true;
+      console.log(this.client);
     }
   }
 
@@ -207,7 +213,7 @@ export class ClientFormComponent implements OnInit {
     delete this.client.createdDate;
     delete this.client.updatedDate;
     this.client.preference=this.preference.value;
-    this.client.ClientType_idClientType=parseInt(this.clientType.value);
+    this.client.clientType_idClientType=parseInt(this.clientType.value);
     delete this.client.phone;
     delete this.client.address;
     delete this.client.sns;
@@ -244,7 +250,7 @@ export class ClientFormComponent implements OnInit {
     this.addr.city=this.city.value;
     this.addr.country=this.coutry.value;
     this.addr.state=this.state.value;
-    this.addr.postalcode=this.postalCode.value;
+    this.addr.postalCode=this.postalCode.value;
     this.saveAddress(this.addr);
 
     this.socials.client_idClient=this.lastInserted[0].idClient;

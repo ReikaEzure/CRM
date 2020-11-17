@@ -13,6 +13,7 @@ class AddressRoute {
         this.router.get('/test', addressController.test);
         this.router.get('/', addressController.load);
         this.router.post('/', addressController.create);
+        this.router.get('/:id', addressController.getOne);
     }
 
 }
