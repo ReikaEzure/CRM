@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Project } from '../../models/Project';
 import { ProjectService } from '../../services/project.service';
 import { ClientService } from '../../services/client.service';
+import { Client } from 'src/app/models/Client';
+import { ClientCompany } from 'src/app/models/ClientCompany';
 
 @Component({
   selector: 'app-project-form',
@@ -13,7 +15,7 @@ import { ClientService } from '../../services/client.service';
 })
 export class ProjectFormComponent implements OnInit {
   projectStatus: any = [];
-  client: any = [];
+  clients: any = [];
   edit: boolean = false;
 
   projectForm: FormGroup;
@@ -36,11 +38,24 @@ export class ProjectFormComponent implements OnInit {
     client_idClient: 0
   };
 
+  client: ClientCompany = {
+    idClient: 0,
+    companyName: '',
+    nif: '',
+    industry: '',
+    email: '',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+    preference: '',
+    clientType_idClientType: 0
+  };
+
+
   
   constructor(private _fb: FormBuilder, private _service: ProjectService, private _clientService: ClientService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.loadClient();
+    this.loadClients();
     this.loadProjectStatus();
 
     this.projectForm=this._fb.group({
@@ -52,16 +67,12 @@ export class ProjectFormComponent implements OnInit {
       clientId: []
     });
 
-    const params = this._activate.snapshot.params;
-    if(params.id){
-      this._service.getProject(params.id).subscribe(
-        res => {
-          console.log(res);
-          this.project=res;
-          this.edit=true;
-        },
-        err => {console.log(err.message);}
-      );
+    if(this._service.project!=null){
+      this.project=this._service.project;
+      this.client=this._clientService.clientCompany;
+      this.edit=true;
+      console.log(this.project);
+      console.log(this.client);
     }
   }
 
@@ -95,11 +106,10 @@ export class ProjectFormComponent implements OnInit {
     })
   }
 
-  loadClient(){
+  loadClients(){
     this._clientService.getClients().subscribe(
       res => {
-        this.client = res;
-        console.log(res);
+        this.clients = res;
       },
       error => console.log(error)
     );
@@ -115,7 +125,6 @@ export class ProjectFormComponent implements OnInit {
     this._service.loadProjectStatus().subscribe(
       res => {
         this.projectStatus = res;
-        console.log(res);
       },
       error => console.log(error)
     );

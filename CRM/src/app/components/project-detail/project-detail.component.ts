@@ -13,8 +13,36 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class ProjectDetailComponent implements OnInit {
 
-  project: Project;
-  client: ClientCompany;
+  project: Project = {
+    idProject: 0,
+    title: '',
+    description:　'',
+    dueDate: new Date,
+    createdDate: new Date,
+    updatedDate: new Date,
+    actualCompletionDate: new Date,
+    budget: 0,
+    price: 0,
+    documentation: '',
+    feedback: '',
+    quantityOfChange: 0,
+    status: 0,
+    promoId: 0,
+    client_idClient: 0
+  };
+
+  client: ClientCompany = {
+    idClient: 0,
+    companyName: '',
+    nif: '',
+    industry: '',
+    email: '',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+    preference: '',
+    clientType_idClientType: 0
+  };
+
   projectStatus;
 
   constructor(private _activate: ActivatedRoute, private _service: ProjectService, private _cliService: ClientService) { }
@@ -27,6 +55,7 @@ export class ProjectDetailComponent implements OnInit {
       this._service.getProject(params.id).subscribe(
         res => {
           this.project = res;
+          this._service.project = res;
           console.log(res);
           this.getClient();
         },
@@ -43,6 +72,7 @@ export class ProjectDetailComponent implements OnInit {
     this._cliService.getClient(this.project.client_idClient).subscribe(
       res => {
         this.client = res;
+        this._cliService.clientCompany = res;
         console.log(res);
       },
       error => console.log(error)

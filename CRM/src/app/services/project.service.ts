@@ -13,6 +13,7 @@ export class ProjectService {
 
   projectStatus: any;
   projects : Project[];
+  project: Project;
 
   constructor(private _http: HttpClient) { }
 

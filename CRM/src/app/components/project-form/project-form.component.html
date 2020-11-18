@@ -3,7 +3,7 @@
     <form [formGroup]="projectForm" action="">
         <div class="form-group">
             <label>Title</label>
-            <input [class.is-invalid]="title.invalid && title.touched" 
+            <input [class.is-invalid]="title.invalid && title.touched" [(ngModel)]="project.title" 
             formControlName="title" type="text" class="form-control">
             <div *ngIf="title.invalid && title.touched">
                 <small *ngIf="title.errors?.required" class="text-danger">Title is required</small>
@@ -13,28 +13,28 @@
 
         <div class="form-group">
             <label>Description</label>
-            <input formControlName="description" type="text" class="form-control"
+            <input formControlName="description" type="text" class="form-control" [(ngModel)]="project.description" 
             [class.is-invalid]="description.invalid && description.touched">
             <small class="text-danger" [class.d-none]="description.valid || description.untouched">Description is required</small>
         </div>
 
         <div class="form-group">
             <label>Due date</label>
-            <input formControlName="dueDate" type="date" class="form-control"
+            <input formControlName="dueDate" type="date" class="form-control" [(ngModel)]="project.dueDate" 
                 [class.is-invalid]="dueDate.invalid && dueDate.touched">
             <small class="text-danger" [class.d-none]="dueDate.valid || dueDate.untouched">Due date is required</small>
         </div>
 
         <div class="form-group">
             <label>Budget</label>
-            <input [class.is-invalid]="budget.invalid && budget.touched"
+            <input [class.is-invalid]="budget.invalid && budget.touched" [(ngModel)]="project.budget" 
             formControlName="budget" type="number" class="form-control">
             <small class="text-danger" [class.d-none]="budget.valid || budget.untouched">Budget is required</small>
         </div>
 
         <div class="form-group">
             <label>Status</label>
-            <select class="custom-select" (change)="changeProjectStatus($event)" formControlName="status">
+            <select class="custom-select" (change)="changeProjectStatus($event)" formControlName="status" [(ngModel)]="project.status" >
               <option value="" disabled>Choose status</option>
               <option *ngFor="let st of projectStatus" [value]="st.idProjectStatus">{{ st.status }}</option>
             </select>
@@ -42,9 +42,9 @@
 
           <div class="form-group">
             <label>Client</label>
-            <select class="custom-select" (change)="changeClient($event)" formControlName="clientId">
+            <select class="custom-select" (change)="changeClient($event)" formControlName="clientId" [(ngModel)]="client.idClient" >
               <option value="" disabled>Choose client</option>
-              <option *ngFor="let cl of client" [value]="cl.idClient">{{ cl.companyName }}</option>
+              <option *ngFor="let cl of clients" [value]="cl.idClient">{{ cl.companyName }}</option>
             </select>
           </div>
 

@@ -39,7 +39,7 @@
 
         <div class="form-group">
             <label>Client type</label>
-            <select class="custom-select" (change)="changeClientType($event)" formControlName="clientType">
+            <select class="custom-select" (change)="changeClientType($event)" formControlName="clientType" [(ngModel)]="client.clientType_idClientType">
               <option value="" disabled>Choose the client type</option>
               <option *ngFor="let ct of clientTypes" [value]="ct.idClientType">{{ ct.type }}</option>
             </select>
@@ -78,11 +78,13 @@
             </div>
         </div>
 
+        
+
         <div formGroupName="sns">
             <label>SNS</label>
             <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addOtherSns()">Add SNS</button>
             <div class="form-group">
-                <select class="custom-select" (change)="changeSnsType($event)" formControlName="snsType">
+                <select class="custom-select" (change)="changeSnsType($event)" formControlName="snsType" [(ngModel)]="socials.sns">
                     <option value="" disabled>Choose</option>
                     <option *ngFor="let sns of snsTypes" [value]="sns">{{ sns }}</option>
                 </select>
@@ -90,13 +92,22 @@
             <div class="form-group">
                 <input type="text" formControlName="url" class="form-control" >
             </div>  
-            
-        </div>
-        <div class="form-group">
+
             <div formArrayName="otherSns" *ngFor="let sns of otherSns.controls; let i=index">
-                <input type="text" class="form-control my-1" [formControlName]="i">
-            </div>
-        </div>  
+                <div class="form-group">
+                    <select class="custom-select" (change)="changeSnsType($event)" formControlName="snsType" [(ngModel)]="socials.sns">
+                        <option value="" disabled>Choose</option>
+                        <option *ngFor="let sns of snsTypes" [value]="sns">{{ sns }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="url" class="form-control" >
+                </div>  
+            </div>  
+
+        </div>
+        
+        
 
         <button class="btn btn-success btn-block" [disabled]="!clientForm.valid" (click)='edit ? updateClient() : onSubmit()'>Register</button>
     

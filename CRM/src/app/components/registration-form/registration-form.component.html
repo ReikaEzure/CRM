@@ -20,7 +20,7 @@
     <div formGroupName="id">
       <div class="form-group">
         <label>ID</label>
-        <select class="custom-select" (change)="changeIdType($event)" formControlName="idType">
+        <select class="custom-select" (change)="changeIdType($event)" formControlName="idType" [(ngModel)]="user.idType">
           <option value="" disabled>Choose your ID type</option>
           <option *ngFor="let id of idTypes" [value]="id">{{ id }}</option>
         </select>
@@ -80,7 +80,7 @@
 
     <div class="form-group">
       <label>Role</label>
-      <select class="custom-select" (change)="changeRole($event)" formControlName="role">
+      <select class="custom-select" (change)="changeRole($event)" formControlName="role" [(ngModel)]="user.role">
         <option value="" disabled>Choose your role</option>
         <option *ngFor="let role of roles" [value]="role.idUserRole">{{ role.role }} - {{ role.description }}</option>
       </select>
