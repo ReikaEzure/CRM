@@ -15,6 +15,7 @@ class LoginRoute {
         this.router.get('/:id', loginController.getLogin);
         this.router.put('/reset/:id', loginController.resetPassword);
         this.router.post('/register', loginController.register);
+        this.router.get('/getEmail/:id', loginController.getEmail);
     }
 
 }

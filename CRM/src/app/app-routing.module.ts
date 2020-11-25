@@ -6,7 +6,6 @@ import { ClientFormComponent } from './components/client-form/client-form.compon
 import { HomeComponent } from './components/home/home.component';
 import { ClientListComponent } from './components/client-list/client-list.component'; 
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
-import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
 import { TeamComponent } from './components/team/team.component';
@@ -19,6 +18,8 @@ import { ProjectDetailComponent } from './components/project-detail/project-deta
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
+import { PromotionComponent } from './components/promotion/promotion.component';
+import { PromotionFormComponent } from './components/promotion-form/promotion-form.component';
 
 import { ReceivingEmailComponent } from './components/receiving-email/receiving-email.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
@@ -38,8 +39,7 @@ const routes: Routes = [
   { path: 'appointment', component: AppointmentListComponent },
   { path: 'appointmentDetail/:id', component: AppointmentDetailComponent },
   { path: 'appointmentForm', component: AppointmentFormComponent },
-  { path: 'contact', component: ContactListComponent },
-  { path: 'contactDetail', component: ContactDetailComponent },
+  { path: 'contactDetail/:id', component: ContactDetailComponent },
   { path: 'project', component: ProjectListComponent },
   { path: 'projectDetail/:id', component: ProjectDetailComponent },
   { path: 'projectForm', component: ProjectFormComponent },
@@ -48,6 +48,8 @@ const routes: Routes = [
   { path: 'taskDetail/:id', component: TaskDetailComponent },
   { path: 'taskForm/:projectId', component: TaskFormComponent },
   { path: 'taskForm/edit/:id', component: TaskFormComponent },
+  { path: 'promotion/:id', component: PromotionComponent },
+  { path: 'promotionForm', component: PromotionFormComponent },
   { path: 'receivingEmail', component: ReceivingEmailComponent },
   { path: 'changePass/:id', component: ChangePasswordComponent },
   { path: "**", component: PageNotFoundComponent }
@@ -69,7 +71,6 @@ export const routingComponents = [
                                   AppointmentListComponent,
                                   AppointmentFormComponent,
                                   AppointmentDetailComponent,
-                                  ContactListComponent,
                                   ContactDetailComponent,
                                   ProjectListComponent,
                                   ProjectFormComponent,
@@ -78,6 +79,8 @@ export const routingComponents = [
                                   TaskListComponent,
                                   TaskDetailComponent,
                                   TaskFormComponent,
+                                  PromotionComponent,
+                                  PromotionFormComponent,
                                   ReceivingEmailComponent,
                                   ChangePasswordComponent,
                                   PageNotFoundComponent

@@ -10,7 +10,7 @@ class TeamLeaderController{
 
     public async getOne(req: Request, res: Response): Promise<any>{
         const { id } = req.params;
-        const teamLeader = await pool.then((r:any) => r.query('SELECT * FROM TeamLeader WHERE idTeamLeader = ?', [id]));
+        const teamLeader = await pool.then((r:any) => r.query('SELECT * FROM TeamLeader WHERE team_idTeam = ?', [id]));
         
         if(teamLeader.length > 0){
             return res.json (teamLeader[0]);

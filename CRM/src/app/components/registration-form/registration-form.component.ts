@@ -208,6 +208,7 @@ export class RegistrationFormComponent implements OnInit {
     this.registerLoginData();
   }
   updateUser(){
+    
     console.log("entered update user function");
     this.user.firstName=this.firstname.value;
     this.user.lastName=this.lastname.value;
@@ -224,7 +225,9 @@ export class RegistrationFormComponent implements OnInit {
     this._userService.updateUser(this.user.idUser, this.user).subscribe(
       res => {
         console.log(res);
-        this._router.navigate(['/home']);
+        if(confirm("Your user information has been updated")) {
+          this._router.navigate(['/home']);
+        }
       },
       err => {console.log(err);}
     );

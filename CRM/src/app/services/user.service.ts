@@ -35,6 +35,14 @@ export class UserService {
     return this._http.get(`${this._url}/user/${id}`);
   }
 
+  getUserById(id){
+    return this._http.get(`${this._url}/user/byId/${id}`);
+  }
+
+  getEmail(id){
+    return this._http.get(`${this._url}/login/getEmail/${id}`);
+  }
+  
   updateUser(id: number | number, user: User): Observable<User>{
     return this._http.put(`${this._url}/user/${id}`, user);
   }

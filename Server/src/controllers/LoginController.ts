@@ -20,6 +20,16 @@ class LoginController {
         res.status(404).json({text: "The login user does not exist"});
     }
 
+    public async getEmail(req: Request, res: Response): Promise<any>{
+        const { id } = req.params;
+        console.log(id);
+        const user = await pool.then((r:any) => r.query('SELECT email from Login WHERE idLogin = ?', [id]));
+        if(user.length > 0){
+            return res.json (user[0]);
+        }
+        res.status(404).json({text: "can't find the user"});
+    }
+
     public async register(req: Request, res: Response): Promise<void>{
         console.log(req.body);
         try{

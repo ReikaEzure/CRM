@@ -10,10 +10,10 @@ class TeamController{
 
     public async getOne(req: Request, res: Response): Promise<any>{
         const { id } = req.params;
-        const team = await pool.then((r:any) => r.query('SELECT * FROM Team WHERE idTeam = ?', [id]));
+        const team = await pool.then((r:any) => r.query('SELECT * FROM Team WHERE project_idProject = ?', [id]));
         
         if(team.length > 0){
-            return res.json (team[0]);
+            return res.json (team);
         }
         res.status(404).json({text: "The Team does not exist"});
     }

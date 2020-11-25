@@ -1,0 +1,16 @@
+<div>
+    <h2>Apply promotion</h2>
+    <form [formGroup]="promotionForm" action="">
+        <div class="form-group">
+            <label>Choose promotion to apply to {{project.title}}</label>
+            <select class="custom-select" (change)="changePromo($event)" formControlName="promotion" [(ngModel)]="promo.name">
+              <option value="" disabled>Choose one</option>
+              <option *ngFor="let p of promotions" [value]="p.idPromotion">{{ p.name }} - {{ p.description }}</option>
+            </select>
+          </div>
+
+
+        <button class="btn btn-success btn-block" [disabled]="!promotionForm.valid" (click)='edit ? changePromotion() : onSubmit()'>Register</button>
+    
+    </form>
+</div>

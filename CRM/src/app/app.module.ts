@@ -18,7 +18,7 @@ import { UserService } from './services/user.service';
     AppComponent,
     routingComponents,
     LoginNavComponent,
-    NavigationComponent
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,

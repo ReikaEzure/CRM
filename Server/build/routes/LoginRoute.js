@@ -13,6 +13,7 @@ class LoginRoute {
         this.router.get('/:id', LoginController_1.loginController.getLogin);
         this.router.put('/reset/:id', LoginController_1.loginController.resetPassword);
         this.router.post('/register', LoginController_1.loginController.register);
+        this.router.get('/getEmail/:id', LoginController_1.loginController.getEmail);
     }
 }
 const loginRoute = new LoginRoute();

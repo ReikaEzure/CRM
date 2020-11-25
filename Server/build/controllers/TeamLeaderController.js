@@ -24,7 +24,7 @@ class TeamLeaderController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const teamLeader = yield database_1.default.then((r) => r.query('SELECT * FROM TeamLeader WHERE idTeamLeader = ?', [id]));
+            const teamLeader = yield database_1.default.then((r) => r.query('SELECT * FROM TeamLeader WHERE team_idTeam = ?', [id]));
             if (teamLeader.length > 0) {
                 return res.json(teamLeader[0]);
             }

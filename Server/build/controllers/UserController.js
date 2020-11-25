@@ -26,6 +26,17 @@ class UserController {
             res.status(404).json({ text: "can't find the user" });
         });
     }
+    getUserById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            console.log(id);
+            const user = yield database_1.default.then((r) => r.query('SELECT * from user WHERE idUser = ?', [id]));
+            if (user.length > 0) {
+                return res.json(user[0]);
+            }
+            res.status(404).json({ text: "can't find the user" });
+        });
+    }
     register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);

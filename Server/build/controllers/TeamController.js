@@ -24,9 +24,9 @@ class TeamController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const team = yield database_1.default.then((r) => r.query('SELECT * FROM Team WHERE idTeam = ?', [id]));
+            const team = yield database_1.default.then((r) => r.query('SELECT * FROM Team WHERE project_idProject = ?', [id]));
             if (team.length > 0) {
-                return res.json(team[0]);
+                return res.json(team);
             }
             res.status(404).json({ text: "The Team does not exist" });
         });
