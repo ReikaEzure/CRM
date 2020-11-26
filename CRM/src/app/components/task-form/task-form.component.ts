@@ -123,7 +123,23 @@ export class TaskFormComponent implements OnInit {
   }
 
   updateTask(){
+    this.task.description=this.description.value;
+    this.task.dueDate=this.dueDate.value;
+    this.task.taskName=this.taskName.value;
+    this.task.status=parseInt(this.status.value);
 
+    console.log(this.task);
+
+    this._taskService.updateTask(this.task.idTask, this.task).subscribe(
+      res => {
+        console.log(res);
+        this._router.navigate(['/task', this.project.idProject]);
+      },
+      err => {
+        console.log('failed to update into task');
+        console.log(err);
+      }
+    );
   }
 
   onSubmit(){

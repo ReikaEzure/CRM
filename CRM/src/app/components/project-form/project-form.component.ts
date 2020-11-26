@@ -161,7 +161,30 @@ export class ProjectFormComponent implements OnInit {
   }
 
   updateProject(){
+    this.project.title=this.title.value;
+    this.project.description=this.description.value;
+    this.project.dueDate=this.dueDate.value;
+    this.project.updatedDate=new Date();
+    delete this.project.actualCompletionDate;
+    this.project.budget=this.budget.value;
+    delete this.project.documentation;
+    delete this.project.feedback;
+    delete this.project.quantityOfChange;
+    this.project.status=parseInt(this.status.value);
+    this.project.client_idClient=parseInt(this.clientId.value);
 
+    console.log(this.project);
+
+    this._service.updateProject(this.project.idProject, this.project).subscribe(
+      res => {
+        console.log(res);
+        this._router.navigate(['/project']);
+      },
+      err => {
+        console.log('failed to update into project');
+        console.log(err);
+      }
+    );
   }
 
   onSubmit(){
