@@ -16,7 +16,7 @@ export class PromotionComponent implements OnInit {
 
   edit : boolean = false;
 
-  promotions = [];
+  promotions : any;
 
   promo : Promotion = {
     idPromotion: 0,
@@ -29,6 +29,8 @@ export class PromotionComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _service: PromotionService, private _projectService: ProjectService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getPromotions();
+
     this.promotionForm=this._fb.group({
       promotion: ['']
     });
@@ -49,6 +51,15 @@ export class PromotionComponent implements OnInit {
 
   get promotion(){
     return this.promotionForm.get('promotion'); 
+  }
+
+  getPromotions(){
+    this._service.getPromotions().subscribe(
+      res => {
+        this.promotions=res;
+      },
+      error => console.log(error)
+    );
   }
 
   changePromo(e) {

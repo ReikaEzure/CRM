@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Login } from 'src/app/models/Login';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserService } from '../../services/user.service';
@@ -15,9 +17,13 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   loginFailed: boolean = false;
+  loginInfo: Login = {
+    password: '',
+    username: ''
+  }
   
 
-  constructor(private _fb: FormBuilder, private _authService: AuthenticationService, private _userService: UserService, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _authService: AuthenticationService, private _userService: UserService, private _cookie: CookieService, private _router: Router) { }
 
   ngOnInit(): void {
     this.loadRoles();
@@ -27,8 +33,13 @@ export class LoginComponent implements OnInit {
       username:['', [Validators.required]],
       password:['', Validators.required]
     });
+    // check if there is cookie
+    if(this._cookie.check('password') && this._cookie.check('username')){
+      this.onSubmit();
+    }
   }
 
+  // load role (administrator, Business developer, developer, designer, client)
   loadRoles(){
     this._userService.loadRoles().subscribe(
       res => {
@@ -38,6 +49,7 @@ export class LoginComponent implements OnInit {
       error => console.log(error)
     );
   }
+  // load user status (working, on leave, in meeting, be back soon)
   loadUserStatus(){
     this._userService.loadUserStatus().subscribe(
       res => {
@@ -48,10 +60,21 @@ export class LoginComponent implements OnInit {
     );
   }
   
+  // check if username and password are correct
   onSubmit(){
-    console.log(this.loginForm.value);
+    
+    if(this._cookie.check('password') && this._cookie.check('username')){
+      //get cookie
+      this.loginInfo.password=this._cookie.get('password');
+      this.loginInfo.username=this._cookie.get('username');
+    }else{
+      //get input data
+      this.loginInfo.username=this.loginForm.get('username').value;
+      this.loginInfo.password=this.loginForm.get('password').value;
+    }
+    
     //load data from Login table
-    this._authService.login(this.loginForm.value).subscribe(
+    this._authService.login(this.loginInfo).subscribe(
       res => { 
         console.log(res);
         this._authService.loginDetail=res;
@@ -59,6 +82,11 @@ export class LoginComponent implements OnInit {
         //load data of User table
         this.login();
         this.getUser();
+        //set cookie that expires tomorrow
+        let tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate()+1);
+        this._cookie.set('password', this.loginInfo.password.toString(), tomorrow);
+        this._cookie.set('username', this.loginInfo.username.toString(), tomorrow);
         this._router.navigate(['/home']);
       },
       err => { 
@@ -69,6 +97,7 @@ export class LoginComponent implements OnInit {
     this.loginForm.reset();
   }
 
+  // get user data from database
   getUser(){
     this._userService.getUser(this._authService.loginDetail.idLogin).subscribe(
       res => {
@@ -79,6 +108,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  // get login data from database
   login(): void {
     this._userService.login(this._authService.loginDetail.idLogin).subscribe(
       res => {

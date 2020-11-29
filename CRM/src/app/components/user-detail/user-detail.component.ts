@@ -7,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Login } from 'src/app/models/Login';
 import { User } from 'src/app/models/User';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-detail',
@@ -24,7 +25,7 @@ export class UserDetailComponent implements OnInit {
   buttionText = "Submit";
   
 
-  constructor(private _service: UserService, private _authService: AuthenticationService, private _router: Router) { }
+  constructor(private _service: UserService, private _authService: AuthenticationService, private _router: Router, private _cookie: CookieService) { }
 
   ngOnInit(): void {
     this.loginDetail = this._authService.loginDetail;
@@ -40,9 +41,12 @@ export class UserDetailComponent implements OnInit {
 
     this._service.logout(this.loggedInUser.idUser).subscribe(
       res => {
+        // delete all saved user data from services and cookie
         this._service.loggedInUser=null;
         this._authService.loginDetail=null;
         this._authService.isLoggedIn=false;
+        this._cookie.delete('password');
+        this._cookie.delete('username');
         console.clear()
         this._router.navigate(['/login']);
         

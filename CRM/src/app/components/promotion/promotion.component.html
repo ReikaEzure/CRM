@@ -1,6 +1,6 @@
 <div>
     <h2>Apply promotion</h2>
-    <a class="nav-link active" routerLink="/projectForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new project</a>
+    <a class="nav-link active" routerLink="/projectForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new promotion</a>
     <form [formGroup]="promotionForm" action="">
         <div class="form-group">
             <label>Choose promotion to apply to {{project.title}}</label>
@@ -11,7 +11,7 @@
           </div>
 
 
-        <button class="btn btn-success btn-block" [disabled]="!promotionForm.valid" (click)='edit ? changePromotion() : onSubmit()'>Register</button>
+        <button class="btn btn-success btn-block" [disabled]="!promotionForm.valid" (click)='edit ? changePromotion() : onSubmit()'>Confirm</button>
     
     </form>
 </div>
