@@ -42,6 +42,16 @@ class UserController {
         }
     }
 
+    public async changeAvatar(req: Request, res: Response): Promise<void>{
+        const { id } = req.params;
+        try{
+            await pool.then((r:any)=>r.query('UPDATE user set avatar = ? WHERE idUser = ?', [req.body.avatar, id]));
+            res.json({text: "Changing avatar of user id: "+req.params.id});
+        }catch(err){
+            res.json({text: "Error" + err.message});
+        }
+    }
+
     public async login(req: Request, res: Response): Promise<void>{
         const { id } = req.params;
         try{

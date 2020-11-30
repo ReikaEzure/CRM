@@ -15,6 +15,7 @@ class UserRoute {
         this.router.get('/byId/:id', userController.getUserById);
         this.router.post('/register', userController.register);
         this.router.put('/:id', userController.update);
+        this.router.put('/changeAvatar/:id', userController.changeAvatar)
         this.router.get('/login/:id', userController.login);
         this.router.get('/logout/:id', userController.logout);
     }

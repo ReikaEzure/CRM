@@ -8,6 +8,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Login } from 'src/app/models/Login';
 import { User } from 'src/app/models/User';
 import { CookieService } from 'ngx-cookie-service';
+import mergeImages from 'merge-images';
 
 @Component({
   selector: 'app-user-detail',
@@ -23,6 +24,11 @@ export class UserDetailComponent implements OnInit {
 
   loading = false;
   buttionText = "Submit";
+  modify: boolean;
+  ava ={
+    imagenes: [],
+    modify: false
+  };
   
 
   constructor(private _service: UserService, private _authService: AuthenticationService, private _router: Router, private _cookie: CookieService) { }
@@ -33,7 +39,15 @@ export class UserDetailComponent implements OnInit {
     this.status = this._service.status;
     this.loggedInUser = this._service.loggedInUser;
     console.log(this.loginDetail, this.loggedInUser);
-
+    if(this.loggedInUser.avatar!=null){
+      
+      let imgs=[];
+      imgs=this.loggedInUser.avatar.split(',');
+      this.ava.imagenes=imgs;
+      console.log(imgs);
+      this.merge(imgs);
+    }
+    
   }
 
   logout(event: Event): void {
@@ -83,6 +97,30 @@ export class UserDetailComponent implements OnInit {
         this.buttionText = "Submit";
       }
     );
+  }
+
+
+  merge(imgs:string[]){
+    this.ava.imagenes=imgs;
+    mergeImages(imgs).then(b64 => document.querySelector('#ava').setAttribute('src', b64));
+  }
+
+  clickModificar(ava){
+    ava.modify =! ava.modify;
+  }
+
+  accionCancelar(ava){
+    console.log("Cancelado");
+    ava.modify = false;
+  }
+
+  
+  accionEnviar(event){
+    console.log("Los que ha elegido")
+    for(var i=0;i<event.length;i++){
+      console.log(event[i]);
+    }
+    this.merge(event);
   }
 
 

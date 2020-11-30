@@ -61,6 +61,18 @@ class UserController {
             }
         });
     }
+    changeAvatar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                yield database_1.default.then((r) => r.query('UPDATE user set avatar = ? WHERE idUser = ?', [req.body.avatar, id]));
+                res.json({ text: "Changing avatar of user id: " + req.params.id });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;

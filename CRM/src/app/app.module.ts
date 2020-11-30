@@ -17,13 +17,15 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
     LoginNavComponent,
-    NavigationComponent
+    NavigationComponent,
+    AvatarComponent
   ],
   imports: [
     BrowserModule,

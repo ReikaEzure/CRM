@@ -180,7 +180,7 @@ export class RegistrationFormComponent implements OnInit {
   registerUserData(){
     delete this.user.idUser;
     delete this.user.joinedDate;
-    delete this.user.avatar;
+    this.user.avatar = 'assets/img/avatar/media.png';
     delete this.user.lastLogin;
     this.user.firstName=this.firstname.value;
     this.user.lastName=this.lastname.value;

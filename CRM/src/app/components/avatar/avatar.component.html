@@ -1,0 +1,54 @@
+<form [formGroup]="avatar" (ngSubmit)="onSubmit()">
+    <fieldset>
+        <table>
+            <tr>
+                <td><label>Skin tone:</label></td>
+                <td>
+                    <select formControlName="skin" (change)="selectOption($event.target.value)" required>
+                        <option *ngFor="let skin of skins" [id]='skin.id' [value]="skin.value" >{{skin.id}}</option>
+                    </select>
+        
+                    <div *ngIf="submitted && formulario.skin.errors">
+                        <div *ngIf="formulario.skin.errors.required">Choose skin tone</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Hair color:</label><br></td>
+                <td>
+                    <input type="radio" id="moreno" name="color" value="moreno" (change)="checkedColor('moreno')" required> 
+                        <label for="male">Dark Brown</label><br>
+                    <input type="radio" id="rubio" name="color" value="rubio" (change)="checkedColor('rubio')">
+                        <label for="female">Blonde</label><br>
+                    <input type="radio" id="pelirojo" name="color" value="peliRojo" (change)="checkedColor('peliRojo')">
+                        <label for="other">Ginger</label>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Hair style:</label></td>
+                <td>
+                    <select formControlName="hair" (change)="selectOption($event.target.value)">
+                        <option *ngFor="let pelo of pelos" [id]='pelo.id' [value]="pelo.value" >{{pelo.id}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Accessory:</label><br></td>
+                <td>
+                    <div *ngFor="let ac of accesarios; let i = index">
+                        <input *ngIf="ac.checked" type="checkbox" [id]="ac.id" class="accessory" [value]="ac.value" checked (change)="checkedOption(ac)">
+                        <input *ngIf="!ac.checked" type="checkbox" [id]="ac.id" class="accessory" [value]="ac.value" (change)="checkedOption(ac)">
+                        <label for="ac.id"> {{ac.id}}</label><br>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+        <div>
+            <button class="btn btn-light btn-lg" type="reset" (click)="onReset()">Cancelar</button>
+            <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+        </div>
+        
+    </fieldset>
+
+</form>

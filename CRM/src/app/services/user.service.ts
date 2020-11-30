@@ -43,8 +43,12 @@ export class UserService {
     return this._http.get(`${this._url}/login/getEmail/${id}`);
   }
   
-  updateUser(id: number | number, user: User): Observable<User>{
+  updateUser(id: String | number, user: User): Observable<User>{
     return this._http.put(`${this._url}/user/${id}`, user);
+  }
+
+  changeAvatar(id: String | number, user: User): Observable<User>{
+    return this._http.put(`${this._url}/user/changeAvatar/${id}`, user);
   }
 
   sendmail(data) {
