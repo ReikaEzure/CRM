@@ -24,7 +24,7 @@ export class AuthenticationService {
     return this._http.post(`${this._url}/register`, login);
   }
 
-  getLogin(id: String){
+  getLogin(id: String | number){
     return this._http.get(`${this._url}/${id}`);
   }
 

@@ -1,0 +1,26 @@
+<div>
+    <h2>Apply Office</h2>
+    <form [formGroup]="officeForm" action="">
+        <div class="form-group">
+            <label>Name</label>
+            <input [class.is-invalid]="name.invalid && name.touched" type="text" [(ngModel)]="office.name" formControlName="name" class="form-control" >
+            <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
+          </div>
+
+          <div class="form-group">
+            <label>Phone</label>
+            <input [class.is-invalid]="phone.invalid && phone.touched" type="text" [(ngModel)]="office.phone" formControlName="phone" class="form-control" >
+            <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">Phone is required</small>
+          </div>
+
+          <div class="form-group">
+            <label>NIF</label>
+            <input [class.is-invalid]="nif.invalid && nif.touched" type="number" [(ngModel)]="office.nif" formControlName="nif" class="form-control" >
+            <small class="text-danger" [class.d-none]="nif.valid || nif.untouched">NIF is required</small>
+          </div>
+
+
+        <button class="btn btn-success btn-block" [disabled]="!officeForm.valid" (click)='edit ? updateOffice() : onSubmit()'>Confirm</button>
+    
+    </form>
+</div>

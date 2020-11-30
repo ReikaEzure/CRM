@@ -2,13 +2,13 @@
     <h3>Appointments</h3>
     <ul class="nav nav-pills">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Today</a>
+          <a class="nav-link active" (click)="getTodaysAppointments()">Today</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Upcoming</a>
+          <a class="nav-link active" (click)="getUpcomingsAppointments()">Upcoming</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Done</a>
+          <a class="nav-link active" (click)="getDoneAppointments()">Done</a>
         </li>
     </ul>
     <a class="nav-link active" routerLink="/appointmentForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new appointment</a>

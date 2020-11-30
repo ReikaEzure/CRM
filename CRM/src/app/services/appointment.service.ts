@@ -16,11 +16,17 @@ export class AppointmentService {
 
   constructor(private _http: HttpClient) { }
 
-  getAppointments(){
+  getTodaysAppointments(){
     return this._http.get(`${this._url}/appointment`);
   }
+  getUpcomingsAppointments(){
+    return this._http.get(`${this._url}/appointment/upcoming`);
+  }
+  getDoneAppointments(){
+    return this._http.get(`${this._url}/appointment/done`);
+  }
 
-  getAppointment(id: String){
+  getAppointment(id: String | number){
     return this._http.get(`${this._url}/appointment/${id}`);
   }
 

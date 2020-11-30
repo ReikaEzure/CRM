@@ -11,7 +11,9 @@ class AppointmentRoute {
 
     config(): void{
         this.router.get('/test', appointmentController.test);
-        this.router.get('/', appointmentController.list);
+        this.router.get('/', appointmentController.listToday);
+        this.router.get('/upcoming/', appointmentController.listUpcoming);
+        this.router.get('/done/', appointmentController.listDone);
         this.router.get('/:id', appointmentController.getOne);
         this.router.post('/', appointmentController.create);
         this.router.put('/:id', appointmentController.update);

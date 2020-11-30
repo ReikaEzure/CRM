@@ -62,10 +62,6 @@ export class ProjectDetailComponent implements OnInit {
         error => console.log(error)
       );
     }
-
-
-
-
   }
 
   getClient(){

@@ -1,0 +1,17 @@
+<div>
+    <h2>Apply Office</h2>
+    <a class="nav-link active" routerLink="/officeForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new office</a>
+    <form [formGroup]="officeForm" action="">
+        <div class="form-group">
+            <label>Choose office </label>
+            <select class="custom-select" (change)="changeOfficeValue($event)" formControlName="office" [(ngModel)]="offi.name">
+              <option value="" disabled>Choose one</option>
+              <option *ngFor="let o of offices" [value]="o.idOffice">{{ o.name }}</option>
+            </select>
+          </div>
+
+
+        <button class="btn btn-success btn-block" [disabled]="!officeForm.valid" (click)='onSubmit()'>Confirm</button>
+    
+    </form>
+</div>

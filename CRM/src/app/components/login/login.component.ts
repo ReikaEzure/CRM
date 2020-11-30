@@ -4,6 +4,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Login } from 'src/app/models/Login';
 
+
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserService } from '../../services/user.service';
 
@@ -117,7 +118,7 @@ export class LoginComponent implements OnInit {
       error => console.log(error)
     );
   }
-
+  
 }
 
 

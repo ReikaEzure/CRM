@@ -16,11 +16,11 @@ export class TaskService {
 
   constructor(private _http: HttpClient) { }
 
-  getTasks(id: String){
+  getTasks(id: String | number){
     return this._http.get(`${this._url}/task/${id}`);
   }
 
-  getTask(id: String){
+  getTask(id: String | number){
     return this._http.get(`${this._url}/task/info/${id}`);
   }
 
@@ -28,7 +28,7 @@ export class TaskService {
     return this._http.post(`${this._url}/task`, task);
   }
 
-  deleteTask(id: String){
+  deleteTask(id: String | number){
     return this._http.delete(`${this._url}/task/${id}`);
   }
 

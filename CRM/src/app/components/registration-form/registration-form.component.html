@@ -73,7 +73,7 @@
     <div class="form-group">
       <label>Confirm Password</label>
       <input [class.is-invalid]="(confirmPassword.invalid && confirmPassword.touched) ||  registrationForm.errors?.misMatch" 
-        formControlName="confirmPassword" type="password" [readonly]="edit" [(ngModel)]="login.password" class="form-control">
+        formControlName="confirmPassword" type="password" [readonly]="edit" class="form-control">
       <small class="text-danger" [class.d-none]="confirmPassword.valid || confirmPassword.untouched">Password is required</small>
       <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Passwords do not match</small>
     </div>

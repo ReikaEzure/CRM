@@ -15,10 +15,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.appointmentController = void 0;
 const database_1 = __importDefault(require("../database"));
 class AppointmentController {
-    list(req, res) {
+    listToday(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const appointment = yield database_1.default.then((r) => r.query('SELECT * FROM Appointment'));
-            res.json(appointment);
+            let today = new Date().toISOString();
+            const tomorrow = new Date();
+            tomorrow.setHours(23, 59, 59);
+            let tmr = tomorrow.toISOString();
+            try {
+                const appointment = yield database_1.default.then((r) => r.query("SELECT * FROM Appointment where date > '" + today + "' AND date < '" + tmr + "'"));
+                res.json(appointment);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    listUpcoming(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let today = new Date().toISOString();
+            try {
+                const appointment = yield database_1.default.then((r) => r.query("SELECT * FROM Appointment where date > '" + today + "'"));
+                res.json(appointment);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    listDone(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let today = new Date().toISOString();
+            try {
+                const appointment = yield database_1.default.then((r) => r.query("SELECT * FROM Appointment where date <'" + today + "'"));
+                res.json(appointment);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
         });
     }
     getOne(req, res) {

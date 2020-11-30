@@ -20,6 +20,9 @@ import { TaskDetailComponent } from './components/task-detail/task-detail.compon
 import { TaskFormComponent } from './components/task-form/task-form.component';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { PromotionFormComponent } from './components/promotion-form/promotion-form.component';
+import { OfficeComponent } from './components/office/office.component';
+import { OfficeFormComponent } from './components/office-form/office-form.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 
 import { ReceivingEmailComponent } from './components/receiving-email/receiving-email.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
@@ -50,13 +53,16 @@ const routes: Routes = [
   { path: 'taskForm/edit/:id', component: TaskFormComponent },
   { path: 'promotion/:id', component: PromotionComponent },
   { path: 'promotionForm', component: PromotionFormComponent },
+  { path: 'office', component: OfficeComponent },
+  { path: 'officeForm', component: OfficeFormComponent },
+  { path: 'invoice/:id', component: InvoiceComponent },
   { path: 'receivingEmail', component: ReceivingEmailComponent },
   { path: 'changePass/:id', component: ChangePasswordComponent },
   { path: "**", component: PageNotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
@@ -81,6 +87,9 @@ export const routingComponents = [
                                   TaskFormComponent,
                                   PromotionComponent,
                                   PromotionFormComponent,
+                                  OfficeComponent,
+                                  OfficeFormComponent,
+                                  InvoiceComponent,
                                   ReceivingEmailComponent,
                                   ChangePasswordComponent,
                                   PageNotFoundComponent

@@ -32,7 +32,7 @@ export class ClientService {
     return this._http.post(`${this._url}/client`, client);
   }
 
-  deleteClient(id: String){
+  deleteClient(id: number){
     return this._http.delete(`${this._url}/client/${id}`);
   }
 

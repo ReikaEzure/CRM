@@ -9,7 +9,9 @@ class AppointmentRoute {
     }
     config() {
         this.router.get('/test', AppointmentController_1.appointmentController.test);
-        this.router.get('/', AppointmentController_1.appointmentController.list);
+        this.router.get('/', AppointmentController_1.appointmentController.listToday);
+        this.router.get('/upcoming/', AppointmentController_1.appointmentController.listUpcoming);
+        this.router.get('/done/', AppointmentController_1.appointmentController.listDone);
         this.router.get('/:id', AppointmentController_1.appointmentController.getOne);
         this.router.post('/', AppointmentController_1.appointmentController.create);
         this.router.put('/:id', AppointmentController_1.appointmentController.update);

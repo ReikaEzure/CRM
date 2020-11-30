@@ -28,7 +28,7 @@ export class PromotionService {
     return this._http.post(`${this._url}`, promo);
   }
 
-  deletePromotion(id: String){
+  deletePromotion(id: String | number){
     return this._http.delete(`${this._url}/${id}`);
   }
 

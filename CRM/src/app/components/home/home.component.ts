@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PdfService } from 'src/app/services/pdf.service';
 import { Login } from '../../models/Login';
 
 @Component({
@@ -15,9 +16,13 @@ export class HomeComponent implements OnInit {
     email: ''  
   };
 
-  constructor() { }
+  constructor(private _pdfService: PdfService) { }
 
   ngOnInit(): void {
+  }
+
+  generatePDF(){
+    
   }
 
 }

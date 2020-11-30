@@ -3,9 +3,37 @@ import {Request, Response} from 'express';
 import pool from '../database';
 
 class AppointmentController{
-    public async list(req: Request, res: Response){
-        const appointment = await pool.then((r:any) => r.query('SELECT * FROM Appointment'));
-        res.json(appointment);
+    public async listToday(req: Request, res: Response){
+        let today=new Date().toISOString();
+        const tomorrow = new Date();
+        tomorrow.setHours(23, 59, 59);
+        let tmr=tomorrow.toISOString()
+        try{
+            const appointment = await pool.then((r:any) => r.query("SELECT * FROM Appointment where date > '"+today+"' AND date < '"+tmr+"'"));
+            res.json(appointment);
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+    }
+
+    public async listUpcoming(req: Request, res: Response){
+        let today=new Date().toISOString();
+        try{
+            const appointment = await pool.then((r:any) => r.query("SELECT * FROM Appointment where date > '"+today+"'"));
+            res.json(appointment);
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+    }
+
+    public async listDone(req: Request, res: Response){
+        let today=new Date().toISOString();
+        try{
+            const appointment = await pool.then((r:any) => r.query("SELECT * FROM Appointment where date <'"+today+"'"));
+            res.json(appointment);
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
     }
 
     public async getOne(req: Request, res: Response): Promise<any>{

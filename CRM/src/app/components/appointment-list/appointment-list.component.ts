@@ -14,11 +14,11 @@ export class AppointmentListComponent implements OnInit {
   constructor(private _service: AppointmentService) { }
 
   ngOnInit(): void {
-    this.getAppointments();
+    this.getTodaysAppointments();
   }
 
-  getAppointments(){
-    this._service.getAppointments().subscribe(
+  getTodaysAppointments(){
+    this._service.getTodaysAppointments().subscribe(
       res => {
         this.appointments = res;
         console.log(res);
@@ -26,13 +26,32 @@ export class AppointmentListComponent implements OnInit {
       error => console.log(error)
     );
   }
+  getUpcomingsAppointments(){
+    this._service.getUpcomingsAppointments().subscribe(
+      res => {
+        this.appointments = res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+  getDoneAppointments(){
+    this._service.getDoneAppointments().subscribe(
+      res => {
+        this.appointments = res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  
+  }
 
   deleteAppointment(id: String){
     console.log(id);
     this._service.deleteAppointment(id).subscribe(
       res => {
         console.log(res);
-        this.getAppointments();
+        this.getTodaysAppointments();
       },
       err => {console.log(err.message)}
     );

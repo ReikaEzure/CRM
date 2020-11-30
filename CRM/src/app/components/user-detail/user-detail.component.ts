@@ -56,24 +56,9 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  changePass(){
-    Email.send({
-      Host : 'smtp.elasticemail.com',
-      Username : 'info.rootlets@gmail.com',
-      Password : 'D46160A6E891E75A73FC143A4FAA4E8A622B',
-      To : this._authService.loginDetail.email,
-      From : 'info.rootlets@gmail.com',
-      Subject : 'Change password',
-      Body : `
-      <i>We received a request to change your password.</i> <br />
-      <p>Use the link below to set up a new password for your account.</p><br />
-      <p>If you did not request to chage your password, ignore this email and the link will expire on its own.</p> 
-       `
-      }).then( message => {alert(message); } );
-        
-  }
+  
 
-  register() {
+  changePass() {
     this.loading = true;
     this.buttionText = "Submiting...";
     let user = {

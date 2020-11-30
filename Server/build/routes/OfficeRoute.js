@@ -10,6 +10,10 @@ class OfficeRoute {
     config() {
         this.router.get('/test', OfficeController_1.officeController.test);
         this.router.get('/', OfficeController_1.officeController.load);
+        this.router.get('/:id', OfficeController_1.officeController.getOne);
+        this.router.post('/', OfficeController_1.officeController.create);
+        this.router.put('/:id', OfficeController_1.officeController.update);
+        this.router.delete('/:id', OfficeController_1.officeController.delete);
     }
 }
 const officeRoute = new OfficeRoute();

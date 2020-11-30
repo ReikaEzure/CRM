@@ -10,7 +10,7 @@ class InvoiceController{
 
     public async getOne(req: Request, res: Response): Promise<any>{
         const { id } = req.params;
-        const inv = await pool.then((r:any) => r.query('SELECT * FROM Invoice WHERE idInvoice = ?', [id]));
+        const inv = await pool.then((r:any) => r.query('SELECT * FROM Invoice WHERE project_idProject = ?', [id]));
         
         if(inv.length > 0){
             return res.json (inv[0]);

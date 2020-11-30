@@ -17,14 +17,13 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
     LoginNavComponent,
-    NavigationComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

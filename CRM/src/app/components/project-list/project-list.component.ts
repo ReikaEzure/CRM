@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PdfService } from 'src/app/services/pdf.service';
 
 import { ProjectService } from '../../services/project.service';
 
@@ -11,7 +12,7 @@ export class ProjectListComponent implements OnInit {
   
   projects: any = [];
 
-  constructor(private _service: ProjectService) { }
+  constructor(private _service: ProjectService, private _pdfService: PdfService) { }
 
   ngOnInit(): void {
     this.getProjects();
@@ -38,6 +39,5 @@ export class ProjectListComponent implements OnInit {
       err => {console.log(err.message)}
     );
   }
-
 
 }

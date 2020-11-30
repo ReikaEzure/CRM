@@ -19,7 +19,7 @@ export class TeamService {
     return this._http.get(`${this._url}/team`);
   }
 
-  getTeam(id: String){
+  getTeam(id: String | number){
     return this._http.get(`${this._url}/team/${id}`);
   }
 
@@ -27,7 +27,7 @@ export class TeamService {
     return this._http.post(`${this._url}/team`, team);
   }
 
-  deleteTeam(id: String){
+  deleteTeam(id: String | number){
     return this._http.delete(`${this._url}/team/${id}`);
   }
 
@@ -39,7 +39,7 @@ export class TeamService {
     return this._http.get(`${this._url}/teamLeader`);
   }
 
-  getTeamLeader(id: String){
+  getTeamLeader(id: String | number){
     return this._http.get(`${this._url}/teamLeader/${id}`);
   }
 
@@ -47,7 +47,7 @@ export class TeamService {
     return this._http.post(`${this._url}/teamLeader`, teamLeader);
   }
 
-  deleteTeamLeader(id: String){
+  deleteTeamLeader(id: String | number){
     return this._http.delete(`${this._url}/teamLeader/${id}`);
   }
 

@@ -29,7 +29,7 @@ export class ProjectService {
     return this._http.post(`${this._url}/project`, project);
   }
 
-  deleteProject(id: String){
+  deleteProject(id: String | number){
     return this._http.delete(`${this._url}/project/${id}`);
   }
 

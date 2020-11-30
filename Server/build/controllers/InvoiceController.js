@@ -24,7 +24,7 @@ class InvoiceController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const inv = yield database_1.default.then((r) => r.query('SELECT * FROM Invoice WHERE idInvoice = ?', [id]));
+            const inv = yield database_1.default.then((r) => r.query('SELECT * FROM Invoice WHERE project_idProject = ?', [id]));
             if (inv.length > 0) {
                 return res.json(inv[0]);
             }
