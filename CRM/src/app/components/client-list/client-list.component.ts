@@ -14,6 +14,7 @@ export class ClientListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getClients();
+    this._service.clientCompany=null;
   }
 
   getClients(){

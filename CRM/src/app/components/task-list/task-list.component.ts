@@ -28,11 +28,15 @@ export class TaskListComponent implements OnInit {
       this._projectService.getProject(this.projectId).subscribe(
         res => {
           this.project = res;
+          this._projectService.project=this.project;
           console.log(res);
         },
         error => console.log(error)
       );
+
+        this._service.task=null;
       this.getTasks(params.id);
+      
     }
   }
 
@@ -52,6 +56,32 @@ export class TaskListComponent implements OnInit {
     status: 0
   }
 
+  applyColor(){
+    for(let i=0;i<this.tasks.length;i++){
+      var element=document.getElementById(this.tasks[i].idTask)
+      switch(this.tasks[i].status){
+        case 1: //In progress
+          element.classList.add('table-secondary');
+          break;
+        case 2: //Done
+        element.classList.add('table-light');
+          break;
+        case 3: //Approved
+        element.classList.add('table-success');
+          break;
+        case 4: //Pending
+        element.classList.add('table-info');
+          break;
+        case 5: //Struggling
+          element.classList.add('table-warning');
+          break;
+        default:
+          element.classList.add('table-secondary');
+          break;
+      }
+    }
+  }
+
   changeTaskStatus(id, e){
     this.data.id=id;
     this.data.status=e.target.value;
@@ -68,6 +98,7 @@ export class TaskListComponent implements OnInit {
       res => {
         this.tasks = res;
         console.log(res);
+        this.applyColor();
       },
       error => console.log(error)
     );

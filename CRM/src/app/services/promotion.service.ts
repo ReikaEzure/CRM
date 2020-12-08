@@ -12,7 +12,7 @@ export class PromotionService {
   promotions : Promotion[];
   promotion: Promotion;
 
-  _url = 'http://localhost:3000/promo';
+  _url = 'http://localhost:3000/promotion';
 
   constructor(private _http: HttpClient) { }
 

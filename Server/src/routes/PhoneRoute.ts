@@ -13,6 +13,7 @@ class PhoneRoute {
         this.router.get('/test', phoneController.test);
         this.router.get('/', phoneController.load);
         this.router.post('/', phoneController.create);
+        this.router.delete('/:id', phoneController.delete);
         this.router.get('/:id', phoneController.getForOne);
     }
 

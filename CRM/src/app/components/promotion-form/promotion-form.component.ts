@@ -71,7 +71,7 @@ export class PromotionFormComponent implements OnInit {
     this._service.updatePromotion(this.promo.idPromotion, this.promo).subscribe(
       res =>{
         console.log(res);
-        this._router.navigate(['/promotion/'+this.project.idProject]);
+        this._router.navigate(['/project/']);
       },
       err => {console.log(err);}
     );
@@ -88,7 +88,7 @@ export class PromotionFormComponent implements OnInit {
     this._service.savePromotion(this.promo).subscribe(
       res =>{
         console.log(res);
-        this._router.navigate(['/promotion/'+this.project.idProject]);
+        this._router.navigate(['/project']);
       },
       err => {console.log(err);}
     );
@@ -98,6 +98,7 @@ export class PromotionFormComponent implements OnInit {
   onSubmit(){
     console.log(this.promotionForm.value);
     this.saveNewPromotion();
+    this._router.navigate(['/project']);
   }
 
 }

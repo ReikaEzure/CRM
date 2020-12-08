@@ -11,6 +11,7 @@ class AddressRoute {
         this.router.get('/test', AddressController_1.addressController.test);
         this.router.get('/', AddressController_1.addressController.load);
         this.router.post('/', AddressController_1.addressController.create);
+        this.router.put('/:id', AddressController_1.addressController.update);
         this.router.get('/:id', AddressController_1.addressController.getOne);
     }
 }

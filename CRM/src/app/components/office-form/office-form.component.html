@@ -15,7 +15,7 @@
 
           <div class="form-group">
             <label>NIF</label>
-            <input [class.is-invalid]="nif.invalid && nif.touched" type="number" [(ngModel)]="office.nif" formControlName="nif" class="form-control" >
+            <input [class.is-invalid]="nif.invalid && nif.touched" type="text" [(ngModel)]="office.nif" formControlName="nif" class="form-control" >
             <small class="text-danger" [class.d-none]="nif.valid || nif.untouched">NIF is required</small>
           </div>
 

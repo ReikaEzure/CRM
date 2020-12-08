@@ -55,7 +55,10 @@ export class ClientDeatilComponent implements OnInit {
           this._service.addr=res;
           this.client.address=this.addr;
         },
-        err => {console.log(err.message);}
+        err => {
+          this._service.addr=null;
+          console.log(err.message);
+        }
       );
       this._service.getPhone(params.id).subscribe(
         res => {
@@ -63,7 +66,10 @@ export class ClientDeatilComponent implements OnInit {
           this._service.phone=res;
           this.client.phone=this.phones;
         },
-        err => {console.log(err.message);}
+        err => {
+          this._service.phone=null;
+          console.log(err.message);
+        }
       );
       this._service.getSns(params.id).subscribe(
         res => {
@@ -72,7 +78,10 @@ export class ClientDeatilComponent implements OnInit {
           this.client.sns=this.socials;
           console.log(this.client);
         },
-        err => {console.log(err.message);}
+        err => {
+          this._service.sns=null;
+          console.log(err.message);
+        }
       );
 
     }

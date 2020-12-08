@@ -15,7 +15,7 @@ export class PromotionComponent implements OnInit {
   promotionForm : FormGroup;
 
   edit : boolean = false;
-
+  
   promotions : any;
 
   promo : Promotion = {

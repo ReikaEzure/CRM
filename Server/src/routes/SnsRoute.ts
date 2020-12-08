@@ -13,6 +13,7 @@ class SnsRoute {
         this.router.get('/test', snsController.test);
         this.router.get('/', snsController.load);
         this.router.post('/', snsController.create);
+        this.router.delete('/:id', snsController.delete);
         this.router.get('/:id', snsController.getForOne);
     }
 

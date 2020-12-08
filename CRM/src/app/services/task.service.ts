@@ -13,6 +13,7 @@ export class TaskService {
 
   taskStatus: any;
   tasks: Task[];
+  task: Task;
 
   constructor(private _http: HttpClient) { }
 

@@ -28,7 +28,7 @@ import { ReceivingEmailComponent } from './components/receiving-email/receiving-
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-
+import { InvoiceFormComponent } from './components/invoice-form/invoice-form.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -56,6 +56,7 @@ const routes: Routes = [
   { path: 'office', component: OfficeComponent },
   { path: 'officeForm', component: OfficeFormComponent },
   { path: 'invoice/:id', component: InvoiceComponent },
+  { path: 'invoiceForm/:id', component: InvoiceFormComponent },
   { path: 'receivingEmail', component: ReceivingEmailComponent },
   { path: 'changePass/:id', component: ChangePasswordComponent },
   { path: "**", component: PageNotFoundComponent }

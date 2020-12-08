@@ -27,6 +27,12 @@ class PhoneController {
         }
     }
 
+    public async delete(req: Request, res: Response): Promise<void>{
+        const { id } = req.params;
+        await pool.then((r:any)=>r.query('DELETE FROM Phone WHERE client_idClient = ?', [id]));
+        res.json({text: "The phone was deleted"+req.params.id});
+    }
+
     public test(req: Request, res: Response){
         res.json({text: 'Hi! from phoneController'});
     }

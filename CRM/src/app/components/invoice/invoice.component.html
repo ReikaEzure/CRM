@@ -1,7 +1,58 @@
-<mat-toolbar color="primary">
-    PDF Generator with PDFMake
-</mat-toolbar>
+<div>
+    <div class="jumbotron bg-white p-0">
+        <h1 class="display-4 text-center">Invoice detail</h1>
+        <div class="card-body text-center text-dark mb-3">
+            <div *ngIf="invoice==undefined">
+                <a class="nav-link active" [routerLink]="['/invoiceForm', project.idProject]" routerLinkActive="active">
+                    <i class="fas fa-calendar-check"></i>Create invoice
+                </a>
+            </div>
+            <div *ngIf="invoice!=undefined">
+                <a class="nav-link active" [routerLink]="['/invoiceForm', project.idProject]" routerLinkActive="active">
+                    <i class="fas fa-calendar-check"></i>Modify invoice
+                </a>
+                <h3 class="card-title h3 my-4"><strong>{{ project.title }}</strong></h3>
+                <table class="table table-borderless text-dark">
+                    <tbody>
+                        <tr>
+                            <td>Created Date :</td>
+                            <td>{{ invoice.createdDate | date: 'yyyy-MM-dd' }}</td>
+                        </tr>
+                        <tr>
+                            <td>Issue Date :</td>
+                            <td>{{ invoice.issueDate | date: 'yyyy-MM-dd' }}</td>
+                        </tr>
+                    <tr>
+                        <td>IVA :</td>
+                        <td>{{ invoice.iva }}</td>
+                    </tr>
+                    <tr>
+                        <td>IRPF :</td>
+                        <td>{{ invoice.irpf }}</td>
+                    </tr>
+                    <tr>
+                        <td>NETO :</td>
+                        <td>{{ invoice.neto }}</td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal :</td>
+                        <td>{{ invoice.subtotal }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total :</td>
+                        <td>{{ invoice.total }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button mat-raised-button color="primary" (click)="generatePDF()">
+                    Generate PDF
+                </button> 
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
 
-<button mat-raised-button color="primary" (click)="generatePDF()">
-    Generate PDF
-</button> 
+
+

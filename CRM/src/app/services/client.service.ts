@@ -52,6 +52,10 @@ export class ClientService {
     return this._http.get(`${this._url}/address/${id}`);
   }
 
+  updateAddress(id: String | number, address: Address): Observable<Address>{
+    return this._http.put(`${this._url}/address/${id}`, address);
+  }
+
   savePhone(phone: Phone){
     return this._http.post(`${this._url}/phone`, phone);
   }
@@ -60,11 +64,19 @@ export class ClientService {
     return this._http.get(`${this._url}/phone/${id}`);
   }
 
+  deletePhone(id: number){
+    return this._http.delete(`${this._url}/phone/${id}`);
+  }
+
   saveSns(sns: Sns){
     return this._http.post(`${this._url}/sns`, sns);
   }
 
   getSns(id: number){
     return this._http.get(`${this._url}/sns/${id}`);
+  }
+
+  deleteSns(id: number){
+    return this._http.delete(`${this._url}/sns/${id}`);
   }
 }

@@ -15,6 +15,7 @@ export class AppointmentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTodaysAppointments();
+    this._service.appointment=null;
   }
 
   getTodaysAppointments(){

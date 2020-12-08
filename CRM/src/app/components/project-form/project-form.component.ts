@@ -64,7 +64,13 @@ export class ProjectFormComponent implements OnInit {
       dueDate: ['', Validators.required],
       budget: ['', Validators.required],
       status: [],
-      clientId: []
+      clientId: [],
+
+      updatedDate: [],
+      actualCompletionDate: [],
+      documentation: [],
+      feedback: [],
+      quantityOfChange: []
     });
 
     if(this._service.project!=null){
@@ -98,6 +104,26 @@ export class ProjectFormComponent implements OnInit {
 
   get clientId(){
     return this.projectForm.get('clientId');
+  }
+
+  get updatedDate(){
+    return this.projectForm.get('updatedDate');
+  }
+
+  get actualCompletionDate(){
+    return this.projectForm.get('actualCompletionDate');
+  }
+
+  get documentation(){
+    return this.projectForm.get('documentation');
+  }
+
+  get feedback(){
+    return this.projectForm.get('feedback');
+  }
+
+  get quantityOfChange(){
+    return this.projectForm.get('quantityOfChange');
   }
 
   changeClient(e) {
@@ -146,12 +172,12 @@ export class ProjectFormComponent implements OnInit {
     delete this.project.promoId;
     this.project.client_idClient=parseInt(this.clientId.value);
 
-    console.log(this.project);
-
     this._service.saveProject(this.project).subscribe(
       res => {
         console.log(res);
-        this._router.navigate(['/project']);
+        if(confirm("project information has been added")) {
+          this._router.navigate(['/project']);
+        }
       },
       err => {
         console.log('failed to insert into project');
@@ -161,24 +187,26 @@ export class ProjectFormComponent implements OnInit {
   }
 
   updateProject(){
+
     this.project.title=this.title.value;
     this.project.description=this.description.value;
     this.project.dueDate=this.dueDate.value;
-    this.project.updatedDate=new Date();
-    delete this.project.actualCompletionDate;
+    this.project.actualCompletionDate=this.actualCompletionDate.value;
+    delete this.project.createdDate;
+    delete this.project.updatedDate;
     this.project.budget=this.budget.value;
-    delete this.project.documentation;
-    delete this.project.feedback;
-    delete this.project.quantityOfChange;
+    this.project.documentation=this.documentation.value;
+    this.project.feedback=this.feedback.value;
+    this.project.quantityOfChange=this.quantityOfChange.value;
     this.project.status=parseInt(this.status.value);
     this.project.client_idClient=parseInt(this.clientId.value);
-
-    console.log(this.project);
 
     this._service.updateProject(this.project.idProject, this.project).subscribe(
       res => {
         console.log(res);
-        this._router.navigate(['/project']);
+        if(confirm("project information has been updated")) {
+          this._router.navigate(['/project']);
+        }
       },
       err => {
         console.log('failed to update into project');

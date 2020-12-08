@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { TaskService } from '../../services/task.service';
 import { Task } from 'src/app/models/Task';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -11,19 +12,33 @@ import { Task } from 'src/app/models/Task';
 })
 export class TaskDetailComponent implements OnInit {
 
-  task: Task;
+  task: Task = {
+    idTask: 0,
+    createdDate: new Date,
+    description: '',
+    dueDate: new Date,
+    actualCompletionDate: new Date,
+    taskName: '',
+    status: 0,
+    project_idProject: 0
+  };
   taskStatus;
+  taskId;
+  projectId;
 
-  constructor(private _activate: ActivatedRoute, private _service: TaskService) { }
+  constructor(private _activate: ActivatedRoute, private _service: TaskService, private _projectService: ProjectService) { }
 
   ngOnInit(): void {
     this.taskStatus=this._service.taskStatus;
+    this.projectId=this._projectService.project.idProject;
 
     const params = this._activate.snapshot.params;
     if(params.id){
       this._service.getTask(params.id).subscribe(
         res => {
           this.task = res;
+          this._service.task=this.task;
+          this.taskId=this.task.idTask;
           console.log(res);
         },
         error => console.log(error)

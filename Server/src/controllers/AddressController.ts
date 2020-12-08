@@ -27,6 +27,13 @@ class AddressController {
         }
     }
 
+    public async update(req: Request, res: Response): Promise<void>{
+        const { id } = req.params;
+        await pool.then((r:any)=>r.query('UPDATE Address set ? WHERE client_idClient = ?', [req.body, id]));
+        res.json({text: "The Address was updated"+req.params.id});
+    }
+    
+
     public test(req: Request, res: Response){
         res.json({text: 'Hi! from addressController'});
     }

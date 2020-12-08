@@ -2,16 +2,19 @@
     <h3>Projects</h3>
     <ul class="nav nav-pills">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Current</a>
+          <a class="nav-link active" (click)="getInProgress()">In Progress</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">On hold</a>
+          <a class="nav-link active" (click)="getOpen()">Open</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Done</a>
+          <a class="nav-link active" (click)="getOnHold()">On hold</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Cancelled</a>
+          <a class="nav-link active" (click)="getDone()">Done</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" (click)="getCancelled()">Cancelled</a>
           </li>
     </ul>
     <a class="nav-link active" routerLink="/projectForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new project</a>

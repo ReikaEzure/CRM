@@ -47,7 +47,6 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   saveNewAppointment(){
-    console.log('im in saveNewAppointment');
     delete this.appointment.idAppointment;
     this.appointment.date=this.date.value;
     this.appointment.description=this.description.value;
@@ -59,6 +58,7 @@ export class AppointmentFormComponent implements OnInit {
       res =>{
         console.log(res);
         this._router.navigate(['/appointment']);
+        
       },
       err => {console.log(err);}
     );
@@ -66,11 +66,10 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   updateAppointment(){
-    console.log('im in updateAppointment');
     this.appointment.date=this.date.value;
     this.appointment.description=this.description.value;
     delete this.appointment.createdDate;
-    this.appointment.updatedDate=new Date();
+    delete this.appointment.updatedDate;
     console.log(this.appointment);
 
     this._service.updateAppointment(this.appointment.idAppointment, this.appointment).subscribe(
@@ -83,9 +82,8 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log('im in onSubmit');
-    console.log(this.appointmentForm.value);
     this.saveNewAppointment();
+    this._router.navigate(['/appointment']);
   }
 
 }

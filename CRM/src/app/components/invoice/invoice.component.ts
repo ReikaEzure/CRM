@@ -92,6 +92,7 @@ export class InvoiceComponent implements OnInit {
       res => {
         this.invoice = res;
         console.log(res);
+        this._pdfService.invoice=res;
       },
       error => console.log(error)
     );

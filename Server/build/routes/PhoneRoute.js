@@ -11,6 +11,7 @@ class PhoneRoute {
         this.router.get('/test', PhoneController_1.phoneController.test);
         this.router.get('/', PhoneController_1.phoneController.load);
         this.router.post('/', PhoneController_1.phoneController.create);
+        this.router.delete('/:id', PhoneController_1.phoneController.delete);
         this.router.get('/:id', PhoneController_1.phoneController.getForOne);
     }
 }

@@ -43,6 +43,13 @@ class AddressController {
             }
         });
     }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.then((r) => r.query('UPDATE Address set ? WHERE client_idClient = ?', [req.body, id]));
+            res.json({ text: "The Address was updated" + req.params.id });
+        });
+    }
     test(req, res) {
         res.json({ text: 'Hi! from addressController' });
     }

@@ -84,32 +84,19 @@ export class ClientFormComponent implements OnInit {
         snsType: [''],
         url: [''],
       }),
-      otherSns: this._fb.array([
-        this._fb.group({
-          snsType: [],
-          url: [],
-        })
-      ])
+      otherSns: this._fb.array([])
     });
-
-    const params = this._activate.snapshot.params;
-    if(params.id){
-      this._service.getClient(params.id).subscribe(
-        res => {
-          console.log(res);
-          this.client=res;
-          this.edit=true;
-        },
-        err => {console.log(err.message);}
-      );
-    }
 
     if(this._service.clientCompany!=null){
       this.client=this._service.clientCompany;
+      this.addr=this._service.addr;
+      this.phones=this._service.phone;
+      this.socials=this._service.sns;
       this.edit=true;
       console.log(this.client);
     }
   }
+
 
   get companyName(){
     return this.clientForm.get('companyName');
@@ -143,7 +130,7 @@ export class ClientFormComponent implements OnInit {
     return this.clientForm.get('alternatePhones') as FormArray;
   }
 
-  get addressLine(){
+  get street(){
     return this.clientForm.get('address').get('street');
   }
   get city(){
@@ -174,12 +161,25 @@ export class ClientFormComponent implements OnInit {
     return this.clientForm.get('otherSns') as FormArray;
   }
 
+  get otherSnsType(){
+    return this.clientForm.get('otherSnsType') as FormArray;
+  }
+
+  get otherUrl(){
+    return this.clientForm.get('otherUrl') as FormArray;
+  }
+
   addAlternatePhones(){
     this.alternatePhones.push(this._fb.control(''));
   }
 
   addOtherSns(){
-    this.otherSns.push(this._fb.control(''));
+    this.otherSns.push(
+      this._fb.group({
+        otherSnsType: [],
+        otherUrl: [],
+      })
+    );
   }
 
   changeSnsType(e) {
@@ -246,7 +246,7 @@ export class ClientFormComponent implements OnInit {
     }
 
     this.addr.client_idClient=this.lastInserted[0].idClient;
-    this.addr.addressLine=this.addressLine.value;
+    this.addr.addressLine=this.street.value;
     this.addr.city=this.city.value;
     this.addr.country=this.coutry.value;
     this.addr.state=this.state.value;
@@ -279,6 +279,29 @@ export class ClientFormComponent implements OnInit {
     );
   }
 
+  updatePhone(id){
+    this._service.deletePhone(id).subscribe(
+      res => {
+        console.log(res);
+
+        this.phones.client_idClient=this.client.idClient;
+        this.phones.phoneNumber=this.phone.value;
+        if(this.savePhone(this.phones)!=null && this.alternatePhones.length>0){
+          for(var i=0; i<this.alternatePhones.length; i++){
+            this.phones.client_idClient=this.lastInserted[0].idClient;
+            this.phones.phoneNumber=this.alternatePhones[i].value;
+            this.savePhone(this.phones);
+          }
+        }
+      },
+      err => {
+        console.log(err); 
+      }
+    );
+
+    
+  }
+
   saveAddress(a: Address){
     this._service.saveAddress(a).subscribe(
       res => {
@@ -287,6 +310,17 @@ export class ClientFormComponent implements OnInit {
       err => {
         console.log(err);
         return null;
+      }
+    );
+  }
+
+  updateAddress(id, a: Address){
+    this._service.updateAddress(id, a).subscribe(
+      res=>{
+        console.log(res)
+      },
+      err=>{
+        console.log(err);
       }
     );
   }
@@ -303,12 +337,61 @@ export class ClientFormComponent implements OnInit {
     );
   }
 
+  updateSns(id){
+    this._service.deleteSns(id).subscribe(
+      res => {
+        console.log(res);
+
+        this.socials.client_idClient=this.client.idClient;
+        this.socials.sns=this.snsType.value;
+        this.socials.url=this.url.value;
+        if(this.saveSns(this.socials)!=null && this.otherSns.length>0){
+          for(var i=0; i<this.otherSns.length; i++){
+            this.socials.client_idClient=this.lastInserted[0].idClient;
+            this.socials.url=this.otherSns[i].value;
+            this.saveSns(this.socials);
+          }
+        }
+      },
+      err => {
+        console.log(err); 
+      }
+    );
+
+    
+  }
+
   updateClient(){
     delete this.client.createdDate;
+    this.client.companyName=this.companyName.value;
+    this.client.nif=this.nif.value;
+    this.client.industry=this.industry.value;
+    this.client.email=this.email.value;
+    this.client.preference=this.preference.value;
+    this.client.clientType_idClientType=parseInt(this.clientType.value);
+    delete this.client.phone;
+    delete this.client.address;
+    delete this.client.sns;
     console.log(this.client);
     this._service.updateClient(this.client.idClient, this.client).subscribe(
       res => {
         console.log(res);
+
+        //save address
+        delete this.addr.client_idClient;
+          this.addr.addressLine=this.street.value;
+          this.addr.city=this.city.value;
+          this.addr.country=this.coutry.value;
+          this.addr.state=this.state.value;
+          this.addr.postalCode=this.postalCode.value;
+        if(this._service.addr!=null){
+          this.updateAddress(this.client.idClient, this.addr);
+        }else{
+          this.saveAddress(this.addr);
+        }
+        this.updatePhone(this.client.idClient);
+        this.updateSns(this.client.idClient);
+
         this._router.navigate(['/client']);
       },
       err => {console.log(err)}

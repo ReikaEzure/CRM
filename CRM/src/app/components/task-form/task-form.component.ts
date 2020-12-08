@@ -36,31 +36,17 @@ export class TaskFormComponent implements OnInit {
   ngOnInit(): void {
     this.loadTaskStatus();
 
-    const params = this._activate.snapshot.params;
-    if(params.projectId){
-      this._projectService.getProject(params.projectId).subscribe(
-        res => {
-          console.log(res);
-          this.project=res;
-        },
-        err => {console.log(err.message);}
-      );
-    }else if(params.id){
-      this._taskService.getTask(params.id).subscribe(
-        res => {
-          console.log(res);
-          this.task=res;
-          this.edit=true;
-        },
-        err => {console.log(err.message);}
-      );
-    }
+    if(this._taskService.task!=null){
+      this.task=this._taskService.task;
+      this.edit=true;
+    } 
 
     this.taskForm=this._fb.group({
       taskName: ['Task name', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required]],
       dueDate: ['', Validators.required],
-      status: []
+      status: [],
+      actualCompletionDate: []
     });
 
     
@@ -80,6 +66,10 @@ export class TaskFormComponent implements OnInit {
 
   get status(){
     return this.taskForm.get('status');
+  }
+
+  get actualCompletionDate(){
+    return this.taskForm.get('actualCompletionDate');
   }
 
   changeTaskStatus(e) {
@@ -113,7 +103,7 @@ export class TaskFormComponent implements OnInit {
     this._taskService.saveTask(this.task).subscribe(
       res => {
         console.log(res);
-        this._router.navigate(['/task', this.project.idProject]);
+        this._router.navigate(['/project']);
       },
       err => {
         console.log('failed to insert into task');
@@ -127,13 +117,19 @@ export class TaskFormComponent implements OnInit {
     this.task.dueDate=this.dueDate.value;
     this.task.taskName=this.taskName.value;
     this.task.status=parseInt(this.status.value);
+    this.task.actualCompletionDate=this.actualCompletionDate.value;
+    delete this.task.createdDate;
+    delete this.task.project_idProject;
 
     console.log(this.task);
 
     this._taskService.updateTask(this.task.idTask, this.task).subscribe(
       res => {
         console.log(res);
-        this._router.navigate(['/task', this.project.idProject]);
+        if(confirm("task information has been updated")) {
+          this._router.navigate(['/project']);
+        }
+        
       },
       err => {
         console.log('failed to update into task');

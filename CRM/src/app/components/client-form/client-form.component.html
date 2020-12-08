@@ -4,7 +4,7 @@
         <div class="form-group">
             <label>Company Name</label>
             <input [class.is-invalid]="companyName.invalid && companyName.touched" 
-            formControlName="companyName" type="text" class="form-control">
+            formControlName="companyName" type="text" [(ngModel)]="client.companyName" class="form-control">
             <div *ngIf="companyName.invalid && companyName.touched">
                 <small *ngIf="companyName.errors?.required" class="text-danger">Company Name is required</small>
                 <small *ngIf="companyName.errors?.minlength" class="text-danger">Company Name must be 3 caracter</small>
@@ -14,73 +14,75 @@
         <div class="form-group">
             <label>NIF</label>
             <input formControlName="nif" type="text" class="form-control"
-            [class.is-invalid]="nif.invalid && nif.touched">
+            [class.is-invalid]="nif.invalid && nif.touched" [(ngModel)]="client.nif">
             <small class="text-danger" [class.d-none]="nif.valid || nif.untouched">NIF is required</small>
         </div>
 
         <div class="form-group">
             <label>Industry</label>
             <input formControlName="industry" type="text" class="form-control"
-                [class.is-invalid]="industry.invalid && industry.touched">
+                [class.is-invalid]="industry.invalid && industry.touched" [(ngModel)]="client.industry">
             <small class="text-danger" [class.d-none]="industry.valid || industry.untouched">Industry is required</small>
         </div>
 
         <div class="form-group">
             <label>Email</label>
             <input [class.is-invalid]="email.invalid && email.touched"
-            formControlName="email" type="text" class="form-control">
+            formControlName="email" type="text" class="form-control" [(ngModel)]="client.email">
             <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
         </div>
 
         <div class="form-group">
             <label>Preference</label>
-            <input type="text" formControlName="preference" class="form-control" >
+            <input type="text" formControlName="preference" class="form-control" [(ngModel)]="client.preference">
         </div>
 
         <div class="form-group">
             <label>Client type</label>
-            <select class="custom-select" (change)="changeClientType($event)" formControlName="clientType" [(ngModel)]="client.clientType_idClientType">
+            <select class="custom-select" formControlName="clientType" [(ngModel)]="client.clientType_idClientType">
               <option value="" disabled>Choose the client type</option>
-              <option *ngFor="let ct of clientTypes" [value]="ct.idClientType">{{ ct.type }}</option>
+                <option value="1">New</option>
+                <option value="2">Potential</option>
+                <option value="3">Regular</option>
             </select>
           </div>
 
         <div class="form-group">
             <label>Phone</label>
             <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternatePhones()">Add Phone Number</button>
-            <input [class.is-invalid]="phone.invalid && phone.touched" type="text" formControlName="phone" class="form-control" >
-            <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">phone is required</small>
+            <input type="text" formControlName="phone" 
+                        class="form-control" [(ngModel)]="phones[0].phoneNumber">
             <div formArrayName="alternatePhones" *ngFor="let phone of alternatePhones.controls; let i=index">
-                <input type="text" class="form-control my-1" [formControlName]="i">
+                <input type="text" class="form-control my-1" [formControlName]="i" [(ngModel)]="phones[i+1].phoneNumber">
             </div>
         </div>
 
         <div formGroupName="address">
             <div class="form-group">
               <label>Street</label>
-              <input type="text" class="form-control" formControlName="street" >
+              <input type="text" class="form-control" formControlName="street" [(ngModel)]="addr.addressLine">
             </div>
             <div class="form-group">
               <label>City</label>
-              <input type="text" class="form-control" formControlName="city" >
+              <input type="text" class="form-control" formControlName="city" [(ngModel)]="addr.city">
             </div>
             <div class="form-group">
               <label>State</label>
-              <input type="text" class="form-control" formControlName="state" >
+              <input type="text" class="form-control" formControlName="state" [(ngModel)]="addr.state">
             </div>
             <div class="form-group">
                 <label>Country</label>
-                <input type="text" class="form-control" formControlName="country" >
+                <input type="text" class="form-control" formControlName="country" [(ngModel)]="addr.country">
             </div>
             <div class="form-group">
               <label>Postal Code</label>
-              <input type="text" class="form-control" formControlName="postalCode" >
+              <input type="text" class="form-control" formControlName="postalCode" [(ngModel)]="addr.postalCode">
             </div>
         </div>
 
         
 
-        <div formGroupName="sns">
+        <!-- <div formGroupName="sns">
             <label>SNS</label>
             <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addOtherSns()">Add SNS</button>
             <div class="form-group">
@@ -105,9 +107,39 @@
                 </div>  
             </div>  
 
+        </div> -->
+        <div class="form-group">
+            <div formGroupName="sns">
+                <label>SNS</label>
+                <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addOtherSns()">Add SNS</button>
+                <div class="form-group">
+                    <select class="custom-select" formControlName="snsType" [(ngModel)]="socials[0].sns">
+                        <option value="" disabled>Choose</option>
+                        <option value="Website">Website</option>
+                        <option value="Twitter">Twitter</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Facebook">Facebook</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="url" class="form-control" [(ngModel)]="socials[0].url">
+                </div>  
+            </div>
+            <div formArrayName="otherSns" *ngFor="let sns of otherSns.controls; let i=index">
+                <div class="form-group">
+                    <select class="custom-select" formControlName="otherSnsType" [(ngModel)]="socials[i+1].sns">
+                        <option value="" disabled>Choose</option>
+                        <option value="Website">Website</option>
+                        <option value="Twitter">Twitter</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Facebook">Facebook</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="otherUrl" class="form-control" [(ngModel)]="socials[i+1].url">
+                </div>  
+            </div>  
         </div>
-        
-        
 
         <button class="btn btn-success btn-block" [disabled]="!clientForm.valid" (click)='edit ? updateClient() : onSubmit()'>Register</button>
     

@@ -43,6 +43,13 @@ class PhoneController {
             }
         });
     }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.then((r) => r.query('DELETE FROM Phone WHERE client_idClient = ?', [id]));
+            res.json({ text: "The phone was deleted" + req.params.id });
+        });
+    }
     test(req, res) {
         res.json({ text: 'Hi! from phoneController' });
     }
