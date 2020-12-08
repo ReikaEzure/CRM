@@ -12,6 +12,6 @@ export interface Project{
     feedback?: String;
     quantityOfChange?: number;
     status?: number;
-    promoId?: number;
+    promotion_idPromotion?: number;
     client_idClient?: number;
 }

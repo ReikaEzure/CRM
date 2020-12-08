@@ -39,6 +39,12 @@ class ProjectController{
         res.json({text: "The Project was updated"+req.params.id});
     }
 
+    public async modifyPromotion(req: Request, res: Response): Promise<void>{
+        const { id } = req.params;
+        await pool.then((r:any)=>r.query('UPDATE Project set promotion_idPromotion = ? WHERE idProject = ?', [req.body.promoId, id]));
+        res.json({text: "The Project was applied promotion"+req.params.id});
+    }
+
     public test(req: Request, res: Response){
         res.json({text: 'Hi! from ProjectController'});
     }

@@ -3,7 +3,7 @@
     <form [formGroup]="clientForm" action="">
         <div class="form-group">
             <label>Company Name</label>
-            <input [class.is-invalid]="companyName.invalid && companyName.touched" 
+            <input [class.is-invalid]="companyName.invalid && companyName.touched" [readonly]="edit"
             formControlName="companyName" type="text" [(ngModel)]="client.companyName" class="form-control">
             <div *ngIf="companyName.invalid && companyName.touched">
                 <small *ngIf="companyName.errors?.required" class="text-danger">Company Name is required</small>
@@ -13,7 +13,7 @@
 
         <div class="form-group">
             <label>NIF</label>
-            <input formControlName="nif" type="text" class="form-control"
+            <input formControlName="nif" type="text" class="form-control" [readonly]="edit"
             [class.is-invalid]="nif.invalid && nif.touched" [(ngModel)]="client.nif">
             <small class="text-danger" [class.d-none]="nif.valid || nif.untouched">NIF is required</small>
         </div>

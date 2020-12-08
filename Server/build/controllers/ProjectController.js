@@ -56,6 +56,13 @@ class ProjectController {
             res.json({ text: "The Project was updated" + req.params.id });
         });
     }
+    modifyPromotion(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.then((r) => r.query('UPDATE Project set promotion_idPromotion = ? WHERE idProject = ?', [req.body.promoId, id]));
+            res.json({ text: "The Project was applied promotion" + req.params.id });
+        });
+    }
     test(req, res) {
         res.json({ text: 'Hi! from ProjectController' });
     }

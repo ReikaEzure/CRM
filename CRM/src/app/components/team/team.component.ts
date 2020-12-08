@@ -43,7 +43,7 @@ export class TeamComponent implements OnInit {
     feedback: '',
     quantityOfChange: 0,
     status: 0,
-    promoId: 0,
+    promotion_idPromotion: 0,
     client_idClient: 0
   };
 

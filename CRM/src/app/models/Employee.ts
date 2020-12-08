@@ -1,3 +1,4 @@
 export interface Employee{
-    officeId?: number;
+    user_idUser?: number;
+    office_idOffice?: number;
 }

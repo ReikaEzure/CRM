@@ -1,0 +1,35 @@
+<div>
+    <h2>Invoice</h2>
+    <form [formGroup]="invoiceForm" action="">
+        <div class="form-group">
+            <label>IVA</label>
+            <input [class.is-invalid]="iva.invalid && iva.touched" type="number" [(ngModel)]="invoice.iva" formControlName="iva" class="form-control" >
+            <small class="text-danger" [class.d-none]="iva.valid || iva.untouched">IVA amount is required</small>
+        </div>
+        <div class="form-group">
+            <label>IRPF</label>
+            <input [class.is-invalid]="irpf.invalid && irpf.touched" type="number" [(ngModel)]="invoice.irpf" formControlName="irpf" class="form-control" >
+            <small class="text-danger" [class.d-none]="irpf.valid || irpf.untouched">IRPF amount is required</small>
+        </div>
+        <div class="form-group">
+            <label>NETO</label>
+            <input [class.is-invalid]="neto.invalid && neto.touched" type="number" [(ngModel)]="invoice.neto" formControlName="neto" class="form-control" >
+            <small class="text-danger" [class.d-none]="neto.valid || neto.untouched">NETO amount is required</small>
+        </div>
+        <div class="form-group">
+            <label>Subtotal</label>
+            <input [class.is-invalid]="subtotal.invalid && subtotal.touched" type="number" [(ngModel)]="invoice.subtotal" formControlName="subtotal" class="form-control" >
+            <small class="text-danger" [class.d-none]="subtotal.valid || subtotal.untouched">Subtotal amount is required</small>
+        </div>
+        <div class="form-group">
+            <label>Total</label>
+            <input [class.is-invalid]="total.invalid && total.touched" type="number" [(ngModel)]="invoice.total" formControlName="total" class="form-control" >
+            <small class="text-danger" [class.d-none]="total.valid || total.untouched">Total amount is required</small>
+        </div>
+          
+  
+  
+        <button class="btn btn-success btn-block" [disabled]="!invoiceForm.valid" (click)='edit ? updateInvoice() : onSubmit()'>Confirm</button>
+    
+    </form>
+  </div>

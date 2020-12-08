@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Login } from 'src/app/models/Login';
+import { OfficeService } from 'src/app/services/office.service';
 
 
 import { AuthenticationService } from '../../services/authentication.service';
@@ -24,7 +25,9 @@ export class LoginComponent implements OnInit {
   }
   
 
-  constructor(private _fb: FormBuilder, private _authService: AuthenticationService, private _userService: UserService, private _cookie: CookieService, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _authService: AuthenticationService, 
+    private _userService: UserService, private _officeService: OfficeService,
+    private _cookie: CookieService, private _router: Router) { }
 
   ngOnInit(): void {
     this.loadRoles();
@@ -103,6 +106,17 @@ export class LoginComponent implements OnInit {
     this._userService.getUser(this._authService.loginDetail.idLogin).subscribe(
       res => {
         this._userService.loggedInUser=res;
+        this.getOffice(this._userService.loggedInUser.idUser);
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+
+  getOffice(id){
+    this._officeService.getOffice(id).subscribe(
+      res => {
+        this._officeService.office=res;
         console.log(res);
       },
       error => console.log(error)

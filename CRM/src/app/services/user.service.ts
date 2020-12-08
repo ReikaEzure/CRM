@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import { Login } from '../models/Login';
 import { User, UserRole, UserStatus } from '../models/User';
+import { Employee } from '../models/Employee';
+import { Client } from '../models/Client';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,9 @@ export class UserService {
   loggedInUser: User;
   roles: any; //UserRole[]
   status: any; //UserStatus[]
+
+  employee: Employee;
+  client: Client;
 
   constructor(private _http: HttpClient) { }
 
@@ -49,6 +54,22 @@ export class UserService {
 
   changeAvatar(id: String | number, user: User): Observable<User>{
     return this._http.put(`${this._url}/user/changeAvatar/${id}`, user);
+  }
+
+  createEmployee(emp: Employee){
+    return this._http.post(`${this._url}/user/employee`, emp);
+  }
+
+  updateEmployee(id: String | number, emp: Employee): Observable<Employee>{
+    return this._http.put(`${this._url}/user/employee/${id}`, emp);
+  }
+
+  createClient(cli: Client){
+    return this._http.post(`${this._url}/user/client`, cli);
+  }
+
+  updateClient(id: String | number, cli: Client): Observable<Client>{
+    return this._http.put(`${this._url}/user/client/${id}`, cli);
   }
 
   sendmail(data) {

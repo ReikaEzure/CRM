@@ -5,6 +5,8 @@ import { ProjectService } from '../../services/project.service';
 import { Project } from 'src/app/models/Project';
 import { ClientCompany } from 'src/app/models/ClientCompany';
 import { ClientService } from 'src/app/services/client.service';
+import { Promotion } from 'src/app/models/Promotion';
+import { PromotionService } from 'src/app/services/promotion.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -27,7 +29,7 @@ export class ProjectDetailComponent implements OnInit {
     feedback: '',
     quantityOfChange: 0,
     status: 0,
-    promoId: 0,
+    promotion_idPromotion: 0,
     client_idClient: 0
   };
 
@@ -43,12 +45,20 @@ export class ProjectDetailComponent implements OnInit {
     clientType_idClientType: 0
   };
 
+  promo: Promotion = {
+    idPromotion: 0,
+    name: '',
+    description: '',
+    offerAmount: 0
+  }
+
   projectStatus;
 
-  constructor(private _activate: ActivatedRoute, private _service: ProjectService, private _cliService: ClientService) { }
+  constructor(private _activate: ActivatedRoute, private _service: ProjectService, 
+    private _cliService: ClientService, private _promoService: PromotionService) { }
 
   ngOnInit(): void {
-    this.projectStatus=this._service.projectStatus;
+    this.loadProjectStatus();
 
     const params = this._activate.snapshot.params;
     if(params.id){
@@ -57,11 +67,32 @@ export class ProjectDetailComponent implements OnInit {
           this.project = res;
           this._service.project = res;
           console.log(res);
+          this.getPromo();
           this.getClient();
         },
         error => console.log(error)
       );
     }
+  }
+
+  loadProjectStatus(){
+    this._service.loadProjectStatus().subscribe(
+      res => {
+        this.projectStatus = res;
+      },
+      error => console.log(error)
+    );
+  }
+
+  getPromo(){
+    this._promoService.getPromotion(this.project.promotion_idPromotion).subscribe(
+      res => {
+        this.promo = res;
+        this._promoService.promotion = res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
   }
 
   getClient(){

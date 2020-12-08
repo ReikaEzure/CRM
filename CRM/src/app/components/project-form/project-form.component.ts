@@ -34,7 +34,7 @@ export class ProjectFormComponent implements OnInit {
     feedback: '',
     quantityOfChange: 0,
     status: 0,
-    promoId: 0,
+    promotion_idPromotion: 0,
     client_idClient: 0
   };
 
@@ -169,7 +169,7 @@ export class ProjectFormComponent implements OnInit {
     delete this.project.feedback;
     delete this.project.quantityOfChange;
     this.project.status=parseInt(this.status.value);
-    delete this.project.promoId;
+    delete this.project.promotion_idPromotion;
     this.project.client_idClient=parseInt(this.clientId.value);
 
     this._service.saveProject(this.project).subscribe(

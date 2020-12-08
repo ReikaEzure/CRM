@@ -13,6 +13,7 @@ class ProjectRoute {
         this.router.get('/:id', ProjectController_1.projectController.getOne);
         this.router.post('/', ProjectController_1.projectController.create);
         this.router.put('/:id', ProjectController_1.projectController.update);
+        this.router.put('/promotion/:id', ProjectController_1.projectController.modifyPromotion);
         this.router.delete('/:id', ProjectController_1.projectController.delete);
     }
 }

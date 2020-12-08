@@ -69,11 +69,21 @@ export class PromotionComponent implements OnInit {
   }
 
   changePromotion(){
-
+    const data={
+      promoId: this.promotion.value,
+      id: this.project.idProject
+    }
+    this._projectService.modifyPromotion(data.id, data).subscribe(
+      res =>{
+        console.log(res);
+        this._router.navigate(['/project/']);
+      },
+      err => {console.log(err);}
+    );
   }
 
+
   onSubmit(){
-    console.log(this.promotionForm.value);
     this.changePromotion();
   }
 

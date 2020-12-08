@@ -37,6 +37,10 @@ export class ProjectService {
     return this._http.put(`${this._url}/project/${id}`, project);
   }
 
+  modifyPromotion(id: String | number, data: any): Observable<any>{
+    return this._http.put(`${this._url}/project/promotion/${id}`, data);
+  }
+
   loadProjectStatus(){
     return this._http.get(`${this._url}/projectStatus`);
   }

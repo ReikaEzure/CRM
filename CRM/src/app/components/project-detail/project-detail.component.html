@@ -51,11 +51,23 @@
                   </tr>
                 <tr>
                     <td>Status :</td>
-                    <td *ngFor="let ts of projectStatus; let i = index">
-                        <div *ngIf="ts.idProjectStatus == project.status">
-                            {{ ts.status }}
-                        </div>                    
+                    <td>
+                        {{ projectStatus[project.status-1].status }}
                     </td>
+                </tr>
+                <tr><td colspan="2"><hr></td></tr>
+                <tr><td colspan="2">Promotion</td></tr>
+                <tr>
+                  <td>Promotion name</td>
+                  <td>{{ promo.name }}</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{{ promo.description }}</td>
+                </tr>
+                <tr>
+                  <td>Offer amount</td>
+                  <td>{{ promo.offerAmount }} % OFF</td>
                 </tr>
                 </tbody>
               </table>

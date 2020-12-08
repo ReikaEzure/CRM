@@ -32,11 +32,51 @@ class UserController {
         }
     }
 
+    public async createEmployee(req: Request, res: Response): Promise<void>{
+        console.log(req.body);
+        try{
+            await pool.then((r:any)=>r.query('INSERT INTO Employee SET ?', [req.body]));
+            res.json({text: "add an employee: "+req.params.id});
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+    }
+
+    public async createClient(req: Request, res: Response): Promise<void>{
+        console.log(req.body);
+        try{
+            await pool.then((r:any)=>r.query('INSERT INTO Client SET ?', [req.body]));
+            res.json({text: "add a client: "+req.params.id});
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+    }
+
     public async update(req: Request, res: Response): Promise<void>{
         const { id } = req.params;
         try{
             await pool.then((r:any)=>r.query('UPDATE user set ? WHERE idUser = ?', [req.body, id]));
             res.json({text: "updating a user id: "+req.params.id});
+        }catch(err){
+            res.json({text: "Error" + err.message});
+        }
+    }
+
+    public async updateEmployee(req: Request, res: Response): Promise<void>{
+        const { id } = req.params;
+        try{
+            await pool.then((r:any)=>r.query('UPDATE Employee set ? WHERE user_idUser = ?', [req.body, id]));
+            res.json({text: "updating a employee: "+req.params.id});
+        }catch(err){
+            res.json({text: "Error" + err.message});
+        }
+    }
+
+    public async updateClient(req: Request, res: Response): Promise<void>{
+        const { id } = req.params;
+        try{
+            await pool.then((r:any)=>r.query('UPDATE Client set ? WHERE user_idUser = ?', [req.body, id]));
+            res.json({text: "updating a client: "+req.params.id});
         }catch(err){
             res.json({text: "Error" + err.message});
         }

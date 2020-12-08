@@ -47,19 +47,29 @@
                 </tr>
                 <tr>
                     <td>Role :</td>
-                    <td *ngFor="let r of roles; let i = index">
-                        <div *ngIf="r.idUserRole == loggedInUser.role">
-                            {{ r.role }}
-                        </div> 
+                    <td >
+                        {{ roles[loggedInUser.role-1].role }}
                     </td>
                 </tr>
                 <tr>
                     <td>Status :</td>
-                    <div *ngFor="let s of status; let i = index">
-                        <td *ngIf="s.idUserStatus == loggedInUser.status">
-                            {{ s.status }}                   
-                        </td>
-                    </div>
+                    <td>
+                        {{ status[loggedInUser.status-1].status }}                   
+                    </td>
+                </tr>
+                <tr><td colspan="2"><hr></td></tr>
+                <tr><td colspan="2">Office</td></tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ office.name }}</td>
+                </tr>
+                <tr>
+                    <td>NIF</td>
+                    <td>{{ office.nif }}</td>
+                </tr>
+                <tr>
+                    <td>Phone number</td>
+                    <td>{{ office.phone }}</td>
                 </tr>
                 </tbody>
               </table>

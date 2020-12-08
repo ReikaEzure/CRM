@@ -15,6 +15,7 @@ class ProjectRoute {
         this.router.get('/:id', projectController.getOne);
         this.router.post('/', projectController.create);
         this.router.put('/:id', projectController.update);
+        this.router.put('/promotion/:id', projectController.modifyPromotion);
         this.router.delete('/:id', projectController.delete);
         
     }

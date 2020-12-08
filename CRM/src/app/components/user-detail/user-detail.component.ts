@@ -9,6 +9,8 @@ import { Login } from 'src/app/models/Login';
 import { User } from 'src/app/models/User';
 import { CookieService } from 'ngx-cookie-service';
 import mergeImages from 'merge-images';
+import { Office } from 'src/app/models/Office.js';
+import { OfficeService } from 'src/app/services/office.service.js';
 
 @Component({
   selector: 'app-user-detail',
@@ -30,14 +32,23 @@ export class UserDetailComponent implements OnInit {
     modify: false
   };
   
+  office: Office = {
+    idOffice: 0,
+    name: '',
+    phone: '',
+    nif: ''
+  };
 
-  constructor(private _service: UserService, private _authService: AuthenticationService, private _router: Router, private _cookie: CookieService) { }
+  constructor(private _service: UserService, private _authService: AuthenticationService, 
+    private _officeService: OfficeService, private _router: Router, private _cookie: CookieService) { }
 
   ngOnInit(): void {
+    this.getOffice(this._service.loggedInUser.idUser);
+    this.loadRoles();
+    this.loadUserStatus();
     this.loginDetail = this._authService.loginDetail;
-    this.roles = this._service.roles;
-    this.status = this._service.status;
     this.loggedInUser = this._service.loggedInUser;
+    console.log(this.office);
     console.log(this.loginDetail, this.loggedInUser);
     if(this.loggedInUser.avatar!=null){
       
@@ -48,6 +59,40 @@ export class UserDetailComponent implements OnInit {
       this.merge(imgs);
     }
     
+  }
+
+  getOffice(id){
+    this._officeService.getOffice(id).subscribe(
+      res => {
+        this.office = res;
+        this._officeService.office=res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+
+  loadRoles(){
+    this._service.loadRoles().subscribe(
+      res => {
+        this.roles = res;
+        this._service.roles = res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+
+  // load user status (working, on leave, in meeting, be back soon)
+  loadUserStatus(){
+    this._service.loadUserStatus().subscribe(
+      res => {
+        this.status = res;
+        this._service.status = res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
   }
 
   logout(event: Event): void {

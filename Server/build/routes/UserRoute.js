@@ -12,7 +12,11 @@ class UserRoute {
         this.router.get('/:id', UserController_1.userController.getUser);
         this.router.get('/byId/:id', UserController_1.userController.getUserById);
         this.router.post('/register', UserController_1.userController.register);
+        this.router.post('/employee', UserController_1.userController.createEmployee);
+        this.router.post('/client', UserController_1.userController.createClient);
         this.router.put('/:id', UserController_1.userController.update);
+        this.router.put('/employee/:id', UserController_1.userController.updateEmployee);
+        this.router.put('/client/:id', UserController_1.userController.updateClient);
         this.router.put('/changeAvatar/:id', UserController_1.userController.changeAvatar);
         this.router.get('/login/:id', UserController_1.userController.login);
         this.router.get('/logout/:id', UserController_1.userController.logout);

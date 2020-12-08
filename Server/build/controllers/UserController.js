@@ -49,12 +49,60 @@ class UserController {
             }
         });
     }
+    createEmployee(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            try {
+                yield database_1.default.then((r) => r.query('INSERT INTO Employee SET ?', [req.body]));
+                res.json({ text: "add an employee: " + req.params.id });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    createClient(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            try {
+                yield database_1.default.then((r) => r.query('INSERT INTO Client SET ?', [req.body]));
+                res.json({ text: "add a client: " + req.params.id });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
                 yield database_1.default.then((r) => r.query('UPDATE user set ? WHERE idUser = ?', [req.body, id]));
                 res.json({ text: "updating a user id: " + req.params.id });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    updateEmployee(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                yield database_1.default.then((r) => r.query('UPDATE Employee set ? WHERE user_idUser = ?', [req.body, id]));
+                res.json({ text: "updating a employee: " + req.params.id });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    updateClient(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                yield database_1.default.then((r) => r.query('UPDATE Client set ? WHERE user_idUser = ?', [req.body, id]));
+                res.json({ text: "updating a client: " + req.params.id });
             }
             catch (err) {
                 res.json({ text: "Error" + err.message });

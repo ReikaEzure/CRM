@@ -23,12 +23,11 @@ import { PromotionFormComponent } from './components/promotion-form/promotion-fo
 import { OfficeComponent } from './components/office/office.component';
 import { OfficeFormComponent } from './components/office-form/office-form.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
-
+import { InvoiceFormComponent } from './components/invoice-form/invoice-form.component';
 import { ReceivingEmailComponent } from './components/receiving-email/receiving-email.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { InvoiceFormComponent } from './components/invoice-form/invoice-form.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -91,6 +90,7 @@ export const routingComponents = [
                                   OfficeComponent,
                                   OfficeFormComponent,
                                   InvoiceComponent,
+                                  InvoiceFormComponent,
                                   ReceivingEmailComponent,
                                   ChangePasswordComponent,
                                   PageNotFoundComponent

@@ -25,10 +25,8 @@
                   
                 <tr>
                     <td>Status :</td>
-                    <td *ngFor="let ts of taskStatus; let i = index">
-                        <div *ngIf="ts.idTaskStatus == task.status">
-                            {{ ts.status }}
-                        </div>                    
+                    <td>
+                      {{ taskStatus[task.status-1].status }}
                     </td>
                 </tr>
                 </tbody>

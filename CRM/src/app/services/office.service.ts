@@ -11,7 +11,7 @@ export class OfficeService {
   _url = 'http://localhost:3000/office';
 
   offices: Office[];
-  pffice: Office
+  office: Office
 
   constructor(private _http: HttpClient) { }
 
