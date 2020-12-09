@@ -25,6 +25,10 @@ export class ProjectService {
     return this._http.get(`${this._url}/project/${id}`);
   }
 
+  getProjectByClient(id: number){
+    return this._http.get(`${this._url}/project/byClient/${id}`);
+  }
+
   saveProject(project: Project){
     return this._http.post(`${this._url}/project`, project);
   }

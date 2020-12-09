@@ -13,6 +13,7 @@ class ProjectRoute {
         this.router.get('/test', projectController.test);
         this.router.get('/', projectController.list);
         this.router.get('/:id', projectController.getOne);
+        this.router.get('/byClient/:id', projectController.getByClient);
         this.router.post('/', projectController.create);
         this.router.put('/:id', projectController.update);
         this.router.put('/promotion/:id', projectController.modifyPromotion);

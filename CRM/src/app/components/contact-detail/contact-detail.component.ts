@@ -24,8 +24,8 @@ export class ContactDetailComponent implements OnInit {
   constructor(private _service: UserService, private _authService: AuthenticationService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.roles = this._service.roles;
-    this.status = this._service.status;
+    this.loadUserStatus();
+    this.loadRoles();
 
     const params = this._activate.snapshot.params;
     if(params.id){
@@ -41,13 +41,35 @@ export class ContactDetailComponent implements OnInit {
 
   }
 
-  getEmail(id){
-    this._service.getEmail(id).subscribe(
+  loadRoles(){
+    this._service.loadRoles().subscribe(
       res => {
+        this.roles = res;
+        this._service.roles = res;
         console.log(res);
-        this.email=res;
       },
       error => console.log(error)
     );
-}
+  }
+
+  loadUserStatus(){
+    this._service.loadUserStatus().subscribe(
+      res => {
+        this.status = res;
+        this._service.status = res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+
+  getEmail(id){
+    this._service.getEmail(id).subscribe(
+      res => {
+        this.email=res;
+        console.log(this.email);
+      },
+      error => console.log(error)
+    );
+  }
 }

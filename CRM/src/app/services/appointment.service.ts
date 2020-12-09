@@ -16,8 +16,11 @@ export class AppointmentService {
 
   constructor(private _http: HttpClient) { }
 
-  getTodaysAppointments(){
+  getAppointments(){
     return this._http.get(`${this._url}/appointment`);
+  }
+  getTodaysAppointments(){
+    return this._http.get(`${this._url}/appointment/today`);
   }
   getUpcomingsAppointments(){
     return this._http.get(`${this._url}/appointment/upcoming`);

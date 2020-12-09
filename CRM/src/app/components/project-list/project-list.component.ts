@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/Project';
 import { PdfService } from 'src/app/services/pdf.service';
 
@@ -19,12 +20,22 @@ export class ProjectListComponent implements OnInit {
   cancelled: Project[]=[];
   openPro: Project[]=[];
 
-  constructor(private _service: ProjectService, private _pdfService: PdfService) { }
+  constructor(private _service: ProjectService, private _pdfService: PdfService, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getProjects();
-
     this._service.project=null;
+
+    const params = this._activate.snapshot.params;
+    if(params.id){
+      this._service.getProjectByClient(params.id).subscribe(
+        res => {
+          this.projects = res;
+          console.log(res);
+        },
+        error => console.log(error)
+      );
+    }
   }
 
   getProjects(){

@@ -20,11 +20,9 @@
               <td *ngIf="m.idUser != teamLeader.teamLeaderId"></td>
             <td>{{ m.firstName }} {{ m.lastName }}</td>
             <td><a href="mailto:{{emails[i].email}}">{{emails[i].email}}</a></td>
-            <div *ngFor="let s of status; let i = index">
-              <td *ngIf="s.idUserStatus == m.status">
-                  {{ s.status }}
-              </td>                    
-            </div>
+            <td>
+                  {{ status[m.status-1].status }}
+              </td>  
             <td><a [routerLink]="['/contactDetail', m.idUser]" class="card-link">More Info</a></td>
           </tr>
         </tbody>

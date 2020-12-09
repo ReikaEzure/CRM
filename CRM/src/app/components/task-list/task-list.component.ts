@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../../services/task.service';
 import { ProjectService } from '../../services/project.service';
 import { Project } from 'src/app/models/Project';
+import { Task } from 'src/app/models/Task';
 
 @Component({
   selector: 'app-task-list',
@@ -16,6 +17,9 @@ export class TaskListComponent implements OnInit {
   tasks: any = [];
   taskStatus;
   projectId=0;
+
+  upcoming: Task[]=[];
+  done: Task[]=[];
 
   constructor(private _service: TaskService, private _projectService: ProjectService, private _activate: ActivatedRoute) { }
 
@@ -45,7 +49,6 @@ export class TaskListComponent implements OnInit {
       res => {
         this.taskStatus = res;
         this._service.taskStatus = res;
-        console.log(res);
       },
       error => console.log(error)
     );
@@ -56,30 +59,46 @@ export class TaskListComponent implements OnInit {
     status: 0
   }
 
-  applyColor(){
-    for(let i=0;i<this.tasks.length;i++){
-      var element=document.getElementById(this.tasks[i].idTask)
-      switch(this.tasks[i].status){
+  applyColor(status){
+      switch(status){
         case 1: //In progress
-          element.classList.add('table-secondary');
-          break;
+          return 'table-secondary';
         case 2: //Done
-        element.classList.add('table-light');
-          break;
+          return 'table-light';
         case 3: //Approved
-        element.classList.add('table-success');
-          break;
+          return 'table-success';
         case 4: //Pending
-        element.classList.add('table-info');
-          break;
+          return 'table-info';
         case 5: //Struggling
-          element.classList.add('table-warning');
-          break;
+          return 'table-warning';
         default:
-          element.classList.add('table-secondary');
-          break;
-      }
+          return 'table-secondary';
     }
+  }
+
+  dueDateCounter(due){
+    let today = new Date();
+    let date = new Date(due);
+    let res='';
+    let week= ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let month =['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    if(date.getDate()==today.getDate() && date.getMonth()==today.getMonth() && date.getFullYear()==today.getFullYear()){
+      if(date.getHours()>1){
+        res= date.getHours()+' hours, '
+      }else{
+        res= date.getHours()+' hour, '
+      }
+      if(date.getMinutes()>1){
+        res+= date.getMinutes()+' minutes'
+      }else{
+        res+= date.getMinutes()+' minute'
+      }
+    }else if(date.getDate()>today.getDate() && date.getDate()<(today.getDate()+7)){
+      res= 'On '+week[date.getDay()];
+    }else{
+      res= date.getDate()+', '+month[date.getMonth()]+', '+date.getFullYear();
+    }
+    return res;
   }
 
   changeTaskStatus(id, e){
@@ -97,15 +116,13 @@ export class TaskListComponent implements OnInit {
     this._service.getTasks(id).subscribe(
       res => {
         this.tasks = res;
-        console.log(res);
-        this.applyColor();
+        this.divideTask();
       },
       error => console.log(error)
     );
   }
 
   deleteTask(idTask: String, idProject: String){
-    console.log(idTask);
     this._service.deleteTask(idTask).subscribe(
       res => {
         console.log(res);
@@ -115,5 +132,22 @@ export class TaskListComponent implements OnInit {
     );
   }
 
+  divideTask(){
+    for(let i =0; i<this.tasks.length; i++){
+      if(this.tasks[i].status==2){
+        this.done.push(this.tasks[i]);
+      }else{
+        this.upcoming.push(this.tasks[i]);
+      }
+    }
+  }
 
+  getUpcomingTask(){
+    this.tasks=this.upcoming;
+
+  }
+
+  getDoneTask(){
+    this.tasks=this.done;
+  }
 }

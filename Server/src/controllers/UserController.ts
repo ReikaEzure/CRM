@@ -22,6 +22,39 @@ class UserController {
         res.status(404).json({text: "can't find the user"});
     }
 
+    public async getUserByOffice(req: Request, res: Response): Promise<any>{
+        const { id } = req.params;
+        console.log(id);
+        try{
+            const user = await pool.then((r:any) => 
+                        r.query('SELECT u.idUser, u.firstName, u.lastName, l.email, u.status from User u '+
+                        'JOIN Login l ON u.login_idLogin = l.idLogin '+
+                        'JOIN Employee emp ON u.idUser = emp.user_idUser '+
+                        'JOIN Office o ON o.idOffice = emp.office_idOffice '+
+                        'where o.idOffice = ?;', [id]));
+            return res.json (user);
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+    }
+
+    public async getUserByClient(req: Request, res: Response): Promise<any>{
+        const { id } = req.params;
+        console.log(id);
+        try{
+        const user = await pool.then((r:any) => 
+                    r.query('SELECT u.idUser, u.firstName, u.lastName, l.email, u.status  from User u '+
+                    'JOIN Login l ON u.login_idLogin = l.idLogin '+
+                    'JOIN Client cli ON u.idUser = cli.user_idUser '+
+                    'JOIN ClientCompany cc ON cc.idClient = cli.clientCompany '+
+                    'where cc.idClient = ?;', [id]));
+            return res.json (user);
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+        
+    }
+
     public async register(req: Request, res: Response): Promise<void>{
         console.log(req.body);
         try{

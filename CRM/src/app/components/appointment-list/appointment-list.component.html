@@ -17,7 +17,7 @@
     <div class="card bg-secondary m-2">
         <div class="card-body list">
             <h4 class="card-title">{{ appo.date | date: 'HH:mm dd-MM-yyyy' }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">with {{ appo.companyName }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{ appo.description }}</h6>
             <a [routerLink]="['/appointmentDetail', appo.idAppointment]"class="card-link">Info</a>
             <a [routerLink]="['/appointment', appo.idAppointment]"class="card-link">Contact</a>
         </div>

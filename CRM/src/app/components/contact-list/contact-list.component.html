@@ -1,0 +1,24 @@
+<div class="header">
+    <h3>Contact</h3>
+</div>  
+<div >
+    <table class="table table-hover">
+        <thead>
+          <tr class="table-secondary">
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Status</th>
+            <th scope="col">Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-secondary" *ngFor="let c of contacts; index as i ">
+            <td>{{ c.firstName }} {{ c.lastName }}</td>
+            <td><a href="mailto:{{c.email}}">{{c.email}}</a></td>
+            <td>{{ status[c.status-1].status }}</td>    
+            <td><a [routerLink]="['/contactDetail', c.idUser]" class="card-link">More Info</a></td>
+          </tr>
+        </tbody>
+    </table>
+    
+</div>

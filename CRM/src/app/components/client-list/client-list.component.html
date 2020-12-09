@@ -8,9 +8,8 @@
             <h4 class="card-title">{{ c.companyName }}</h4>
             <h6 class="card-subtitle mb-2 text-muted">Industry: {{c.industry}}</h6>
             <a [routerLink]="['/clientDetail', c.idClient]"class="card-link">Info</a>
-            <a [routerLink]="['/client', c.idClient]"class="card-link">Appointment</a>
-            <a [routerLink]="['/client', c.idClient]"class="card-link">Current project</a>
-            <a [routerLink]="['/client', c.idClient]"class="card-link">Contact</a>
+            <a [routerLink]="['/project', c.idClient]"class="card-link">Current project</a>
+            <a [routerLink]="['/contact/client', c.idClient]"class="card-link">Contact</a>
         </div>
       </div>
 </div>

@@ -37,6 +37,40 @@ class UserController {
             res.status(404).json({ text: "can't find the user" });
         });
     }
+    getUserByOffice(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            console.log(id);
+            try {
+                const user = yield database_1.default.then((r) => r.query('SELECT u.idUser, u.firstName, u.lastName, l.email, u.status from User u ' +
+                    'JOIN Login l ON u.login_idLogin = l.idLogin ' +
+                    'JOIN Employee emp ON u.idUser = emp.user_idUser ' +
+                    'JOIN Office o ON o.idOffice = emp.office_idOffice ' +
+                    'where o.idOffice = ?;', [id]));
+                return res.json(user);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    getUserByClient(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            console.log(id);
+            try {
+                const user = yield database_1.default.then((r) => r.query('SELECT u.idUser, u.firstName, u.lastName, l.email, u.status  from User u ' +
+                    'JOIN Login l ON u.login_idLogin = l.idLogin ' +
+                    'JOIN Client cli ON u.idUser = cli.user_idUser ' +
+                    'JOIN ClientCompany cc ON cc.idClient = cli.clientCompany ' +
+                    'where cc.idClient = ?;', [id]));
+                return res.json(user);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);

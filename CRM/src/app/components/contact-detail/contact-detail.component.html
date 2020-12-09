@@ -1,7 +1,7 @@
 <div>
     <div class="jumbotron bg-white p-0">
         <h1 class="display-4 text-center">Contact Information</h1>
-        <img [src]="contactDetail.avatar == null ? '/assets/img/noimage.png' : contactDetail.avatar" style="max-width:100%;">
+        <img [src]="contactDetail.avatar == null ? '/assets/img/noimage.png' : contactDetail.avatar" style="width:40vh">
         <hr class="my-4">
 
         <div class="card-body text-center text-dark mb-3">
@@ -10,7 +10,7 @@
                 <tbody>
                   <tr>
                     <td>Email :</td>
-                    <td><a href="mailto:{{email.email}}">{{ email.email }}</a></td>
+                    <td>{{email.email}}</td>
                   </tr>
                   <tr>
                     <td>Date of birth :</td>
@@ -30,19 +30,11 @@
                 </tr>
                 <tr>
                     <td>Role :</td>
-                    <td *ngFor="let r of roles; let i = index">
-                        <div *ngIf="r.idUserRole == contactDetail.role">
-                            {{ r.role }}
-                        </div> 
-                    </td>
+                    <td>{{ roles[contactDetail.role-1].role }}</td>
                 </tr>
                 <tr>
                     <td>Status :</td>
-                    <td *ngFor="let s of status; let i = index">
-                        <div *ngIf="s.idUserStatus == contactDetail.status">
-                            {{ s.status }}
-                        </div>                    
-                    </td>
+                    <td>{{ status[contactDetail.status-1].status}}</td>
                 </tr>
                 </tbody>
               </table>

@@ -43,7 +43,9 @@ export class UserDetailComponent implements OnInit {
     private _officeService: OfficeService, private _router: Router, private _cookie: CookieService) { }
 
   ngOnInit(): void {
-    this.getOffice(this._service.loggedInUser.idUser);
+    if(this._service.loggedInUser.role!=5){
+      this.getOffice(this._service.loggedInUser.idUser);
+    }
     this.loadRoles();
     this.loadUserStatus();
     this.loginDetail = this._authService.loginDetail;

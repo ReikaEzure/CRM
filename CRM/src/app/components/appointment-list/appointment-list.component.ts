@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Appointment } from 'src/app/models/Appointment';
 
 import { AppointmentService } from '../../services/appointment.service';
 
@@ -10,40 +11,50 @@ import { AppointmentService } from '../../services/appointment.service';
 export class AppointmentListComponent implements OnInit {
 
   appointments: any = [];
+  today: Appointment[]=[];
+  upcoming: Appointment[]=[];
+  done: Appointment[]=[];
 
   constructor(private _service: AppointmentService) { }
 
   ngOnInit(): void {
-    this.getTodaysAppointments();
+    this.getAppointments();
     this._service.appointment=null;
   }
 
-  getTodaysAppointments(){
-    this._service.getTodaysAppointments().subscribe(
+  getAppointments(){
+    this._service.getAppointments().subscribe(
       res => {
         this.appointments = res;
         console.log(res);
+        this.divideAppointments();
       },
       error => console.log(error)
     );
+  }
+
+  divideAppointments(){
+    let today= new Date();
+    for(let i =0; i<this.appointments.length; i++){
+      let date= new Date(this.appointments[i].date);
+      if(date.getDate()==today.getDate() && date.getMonth()==today.getMonth() && date.getFullYear()==today.getFullYear()){
+        this.today.push(this.appointments[i]);
+      }else if(date>today){
+        this.upcoming.push(this.appointments[i]);
+      }else if(date< today){
+        this.done.push(this.appointments[i]);
+      }
+    }
+  }
+
+  getTodaysAppointments(){
+    this.appointments=this.today;
   }
   getUpcomingsAppointments(){
-    this._service.getUpcomingsAppointments().subscribe(
-      res => {
-        this.appointments = res;
-        console.log(res);
-      },
-      error => console.log(error)
-    );
+    this.appointments=this.upcoming;
   }
   getDoneAppointments(){
-    this._service.getDoneAppointments().subscribe(
-      res => {
-        this.appointments = res;
-        console.log(res);
-      },
-      error => console.log(error)
-    );
+    this.appointments=this.done;
   
   }
 

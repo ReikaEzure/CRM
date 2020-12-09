@@ -44,6 +44,14 @@ export class UserService {
     return this._http.get(`${this._url}/user/byId/${id}`);
   }
 
+  getUserByOffice(id){
+    return this._http.get(`${this._url}/user/byOffice/${id}`);
+  }
+
+  getUserByClient(id){
+    return this._http.get(`${this._url}/user/byClient/${id}`);
+  }
+
   getEmail(id){
     return this._http.get(`${this._url}/login/getEmail/${id}`);
   }

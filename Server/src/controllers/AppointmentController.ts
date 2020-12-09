@@ -3,6 +3,15 @@ import {Request, Response} from 'express';
 import pool from '../database';
 
 class AppointmentController{
+    public async load(req: Request, res: Response){
+        try{
+            const appointment = await pool.then((r:any) => r.query("SELECT * FROM Appointment"));
+            res.json(appointment);
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+    }
+
     public async listToday(req: Request, res: Response){
         let today=new Date().toISOString();
         const tomorrow = new Date();

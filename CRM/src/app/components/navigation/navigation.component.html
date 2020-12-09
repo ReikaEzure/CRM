@@ -2,20 +2,26 @@
 <div class="col-md-3">
     <nav class="navbar bg-dark navbar-dark">
         <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="navbar-brand" href="#">ROOTLETS</a>
+            <li class="nav-item" id='logo'>
+                <a class="navbar-brand" href="#">
+                    <img src='assets/img/logo-white.png'>
+                    <br> ROOTLETS
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" routerLink="/user" routerLinkActive="active"><i class="fas fa-user"></i>User</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" routerLink="/client" routerLinkActive="active"><i class="fas fa-address-book"></i>Client</a>
+                <a class="nav-link active" routerLink="/client" routerLinkActive="active"><i class="fas fa-handshake"></i>Client</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" routerLink="/appointment" routerLinkActive="active"><i class="far fa-calendar-alt"></i>Appointment</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link active" routerLink="/project" routerLinkActive="active"><i class="fas fa-project-diagram"></i>Project</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link active" routerLink="/contact" routerLinkActive="active"><i class="far fa-address-book"></i>Contact</a>
             </li>
         </ul>
     </nav>

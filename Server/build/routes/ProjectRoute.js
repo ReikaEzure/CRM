@@ -11,6 +11,7 @@ class ProjectRoute {
         this.router.get('/test', ProjectController_1.projectController.test);
         this.router.get('/', ProjectController_1.projectController.list);
         this.router.get('/:id', ProjectController_1.projectController.getOne);
+        this.router.get('/byClient/:id', ProjectController_1.projectController.getByClient);
         this.router.post('/', ProjectController_1.projectController.create);
         this.router.put('/:id', ProjectController_1.projectController.update);
         this.router.put('/promotion/:id', ProjectController_1.projectController.modifyPromotion);

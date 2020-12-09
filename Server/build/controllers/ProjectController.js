@@ -31,6 +31,18 @@ class ProjectController {
             res.status(404).json({ text: "The Project does not exist" });
         });
     }
+    getByClient(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                const project = yield database_1.default.then((r) => r.query('SELECT * FROM Project WHERE client_idClient = ?', [id]));
+                res.json(project);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);

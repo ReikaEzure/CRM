@@ -13,6 +13,8 @@ class UserRoute {
         this.router.get('/test', userController.test);
         this.router.get('/:id', userController.getUser);
         this.router.get('/byId/:id', userController.getUserById);
+        this.router.get('/byOffice/:id', userController.getUserByOffice);
+        this.router.get('/byClient/:id', userController.getUserByClient);
         this.router.post('/register', userController.register);
         this.router.post('/employee', userController.createEmployee);
         this.router.post('/client', userController.createClient);

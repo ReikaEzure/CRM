@@ -9,8 +9,8 @@
             <img id='ava' style="width:40vh">
         </div>
         <div class="d-flex justify-content-center">
-            <a class="btn btn-primary btn-lg" (click)="clickModificar(ava)" role="button">Change Avatar</a>
-            <a class="btn btn-primary btn-lg" (click)="logout($event)" role="button">Log out</a>
+            <a class="btn btn-primary btn-lg" (click)="clickModificar(ava)" role="button"><i class="fas fa-user-astronaut"></i>Change Avatar</a>
+            <a class="btn btn-primary btn-lg" (click)="logout($event)" role="button"><i class="fas fa-sign-out-alt"></i>Log out</a>
         </div>
         <div *ngIf="ava.modify" class="d-flex justify-content-center">
             <app-avatar [ava]="ava" (accionCancelar)="accionCancelar(ava)" (accionEnviar)="accionEnviar($event)"></app-avatar>
@@ -73,9 +73,10 @@
                 </tr>
                 </tbody>
               </table>
-            <a (click)="changePass()" ><button type="button" class="btn btn-dark" >Change Password</button></a>
-            <a routerLink="/registration" routerLinkActive="active"><button type="button" class="btn btn-dark" >Edit</button></a>
-            <a routerLink="/office" ><button type="button" class="btn btn-dark" >Add Office</button></a>
+            <a (click)="changePass()" ><button type="button" class="btn btn-dark" ><i class="fas fa-lock"></i>Change Password</button></a>
+            <a routerLink="/registration" routerLinkActive="active"><button type="button" class="btn btn-dark" ><i class="fas fa-pencil-alt"></i>Edit</button></a>
+            <a routerLink="/office" ><button type="button" class="btn btn-dark" ><i class="fas fa-briefcase"></i>Add Office</button></a>
+            
         </div>
     </div>
     

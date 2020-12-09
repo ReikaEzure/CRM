@@ -13,6 +13,7 @@ import { TaskListComponent } from './components/task-list/task-list.component';
 import { AppointmentDetailComponent } from './components/appointment-detail/appointment-detail.component';
 import { AppointmentFormComponent } from './components/appointment-form/appointment-form.component';
 import { ClientDeatilComponent } from './components/client-deatil/client-deatil.component';
+import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
 import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
@@ -41,8 +42,11 @@ const routes: Routes = [
   { path: 'appointment', component: AppointmentListComponent },
   { path: 'appointmentDetail/:id', component: AppointmentDetailComponent },
   { path: 'appointmentForm', component: AppointmentFormComponent },
+  { path: 'contact', component: ContactListComponent },
+  { path: 'contact/client/:id', component: ContactListComponent },
   { path: 'contactDetail/:id', component: ContactDetailComponent },
   { path: 'project', component: ProjectListComponent },
+  { path: 'project/:id', component: ProjectListComponent },
   { path: 'projectDetail/:id', component: ProjectDetailComponent },
   { path: 'projectForm', component: ProjectFormComponent },
   { path: 'team/:id', component: TeamComponent },
@@ -77,6 +81,7 @@ export const routingComponents = [
                                   AppointmentListComponent,
                                   AppointmentFormComponent,
                                   AppointmentDetailComponent,
+                                  ContactListComponent,
                                   ContactDetailComponent,
                                   ProjectListComponent,
                                   ProjectFormComponent,

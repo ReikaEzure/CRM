@@ -4,6 +4,15 @@
 </div>  
 <div>
     <h3>{{ project.title }}</h3>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" (click)="getUpcomingTask()">Upcoming</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" (click)="getDoneTask()">Done</a>
+      </li>
+    </ul>
+
     <table class="table table-hover">
         <thead>
           <tr  class="table-secondary">
@@ -14,14 +23,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let task of tasks" [id]=task.idTask >
+          <tr *ngFor="let task of tasks" [className]='applyColor(task.status)' >
             <td>{{ task.taskName }}</td>
             <td>                
               <select class="custom-select" (change)="changeTaskStatus(task.idTask, $event)">
                 <option *ngFor="let ts of taskStatus" [value]="ts.idTaskStatus" [selected]='ts.idTaskStatus == task.status'>{{ ts.status }}</option>
               </select>
             </td>
-            <td>{{ task.dueDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ dueDateCounter(task.dueDate) }}</td>
             <td><a [routerLink]="['/taskDetail', task.idTask]" class="card-link">More Info</a></td>
           </tr>
         </tbody>

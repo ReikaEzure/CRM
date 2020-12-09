@@ -15,6 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.appointmentController = void 0;
 const database_1 = __importDefault(require("../database"));
 class AppointmentController {
+    load(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const appointment = yield database_1.default.then((r) => r.query("SELECT * FROM Appointment"));
+                res.json(appointment);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     listToday(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let today = new Date().toISOString();
