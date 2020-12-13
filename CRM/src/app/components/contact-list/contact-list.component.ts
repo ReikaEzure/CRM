@@ -21,6 +21,7 @@ export class ContactListComponent implements OnInit {
 
     const params = this._activate.snapshot.params;
     if(params.id){
+      //if id has passed from url, use it as idClient and get contacts list of clients
       this._userService.getUserByClient(params.id).subscribe(
         res => {
           this.contacts = res;
@@ -29,6 +30,7 @@ export class ContactListComponent implements OnInit {
         error => console.log(error)
       );
     }else{
+      //if no id has been passed with url, show employees contact list
       console.log('Here');
       console.log(this._userService.loggedInUser.idUser);
       this._officeService.getOffice(this._userService.loggedInUser.idUser).subscribe(
@@ -43,6 +45,7 @@ export class ContactListComponent implements OnInit {
     }
   }
 
+  //get contacts list of all the employees that works in same office
   getContactsfromOffice(id){
     this._userService.getUserByOffice(id).subscribe(
       res => {
@@ -53,16 +56,7 @@ export class ContactListComponent implements OnInit {
     );
   }
 
-  getContacts(id){
-    this._userService.getUserByOffice(id).subscribe(
-      res => {
-        this.contacts=res;
-      },
-      error => console.log(error)
-    );
-    
-  }
-
+  //get email address of user
   getEmail(id){
     this._userService.getEmail(id).subscribe(
       res => {
@@ -72,6 +66,7 @@ export class ContactListComponent implements OnInit {
     );
   }
 
+  //load user status
   loadUserStatus(){
     this._userService.loadUserStatus().subscribe(
       res => {

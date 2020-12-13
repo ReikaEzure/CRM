@@ -19,6 +19,9 @@
 
         <div class="card-body text-center text-dark mb-3">
             <h3 class="card-title h3 my-4"><strong>{{ loggedInUser.firstName }} {{ loggedInUser.lastName }}</strong></h3>
+            <select class="custom-select" (change)="changeStatus(loggedInUser.idUser, $event)">
+                <option *ngFor="let s of status" [value]="s.idUserStatus" [selected]='s.idUserStatus == loggedInUser.status'>{{ s.status }}</option>
+            </select>
             <table class="table table-borderless text-dark">
                 <tbody>
                   <tr>
@@ -51,31 +54,50 @@
                         {{ roles[loggedInUser.role-1].role }}
                     </td>
                 </tr>
-                <tr>
-                    <td>Status :</td>
-                    <td>
-                        {{ status[loggedInUser.status-1].status }}                   
-                    </td>
-                </tr>
-                <tr><td colspan="2"><hr></td></tr>
-                <tr><td colspan="2">Office</td></tr>
-                <tr>
-                    <td>Name</td>
-                    <td>{{ office.name }}</td>
-                </tr>
-                <tr>
-                    <td>NIF</td>
-                    <td>{{ office.nif }}</td>
-                </tr>
-                <tr>
-                    <td>Phone number</td>
-                    <td>{{ office.phone }}</td>
-                </tr>
+            </tbody>
+        </table>
+                
+            <table *ngIf="!clientView" class="table table-borderless text-dark">
+                <tbody>
+                    <tr><td colspan="2"><hr></td></tr>
+                    <tr><td colspan="2">Office</td></tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ office.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>NIF</td>
+                        <td>{{ office.nif }}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone number</td>
+                        <td>{{ office.phone }}</td>
+                    </tr>
                 </tbody>
-              </table>
+            </table>
+
+            <table *ngIf="clientView" class="table table-borderless text-dark">
+                <tbody>
+                    <tr><td colspan="2"><hr></td></tr>
+                    <tr><td colspan="2">Company</td></tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ clientCompany.companyName }}</td>
+                    </tr>
+                    <tr>
+                        <td>NIF</td>
+                        <td>{{ clientCompany.nif }}</td>
+                    </tr>
+                    <tr>
+                        <td>Industry</td>
+                        <td>{{ clientCompany.industry }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
             <a (click)="changePass()" ><button type="button" class="btn btn-dark" ><i class="fas fa-lock"></i>Change Password</button></a>
             <a routerLink="/registration" routerLinkActive="active"><button type="button" class="btn btn-dark" ><i class="fas fa-pencil-alt"></i>Edit</button></a>
-            <a routerLink="/office" ><button type="button" class="btn btn-dark" ><i class="fas fa-briefcase"></i>Add Office</button></a>
+            <a routerLink="/office" [className]='setHideMenu()'><button type="button" class="btn btn-dark" ><i class="fas fa-briefcase"></i>Add Office</button></a>
             
         </div>
     </div>

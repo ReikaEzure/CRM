@@ -34,6 +34,7 @@ export class PromotionFormComponent implements OnInit {
       description: ['', [Validators.required]]
     });
 
+    //get promotion detail that applied if id has passed from url
     const params = this._activate.snapshot.params;
     if(params.id){
       this._service.getPromotion(params.id).subscribe(
@@ -61,6 +62,7 @@ export class PromotionFormComponent implements OnInit {
     return this.promotionForm.get('description');
   }
 
+  //update promotion detail
   updatePromotion(){
     console.log('im in updatePromo');
     this.promo.name=this.name.value;
@@ -77,6 +79,7 @@ export class PromotionFormComponent implements OnInit {
     );
   }
 
+  //save new promotion to offer
   saveNewPromotion(){
     console.log('im in saveNewPromo');
     delete this.promo.idPromotion;

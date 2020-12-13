@@ -2,13 +2,16 @@
     <div class="jumbotron bg-white p-0">
         <h1 class="display-4 text-center">Invoice detail</h1>
         <div class="card-body text-center text-dark mb-3">
-            <div *ngIf="invoice==undefined">
+            <div *ngIf='invoice==undefined && clientView'>
+                <h3>Invoice is not ready yet<i class="far fa-frown"></i></h3>
+            </div>
+            <div *ngIf="invoice==undefined && !clientView">
                 <a class="nav-link active" [routerLink]="['/invoiceForm', project.idProject]" routerLinkActive="active">
                     <i class="fas fa-calendar-check"></i>Create invoice
                 </a>
             </div>
             <div *ngIf="invoice!=undefined">
-                <a class="nav-link active" [routerLink]="['/invoiceForm', project.idProject]" routerLinkActive="active">
+                <a *ngIf='!clientView' class="nav-link active" [routerLink]="['/invoiceForm', project.idProject]" routerLinkActive="active">
                     <i class="fas fa-pencil-alt"></i>Modify invoice
                 </a>
                 <h3 class="card-title h3 my-4"><strong>{{ project.title }}</strong></h3>

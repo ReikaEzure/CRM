@@ -21,7 +21,7 @@ export class UserService {
 
   employee: Employee;
   client: Client;
-
+  clientView: boolean = false;
   constructor(private _http: HttpClient) { }
 
   loadRoles(){
@@ -92,5 +92,8 @@ export class UserService {
     return this._http.get(`${this._url}/user/logout/${id}`);
   }
   
+  changeStatus(data: any){
+    return this._http.post(`${this._url}/user/changeStatus`, data);
+  }
 
 }

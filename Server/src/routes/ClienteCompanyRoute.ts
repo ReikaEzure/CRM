@@ -13,6 +13,7 @@ class ClientCompanyRoute {
         this.router.get('/test', clientCompanyController.test);
         this.router.get('/', clientCompanyController.list);
         this.router.get('/:id', clientCompanyController.getOne);
+        this.router.get('/byUser/:id', clientCompanyController.getClientCompany);
         this.router.post('/', clientCompanyController.create);
         this.router.put('/:id', clientCompanyController.update);
         this.router.delete('/:id', clientCompanyController.delete);

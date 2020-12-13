@@ -25,10 +25,13 @@
         <tbody>
           <tr *ngFor="let task of tasks" [className]='applyColor(task.status)' >
             <td>{{ task.taskName }}</td>
-            <td>                
+            <td *ngIf="!clientView">                
               <select class="custom-select" (change)="changeTaskStatus(task.idTask, $event)">
                 <option *ngFor="let ts of taskStatus" [value]="ts.idTaskStatus" [selected]='ts.idTaskStatus == task.status'>{{ ts.status }}</option>
               </select>
+            </td>
+            <td *ngIf="clientView">
+              {{ getStatusForClient(task.status-1) }}
             </td>
             <td>{{ dueDateCounter(task.dueDate) }}</td>
             <td><a [routerLink]="['/taskDetail', task.idTask]" class="card-link">More Info</a></td>

@@ -27,7 +27,7 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
 import { InvoiceFormComponent } from './components/invoice-form/invoice-form.component';
 import { ReceivingEmailComponent } from './components/receiving-email/receiving-email.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-
+import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -61,7 +61,10 @@ const routes: Routes = [
   { path: 'invoice/:id', component: InvoiceComponent },
   { path: 'invoiceForm/:id', component: InvoiceFormComponent },
   { path: 'receivingEmail', component: ReceivingEmailComponent },
+  { path: 'receivingEmail/:id', component: ReceivingEmailComponent },
   { path: 'changePass/:id', component: ChangePasswordComponent },
+  { path: 'recoverPass', component: RecoverPasswordComponent },
+  
   { path: "**", component: PageNotFoundComponent }
 ];
 
@@ -98,5 +101,6 @@ export const routingComponents = [
                                   InvoiceFormComponent,
                                   ReceivingEmailComponent,
                                   ChangePasswordComponent,
+                                  RecoverPasswordComponent,
                                   PageNotFoundComponent
                                   ];

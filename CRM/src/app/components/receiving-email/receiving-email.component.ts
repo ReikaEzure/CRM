@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-receiving-email',
@@ -7,16 +8,22 @@ import { Component, OnInit } from '@angular/core';
       <p>
         We have sent you an email to reset your password! 
       </p>
-      <a class="nav-link active" routerLink="/home" routerLinkActive="active">Got it!</a>
+      <div *ngIf="toLogin"><a class="nav-link active" routerLink="/login" routerLinkActive="active">Got it!</a></div>
+      <div *ngIf="!toLogin"><a class="nav-link active" routerLink="/client" routerLinkActive="active">Got it!</a></div>
+      
     </div>
   `,
   styles: []
 })
 export class ReceivingEmailComponent implements OnInit {
-
-  constructor() { }
+  toLogin=false;
+  constructor(private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const params = this._activate.snapshot.params;
+    if(params.id){
+      this.toLogin=true;
+    }
   }
 
 }

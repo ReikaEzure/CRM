@@ -53,6 +53,7 @@ export class ChangePasswordComponent implements OnInit {
     return this.resetPassForm.get('confirmPassword');
   }
 
+  //update password of Login table
   resetPass(){
     this.data.password=this.password.value;
     console.log(this.data);

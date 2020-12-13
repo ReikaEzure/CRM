@@ -31,6 +31,18 @@ class ClientCompanyController {
             res.status(404).json({ text: "The client does not exist" });
         });
     }
+    getClientCompany(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const office = yield database_1.default.then((r) => r.query('SELECT * FROM ClientCompany cc ' +
+                'JOIN Client c ON cc.idClient = c.clientCompany  ' +
+                'Where c.user_idUser = ?;', [id]));
+            if (office.length > 0) {
+                return res.json(office[0]);
+            }
+            res.status(404).json({ text: "The office does not exist" });
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);

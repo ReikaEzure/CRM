@@ -11,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import mergeImages from 'merge-images';
 import { Office } from 'src/app/models/Office.js';
 import { OfficeService } from 'src/app/services/office.service.js';
+import { ClientService } from 'src/app/services/client.service.js';
 
 @Component({
   selector: 'app-user-detail',
@@ -18,6 +19,8 @@ import { OfficeService } from 'src/app/services/office.service.js';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
+  clientView=false;
+  clientCompany: any;
 
   loginDetail: Login;
   loggedInUser: User;
@@ -39,21 +42,33 @@ export class UserDetailComponent implements OnInit {
     nif: ''
   };
 
+  data : any = {
+    id: 0,
+    status: 0
+  }
+
   constructor(private _service: UserService, private _authService: AuthenticationService, 
-    private _officeService: OfficeService, private _router: Router, private _cookie: CookieService) { }
+    private _officeService: OfficeService, private _cliService: ClientService,
+    private _router: Router, private _cookie: CookieService) { }
 
   ngOnInit(): void {
+    //if user is not registered as client get office detail
     if(this._service.loggedInUser.role!=5){
       this.getOffice(this._service.loggedInUser.idUser);
+    }else{
+      this.clientView=true;
+      this.getClientCompany(this._service.loggedInUser.idUser);
     }
+    //load user roles
     this.loadRoles();
+    //load user status
     this.loadUserStatus();
+    //get logged in user detail
     this.loginDetail = this._authService.loginDetail;
     this.loggedInUser = this._service.loggedInUser;
-    console.log(this.office);
-    console.log(this.loginDetail, this.loggedInUser);
+    
+    //get avatar of user
     if(this.loggedInUser.avatar!=null){
-      
       let imgs=[];
       imgs=this.loggedInUser.avatar.split(',');
       this.ava.imagenes=imgs;
@@ -63,6 +78,7 @@ export class UserDetailComponent implements OnInit {
     
   }
 
+  //get office of user
   getOffice(id){
     this._officeService.getOffice(id).subscribe(
       res => {
@@ -74,6 +90,19 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
+  //get company where client user works
+  getClientCompany(id){
+    this._cliService.getClientCompany(id).subscribe(
+      res => {
+        this.clientCompany = res;
+        this._cliService.userCompany=res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+
+  //get user roles
   loadRoles(){
     this._service.loadRoles().subscribe(
       res => {
@@ -97,6 +126,19 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
+  changeStatus(id, e){
+    this.data.id=id;
+    this.data.status=e.target.value;
+    this._service.changeStatus(this.data).subscribe(
+      res => {
+        console.log(res);
+        confirm('Your status has been changed');
+      },
+      error => console.log(error)
+    );
+  }
+
+  //log out function
   logout(event: Event): void {
     event.preventDefault(); // Prevents browser following the link
 
@@ -106,8 +148,10 @@ export class UserDetailComponent implements OnInit {
         this._service.loggedInUser=null;
         this._authService.loginDetail=null;
         this._authService.isLoggedIn=false;
+        this._service.clientView=false;
         this._cookie.delete('password');
         this._cookie.delete('username');
+        this._cookie.delete('userID');
         console.clear()
         this._router.navigate(['/login']);
         
@@ -117,14 +161,13 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  
-
+  //change password
   changePass() {
     this.loading = true;
     this.buttionText = "Submiting...";
     let user = {
-      name: 'Test',
-      email: 'reika.ezure@gmail.com',
+      name: this.loggedInUser.firstName,
+      email: this.loginDetail.email,
       idUser: this.loginDetail.idLogin
     }
     this._service.sendmail(user).subscribe(
@@ -146,12 +189,13 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-
+  //merge png images to create avatar
   merge(imgs:string[]){
     this.ava.imagenes=imgs;
     mergeImages(imgs).then(b64 => document.querySelector('#ava').setAttribute('src', b64));
   }
 
+  //modify
   clickModificar(ava){
     ava.modify =! ava.modify;
   }
@@ -161,7 +205,7 @@ export class UserDetailComponent implements OnInit {
     ava.modify = false;
   }
 
-  
+  //send event
   accionEnviar(event){
     console.log("Los que ha elegido")
     for(var i=0;i<event.length;i++){
@@ -170,5 +214,10 @@ export class UserDetailComponent implements OnInit {
     this.merge(event);
   }
 
-
+  setHideMenu(){
+    if(this.clientView){
+      return 'hideMenu';
+    }
+    return 'showMenu';
+  }
 }

@@ -19,6 +19,7 @@ class UserRoute {
         this.router.post('/employee', userController.createEmployee);
         this.router.post('/client', userController.createClient);
         this.router.put('/:id', userController.update);
+        this.router.post('/changeStatus', userController.changeStatus);
         this.router.put('/employee/:id', userController.updateEmployee);
         this.router.put('/client/:id', userController.updateClient);
         this.router.put('/changeAvatar/:id', userController.changeAvatar)

@@ -18,6 +18,19 @@ class ClientCompanyController{
         res.status(404).json({text: "The client does not exist"});
     }
 
+    public async getClientCompany(req: Request, res: Response): Promise<any>{
+        const { id } = req.params;
+        const office = await pool.then((r:any) => 
+            r.query('SELECT * FROM ClientCompany cc '+
+                    'JOIN Client c ON cc.idClient = c.clientCompany  '+
+                    'Where c.user_idUser = ?;', [id]));
+        
+        if(office.length > 0){
+            return res.json (office[0]);
+        }
+        res.status(404).json({text: "The office does not exist"});
+    }
+
     public async create(req: Request, res: Response): Promise<void>{
         console.log(req.body);
         try{

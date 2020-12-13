@@ -10,6 +10,10 @@ import { User } from '../../models/User';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserService } from '../../services/user.service'
+import { Client } from 'src/app/models/Client';
+import { ClientService } from 'src/app/services/client.service';
+import { OfficeService } from 'src/app/services/office.service';
+import { Employee } from 'src/app/models/Employee';
 
 @Component({
   selector: 'app-registration-form',
@@ -20,6 +24,8 @@ export class RegistrationFormComponent implements OnInit {
   idTypes = ['DNI', 'NIE', 'Passport'];
   roles: any = [];
   edit: boolean = false;
+  companies: any;
+  offices: any;
 
   login: Login = {
     idLogin: 0,
@@ -53,10 +59,14 @@ export class RegistrationFormComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private _fb: FormBuilder, private _userService: UserService, private _authService: AuthenticationService, private _router: Router, private _activate: ActivatedRoute) { }
+  constructor(private _fb: FormBuilder, private _userService: UserService, 
+      private _authService: AuthenticationService, private _router: Router, private _officeService: OfficeService,
+      private _activate: ActivatedRoute, private _cliService: ClientService) { }
 
   ngOnInit(): void {
     this.loadRoles();
+    this.loadCompanies();
+    this.loadOffices();
 
     this.registrationForm=this._fb.group({
       firstname: ['', Validators.required],
@@ -69,10 +79,14 @@ export class RegistrationFormComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       subscribe: [false],
+      //username can not be same as password
       username: ['', [Validators.required, Validators.minLength(3), forbiddenNameValidator(/password/)]],
+      //password has to be 8 letter consisting number and character
       password: ['', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]],
       confirmPassword: ['', Validators.required],
-      role: ['']
+      role: [''],
+      idClientCompany: [''],
+      idOffice:[''],
     }, {validator: PasswordMatchValidator});
   
     this.registrationForm.get('subscribe').valueChanges.subscribe(checkedValue => {
@@ -137,6 +151,14 @@ export class RegistrationFormComponent implements OnInit {
     return this.registrationForm.get('role');
   }
 
+  get idClientCompany(){
+    return this.registrationForm.get('idClientCompany');
+  }
+
+  get idOffice(){
+    return this.registrationForm.get('idOffice');
+  }
+
   changeIdType(e) {
     this.idType.setValue(e.target.value, {
       onlySelf: true
@@ -145,6 +167,25 @@ export class RegistrationFormComponent implements OnInit {
 
   changeRole(e) {
     this.role.setValue(e.target.value, {
+      onlySelf: true
+    })
+    if(this.role.value!=5){
+     this.idClientCompany.disable();
+     this.idOffice.enable();
+    }else{
+      this.idClientCompany.enable();
+      this.idOffice.disable();
+    }
+  }
+
+  changeClientCompany(e) {
+    this.idClientCompany.setValue(e.target.value, {
+      onlySelf: true
+    })
+  }
+
+  changeOffice(e) {
+    this.idOffice.setValue(e.target.value, {
       onlySelf: true
     })
   }
@@ -159,6 +200,27 @@ export class RegistrationFormComponent implements OnInit {
     );
   }
 
+  loadCompanies(){
+    this._cliService.getClients().subscribe(
+      res => {
+        this.companies = res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+
+  loadOffices(){
+    this._officeService.getOffices().subscribe(
+      res => {
+        this.offices = res;
+        console.log(res);
+      },
+      error => console.log(error)
+    );
+  }
+
+  //register new login data
   registerLoginData(){
     delete this.login.idLogin;
     this.login.username=this.username.value;
@@ -168,15 +230,15 @@ export class RegistrationFormComponent implements OnInit {
 
     this._authService.registerLogin(this.login).subscribe(
       res => {
-        console.log(res);
         this.lastInserted = res;
-        console.log("last inserted id is: "+this.lastInserted[0].idLogin);
+        this._authService.loginDetail=this.lastInserted;
         this.registerUserData();
       },
       err => {console.log(err);}
     );
   }
 
+  //register new user data
   registerUserData(){
     delete this.user.idUser;
     delete this.user.joinedDate;
@@ -190,14 +252,15 @@ export class RegistrationFormComponent implements OnInit {
     this.user.idType=this.idType.value;
     this.user.role=parseInt(this.role.value);
     this.user.status=1;
-    this.user.login_idLogin=parseInt(this.lastInserted[0].idLogin);
+    this.user.login_idLogin=this.lastInserted.idLogin;
     console.log(this.user);
 
     this._userService.registerUser(this.user).subscribe(
       res => {
         console.log(res);
-        this._authService.isLoggedIn=true;
-        this._router.navigate(['/home']);
+        this.getUser(this.user.login_idLogin);
+        alert('Welcome! You have been successfully registered!')
+        this._router.navigate(['/login']);
       },
       err => {console.log(err);}
     );
@@ -207,6 +270,8 @@ export class RegistrationFormComponent implements OnInit {
     console.log(this.registrationForm.value);
     this.registerLoginData();
   }
+
+  //update user data
   updateUser(){
     
     console.log("entered update user function");
@@ -226,11 +291,50 @@ export class RegistrationFormComponent implements OnInit {
       res => {
         console.log(res);
         if(confirm("Your user information has been updated")) {
-          this._router.navigate(['/home']);
+          this._router.navigate(['/project']);
         }
       },
       err => {console.log(err);}
     );
   }
 
+  getUser(id){
+    let user: User;
+    this._userService.getUser(id).subscribe(
+      res => {
+        user=res;
+        this._userService.loggedInUser=res;
+        if(this.role.value!=5){
+          this.createEmployee(user.idUser);
+        }else{
+          this.createClient(user.idUser);
+        }
+      },
+      err => {console.log(err);}
+    );
+  }
+  createEmployee(id){
+    let emp:Employee = {
+      user_idUser: id,
+      office_idOffice: this.idOffice.value
+    }
+    this._userService.createEmployee(emp).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {console.log(err);}
+    );
+  }
+  createClient(id){
+    let cli:Client = {
+      user_idUser: id,
+      clientCompany: this.idClientCompany.value
+    }
+    this._userService.createClient(cli).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {console.log(err);}
+    );
+  }
 }

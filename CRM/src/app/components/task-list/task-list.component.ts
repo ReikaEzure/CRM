@@ -5,6 +5,7 @@ import { TaskService } from '../../services/task.service';
 import { ProjectService } from '../../services/project.service';
 import { Project } from 'src/app/models/Project';
 import { Task } from 'src/app/models/Task';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-task-list',
@@ -17,15 +18,20 @@ export class TaskListComponent implements OnInit {
   tasks: any = [];
   taskStatus;
   projectId=0;
+  clientView=false;
 
   upcoming: Task[]=[];
   done: Task[]=[];
 
-  constructor(private _service: TaskService, private _projectService: ProjectService, private _activate: ActivatedRoute) { }
+  constructor( private _userService: UserService, private _service: TaskService, private _projectService: ProjectService, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loadTaskStatus();
+    if(this._userService.loggedInUser.role==5){
+      this.clientView=true;
+    }
 
+    //load project using idProject that has passed with url
     const params = this._activate.snapshot.params;
     if(params.id){
       this.projectId=params.id;
@@ -39,11 +45,13 @@ export class TaskListComponent implements OnInit {
       );
 
         this._service.task=null;
+        //load list of tasks
       this.getTasks(params.id);
       
     }
   }
 
+  //loas task status
   loadTaskStatus(){
     this._service.loadTaskStatus().subscribe(
       res => {
@@ -59,6 +67,7 @@ export class TaskListComponent implements OnInit {
     status: 0
   }
 
+  //apply color depending on status of each task
   applyColor(status){
       switch(status){
         case 1: //In progress
@@ -76,12 +85,31 @@ export class TaskListComponent implements OnInit {
     }
   }
 
+  getStatusForClient(status){
+    switch(status){
+      case 1: //In progress
+        return 'In progress';
+      case 2: //Done
+        return 'Done';
+      case 3: //Approved
+        return 'Approved';
+      case 4: //Pending
+        return 'Pending';
+      case 5: //Struggling
+        return 'In progress';
+      default:
+        return 'Pending';
+  }
+}
+
+  // show counter to due date
   dueDateCounter(due){
     let today = new Date();
     let date = new Date(due);
     let res='';
     let week= ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let month =['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    //if due date is within 1 day, show hours and minutes till due
     if(date.getDate()==today.getDate() && date.getMonth()==today.getMonth() && date.getFullYear()==today.getFullYear()){
       if(date.getHours()>1){
         res= date.getHours()+' hours, '
@@ -93,14 +121,17 @@ export class TaskListComponent implements OnInit {
       }else{
         res+= date.getMinutes()+' minute'
       }
-    }else if(date.getDate()>today.getDate() && date.getDate()<(today.getDate()+7)){
+    }//if due date is within a week, show date of due date
+    else if(date.getDate()>today.getDate() && date.getDate()<(today.getDate()+7)){
       res= 'On '+week[date.getDay()];
-    }else{
+    }//if there is longer period of time till due date, show date of due
+    else{
       res= date.getDate()+', '+month[date.getMonth()]+', '+date.getFullYear();
     }
     return res;
   }
 
+  //when user select different status change directly in that time
   changeTaskStatus(id, e){
     this.data.id=id;
     this.data.status=e.target.value;
@@ -112,6 +143,7 @@ export class TaskListComponent implements OnInit {
     );
   }
 
+  //get list of tasks
   getTasks(id){
     this._service.getTasks(id).subscribe(
       res => {
@@ -122,6 +154,7 @@ export class TaskListComponent implements OnInit {
     );
   }
 
+  //delete task
   deleteTask(idTask: String, idProject: String){
     this._service.deleteTask(idTask).subscribe(
       res => {
@@ -132,6 +165,7 @@ export class TaskListComponent implements OnInit {
     );
   }
 
+  //divide task to filter, upcoming or done
   divideTask(){
     for(let i =0; i<this.tasks.length; i++){
       if(this.tasks[i].status==2){
@@ -142,12 +176,12 @@ export class TaskListComponent implements OnInit {
     }
   }
 
+  //filter upcoming tasks or tasks that already have done
   getUpcomingTask(){
     this.tasks=this.upcoming;
-
   }
-
   getDoneTask(){
     this.tasks=this.done;
+    console.log(this.done);
   }
 }

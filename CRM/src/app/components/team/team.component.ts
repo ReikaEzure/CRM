@@ -52,8 +52,8 @@ export class TeamComponent implements OnInit {
   ngOnInit(): void {
     const params = this._activate.snapshot.params;
 
+    //get project by idProject which has passed from url
     if(params.id){
-      
       this.projectId=params.id;
       this._projectService.getProject(this.projectId).subscribe(
         res => {
@@ -64,9 +64,12 @@ export class TeamComponent implements OnInit {
       this.getTeam(params.id);
     }
 
+    //get status of team member
     this.status=this._userService.status;
   }
 
+  //get teams
+  //here we only get userid of team member
   getTeam(id){
     this._service.getTeam(id).subscribe(
       res => {
@@ -78,6 +81,7 @@ export class TeamComponent implements OnInit {
     );
   }
 
+  //get members detail
   getMember(){
     for (let i=0; i<this.team.length; i++){
       let id=this.team[i].user_idUser;
@@ -92,6 +96,7 @@ export class TeamComponent implements OnInit {
     }
   }
 
+  //get email of each team member
   getEmail(id){
       this._userService.getEmail(id).subscribe(
         res => {
@@ -102,6 +107,7 @@ export class TeamComponent implements OnInit {
       );
   }
 
+  //get team leader
   getTeamLeader(){
     if(this.team[0].idTeam!=null){
       this._service.getTeamLeader(this.team[0].idTeam).subscribe(

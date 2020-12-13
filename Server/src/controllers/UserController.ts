@@ -145,6 +145,18 @@ class UserController {
         }
     }
 
+    public async changeStatus(req: Request, res: Response): Promise<void>{
+        console.log(req.body);
+        try{
+            await pool.then((r:any)=>r.query('UPDATE User set status = ? WHERE idUser = ?', [req.body.status, req.body.id]));
+            res.json({text: "User status was updated"+req.params.id});
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+
+        
+    }
+
     public test(req: Request, res: Response){
         res.json({text: 'Hi! from UserController'});
     }

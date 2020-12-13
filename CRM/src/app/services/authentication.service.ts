@@ -28,6 +28,10 @@ export class AuthenticationService {
     return this._http.get(`${this._url}/${id}`);
   }
 
+  validEmail(data: any){
+    return this._http.post(`${this._url}/validEmail`, data);
+  }
+
   resetPassword(id: String | number, data: Login): Observable<Login>{
     return this._http.put(`${this._url}/reset/${id}`, data);
   }

@@ -40,8 +40,10 @@ export class ClientDeatilComponent implements OnInit {
   ngOnInit(): void {
     this.loadClientTypes();
 
+    //get client information using idClient from url
     const params = this._activate.snapshot.params;
     if(params.id){
+      //get client company information
       this._service.getClient(params.id).subscribe(
         res => {
           this.client=res;
@@ -49,6 +51,7 @@ export class ClientDeatilComponent implements OnInit {
         },
         err => {console.log(err.message);}
       );
+      //get address
       this._service.getAddress(params.id).subscribe(
         res => {
           this.addr=res;
@@ -60,6 +63,7 @@ export class ClientDeatilComponent implements OnInit {
           console.log(err.message);
         }
       );
+      //get phone number
       this._service.getPhone(params.id).subscribe(
         res => {
           this.phones=res;
@@ -71,6 +75,7 @@ export class ClientDeatilComponent implements OnInit {
           console.log(err.message);
         }
       );
+      //get sns
       this._service.getSns(params.id).subscribe(
         res => {
           this.socials=res;
@@ -88,6 +93,7 @@ export class ClientDeatilComponent implements OnInit {
     
   }
 
+  //load client type such as potential, new, regular
   loadClientTypes(){
     this._service.loadClientTypes().subscribe(
       res => {

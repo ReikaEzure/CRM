@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Login } from 'src/app/models/Login';
+import mergeImages from 'merge-images';
 import { User } from 'src/app/models/User';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
@@ -17,6 +18,11 @@ export class ContactDetailComponent implements OnInit {
   roles;
   status;
 
+  ava ={
+    imagenes: [],
+    modify: false
+  };
+
   loading = false;
   buttionText = "Submit";
   
@@ -27,6 +33,7 @@ export class ContactDetailComponent implements OnInit {
     this.loadUserStatus();
     this.loadRoles();
 
+    //get contact detail using idUser from url
     const params = this._activate.snapshot.params;
     if(params.id){
       this._service.getUserById(params.id).subscribe(
@@ -34,13 +41,28 @@ export class ContactDetailComponent implements OnInit {
           console.log(res);
           this.contactDetail=res;
           this.getEmail(this.contactDetail.login_idLogin);
+          if(this.contactDetail.avatar!=null){
+            let imgs=[];
+            imgs=this.contactDetail.avatar.split(',');
+            this.ava.imagenes=imgs;
+            console.log(imgs);
+            this.merge(imgs);
+          }
         },
         err => {console.log(err.message);}
       );
     }
+    
 
   }
 
+  //merge images to show avatar
+  merge(imgs:string[]){
+    this.ava.imagenes=imgs;
+    mergeImages(imgs).then(b64 => document.querySelector('#ava').setAttribute('src', b64));
+  }
+
+  //load user roles
   loadRoles(){
     this._service.loadRoles().subscribe(
       res => {
@@ -52,6 +74,7 @@ export class ContactDetailComponent implements OnInit {
     );
   }
 
+  //load user status
   loadUserStatus(){
     this._service.loadUserStatus().subscribe(
       res => {
@@ -63,6 +86,7 @@ export class ContactDetailComponent implements OnInit {
     );
   }
 
+  //get email address of this contact which is stored in Login table 
   getEmail(id){
     this._service.getEmail(id).subscribe(
       res => {

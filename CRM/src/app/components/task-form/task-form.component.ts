@@ -36,6 +36,7 @@ export class TaskFormComponent implements OnInit {
   ngOnInit(): void {
     this.loadTaskStatus();
 
+    //if there is any task assigned, use this form to edit that task information
     if(this._taskService.task!=null){
       this.task=this._taskService.task;
       this.edit=true;
@@ -78,6 +79,7 @@ export class TaskFormComponent implements OnInit {
     })
   }
 
+  //load task status
   loadTaskStatus(){
     this._taskService.loadTaskStatus().subscribe(
       res => {
@@ -88,6 +90,7 @@ export class TaskFormComponent implements OnInit {
     );
   }
 
+  // insert new task to table Task
   createNewTask(){
     delete this.task.idTask;
     delete this.task.createdDate;
@@ -112,6 +115,7 @@ export class TaskFormComponent implements OnInit {
     );
   }
 
+  //update task information
   updateTask(){
     this.task.description=this.description.value;
     this.task.dueDate=this.dueDate.value;

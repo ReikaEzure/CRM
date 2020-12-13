@@ -21,6 +21,7 @@ export class AppointmentDetailComponent implements OnInit {
   constructor(private _service:AppointmentService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
+    //get data of appointment using idAppointmnt that has passed with url 
     const params = this._activate.snapshot.params;
     if(params.id){
       this._service.getAppointment(params.id).subscribe(

@@ -24,6 +24,15 @@ class LoginController {
             res.status(404).json({ text: "The user doesn't exist" });
         });
     }
+    validEmail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const login = yield database_1.default.then((r) => r.query('SELECT * from login WHERE email = ?', [req.body.email]));
+            if (login.length > 0) {
+                return res.json(login[0]);
+            }
+            res.status(404).json({ text: "The user doesn't exist" });
+        });
+    }
     getLogin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -51,7 +60,7 @@ class LoginController {
             try {
                 yield database_1.default.then((r) => r.query('INSERT INTO login SET ?', [req.body]));
                 const lastInserted = yield database_1.default.then((r) => r.query('SELECT * from login WHERE username = ? AND password = ?', [req.body.username, req.body.password]));
-                res.json(lastInserted);
+                res.json(lastInserted[0]);
             }
             catch (err) {
                 res.json({ text: "Error" + err.message });

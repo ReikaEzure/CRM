@@ -26,6 +26,7 @@ export class InvoiceComponent implements OnInit {
   invoice: Invoice;
   phone: any;
   address: any;
+  clientView=false;
 
   constructor(private _pdfService: PdfService,private _userService: UserService,
     private _clientService: ClientService, private _projectService: ProjectService,
@@ -33,11 +34,17 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit(): void {
     const params = this._activate.snapshot.params;
+    if(this._userService.loggedInUser.role==5){
+      this.clientView=true;
+    }
+
+    //load project information
     if(params.id){
       this._projectService.getProject(params.id).subscribe(
         res => {
           this.project = res;
           console.log(res);
+          //call functions to egt client information and invoice detail
           this.getClient();
           this.getInvoice();
         },
@@ -45,7 +52,9 @@ export class InvoiceComponent implements OnInit {
       );
     }
 
+    //load user information
     this.user=this._userService.loggedInUser;
+    //load office informarion
     this._officeService.getOffice(this._userService.loggedInUser.idUser).subscribe(
       res => {
         this.office=res;
@@ -55,6 +64,7 @@ export class InvoiceComponent implements OnInit {
     );
   }
 
+  //get client detail
   getClient(){
     this._clientService.getClient(this.project.client_idClient).subscribe(
       res => {
@@ -67,6 +77,7 @@ export class InvoiceComponent implements OnInit {
     );
   }
 
+  //get phone number of client
   getPhone(){
     this._clientService.getPhone(this.client.idClient).subscribe(
       res => {
@@ -77,6 +88,7 @@ export class InvoiceComponent implements OnInit {
     );
   }
 
+  //get address of client
   getAddress(){
     this._clientService.getAddress(this.client.idClient).subscribe(
       res => {
@@ -87,6 +99,7 @@ export class InvoiceComponent implements OnInit {
     );
   }
 
+  //get invoice of project
   getInvoice(){
     this._pdfService.getInvoice(this.project.idProject).subscribe(
       res => {
@@ -98,6 +111,7 @@ export class InvoiceComponent implements OnInit {
     );
   }
 
+  //call function to generate pdf
   generatePDF(){
     this._pdfService.generatePdf(this.office, this.user, this.client, this.project, this.invoice, this.phone, this.address);
   }

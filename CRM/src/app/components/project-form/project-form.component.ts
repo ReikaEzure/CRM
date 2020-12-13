@@ -55,7 +55,9 @@ export class ProjectFormComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _service: ProjectService, private _clientService: ClientService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
+    //load clients
     this.loadClients();
+    //load project status
     this.loadProjectStatus();
 
     this.projectForm=this._fb.group({
@@ -73,6 +75,7 @@ export class ProjectFormComponent implements OnInit {
       quantityOfChange: []
     });
 
+    //if assigned project is found, use this form to edit assigned project detail
     if(this._service.project!=null){
       this.project=this._service.project;
       this.client=this._clientService.clientCompany;
@@ -132,6 +135,7 @@ export class ProjectFormComponent implements OnInit {
     })
   }
 
+  //load clients that is stored in database
   loadClients(){
     this._clientService.getClients().subscribe(
       res => {
@@ -147,6 +151,7 @@ export class ProjectFormComponent implements OnInit {
     })
   }
 
+  //load project status 
   loadProjectStatus(){
     this._service.loadProjectStatus().subscribe(
       res => {
@@ -156,6 +161,7 @@ export class ProjectFormComponent implements OnInit {
     );
   }
 
+  //insert new project
   createNewProject(){
     delete this.project.idProject;
     this.project.title=this.title.value;
@@ -186,6 +192,7 @@ export class ProjectFormComponent implements OnInit {
     );
   }
 
+  //update project detail
   updateProject(){
 
     this.project.title=this.title.value;

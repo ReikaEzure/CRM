@@ -1,7 +1,13 @@
 <div>
     <div class="jumbotron bg-white p-0">
         <h1 class="display-4 text-center">Contact Information</h1>
-        <img [src]="contactDetail.avatar == null ? '/assets/img/noimage.png' : contactDetail.avatar" style="width:40vh">
+        <div *ngIf="contactDetail.avatar == null" class="d-flex justify-content-center">
+            <img [src]="'/assets/img/noimage.png'" style="max-width:100%;">
+        </div>
+        <div *ngIf="contactDetail.avatar != null" class="d-flex justify-content-center">
+            <img id='ava' style="width:40vh">
+        </div>
+        
         <hr class="my-4">
 
         <div class="card-body text-center text-dark mb-3">

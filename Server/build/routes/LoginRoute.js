@@ -10,6 +10,7 @@ class LoginRoute {
     config() {
         this.router.get('/test', LoginController_1.loginController.test);
         this.router.post('/', LoginController_1.loginController.login);
+        this.router.post('/validEmail', LoginController_1.loginController.validEmail);
         this.router.get('/:id', LoginController_1.loginController.getLogin);
         this.router.put('/reset/:id', LoginController_1.loginController.resetPassword);
         this.router.post('/register', LoginController_1.loginController.register);

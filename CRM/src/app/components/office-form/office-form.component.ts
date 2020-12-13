@@ -42,8 +42,8 @@ export class OfficeFormComponent implements OnInit {
     return this.officeForm.get('nif');
   }
 
+  //update office detail
   updateOffice(){
-    console.log('im in updateOffice');
     this.office.name=this.name.value;
     this.office.phone=this.phone.value;
     this.office.nif=this.nif.value;
@@ -58,8 +58,8 @@ export class OfficeFormComponent implements OnInit {
     );
   }
 
+  //save new office
   saveNewOffice(){
-    console.log('im in saveNewOffice');
     delete this.office.idOffice;
     this.office.name=this.name.value;
     this.office.phone=this.phone.value;

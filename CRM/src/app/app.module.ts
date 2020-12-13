@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { LoginNavComponent } from './components/login-nav/login-nav.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { NavigationClientComponent } from './components/navigation-client/navigation-client.component';
 
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
@@ -25,6 +26,7 @@ import { AvatarComponent } from './components/avatar/avatar.component';
     routingComponents,
     LoginNavComponent,
     NavigationComponent,
+    NavigationClientComponent,
     AvatarComponent
   ],
   imports: [

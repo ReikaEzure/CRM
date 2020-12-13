@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class AvatarComponent implements OnInit {
   avatar: FormGroup;
 
+  // showing title of each png image and place where its stored
   skins = [{ id: 'Pale', value: 'assets/img/avatar/clara.png' }, 
             { id: 'Medium', value: 'assets/img/avatar/media.png' }, 
             {id: 'Dark', value: 'assets/img/avatar/oscura.png'}];
@@ -63,6 +64,7 @@ export class AvatarComponent implements OnInit {
     console.log(id);
   }
 
+  //make sure that beard and moustache is same colour as hair
   checkedOption(ac) {
     ac.checked = !ac.checked;
     if(ac.checked){
@@ -75,6 +77,7 @@ export class AvatarComponent implements OnInit {
     }
   }
 
+  //get hair colour
   checkedColor(color:string){
     this.pelo = "assets/img/avatar/"+color+"/";
   }
@@ -87,6 +90,7 @@ export class AvatarComponent implements OnInit {
     return this.avatar.get("nombre");
   }
 
+  //get all image that has been checked and send to father component
   onSubmit(){
     this.submitted=true;
     if(this.avatar.invalid){
@@ -132,6 +136,7 @@ export class AvatarComponent implements OnInit {
     
   }
 
+  //reset form
   onReset(){
     this.submitted=false;
     this.avatar.reset();

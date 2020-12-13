@@ -4,9 +4,14 @@
       <app-login-nav></app-login-nav>
     </div>
   </div>
-  <div *ngIf="isLoggedin" >
+  <div *ngIf="isLoggedin && !clientView" >
     <div class="container m-0 p-0">
       <app-navigation></app-navigation>
+    </div>
+  </div>
+  <div *ngIf="isLoggedin && clientView" >
+    <div class="container m-0 p-0">
+      <app-navigation-client></app-navigation-client>
     </div>
   </div>
   

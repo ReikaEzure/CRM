@@ -29,9 +29,11 @@ export class TaskDetailComponent implements OnInit {
   constructor(private _activate: ActivatedRoute, private _service: TaskService, private _projectService: ProjectService) { }
 
   ngOnInit(): void {
+    //load task status and project
     this.taskStatus=this._service.taskStatus;
     this.projectId=this._projectService.project.idProject;
 
+    //get task detail using idTask that has passed from url
     const params = this._activate.snapshot.params;
     if(params.id){
       this._service.getTask(params.id).subscribe(

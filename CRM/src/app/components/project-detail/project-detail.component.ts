@@ -60,6 +60,7 @@ export class ProjectDetailComponent implements OnInit {
   ngOnInit(): void {
     this.loadProjectStatus();
 
+    //load project information using idProject from url
     const params = this._activate.snapshot.params;
     if(params.id){
       this._service.getProject(params.id).subscribe(
@@ -67,6 +68,7 @@ export class ProjectDetailComponent implements OnInit {
           this.project = res;
           this._service.project = res;
           console.log(res);
+          //get promotion and client detail as well
           this.getPromo();
           this.getClient();
         },
@@ -75,6 +77,7 @@ export class ProjectDetailComponent implements OnInit {
     }
   }
 
+  //load project status
   loadProjectStatus(){
     this._service.loadProjectStatus().subscribe(
       res => {
@@ -84,6 +87,7 @@ export class ProjectDetailComponent implements OnInit {
     );
   }
 
+  //get promotion detail that has applied 
   getPromo(){
     this._promoService.getPromotion(this.project.promotion_idPromotion).subscribe(
       res => {
@@ -95,6 +99,7 @@ export class ProjectDetailComponent implements OnInit {
     );
   }
 
+  //get client who ordered this project
   getClient(){
     this._cliService.getClient(this.project.client_idClient).subscribe(
       res => {

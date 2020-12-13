@@ -17,6 +17,7 @@ export class ClientListComponent implements OnInit {
     this._service.clientCompany=null;
   }
 
+  //load all the clients
   getClients(){
     this._service.getClients().subscribe(
       res => {
@@ -27,6 +28,7 @@ export class ClientListComponent implements OnInit {
     );
   }
 
+  //delete client
   deleteClient(id: number){
     console.log(id);
     this._service.deleteClient(id).subscribe(

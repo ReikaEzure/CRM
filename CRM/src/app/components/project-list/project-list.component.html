@@ -17,7 +17,7 @@
             <a class="nav-link active" (click)="getCancelled()">Cancelled</a>
           </li>
     </ul>
-    <a class="nav-link active" routerLink="/projectForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new project</a>
+    <a [className]='setHideMenu()' class="nav-link active" routerLink="/projectForm" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new project</a>
 </div>    
 <div *ngFor="let pro of projects">
     <div class="card bg-secondary m-2">
@@ -27,7 +27,7 @@
             <a [routerLink]="['/projectDetail', pro.idProject]"class="card-link"><i class="fas fa-info-circle"></i>Info</a>
             <a [routerLink]="['/team', pro.idProject]"class="card-link"><i class="fas fa-users"></i>Team</a>
             <a [routerLink]="['/task', pro.idProject]"class="card-link"><i class="fas fa-tasks"></i>Tasks</a>
-            <a [routerLink]="['/promotion', pro.idProject]"class="card-link"><i class="fas fa-tag"></i>Promotion</a>
+            <a [className]='setHideMenu()' [routerLink]="['/promotion', pro.idProject]"class="card-link"><i class="fas fa-tag"></i>Promotion</a>
             <a [routerLink]="['/invoice', pro.idProject]"class="card-link"><i class="fas fa-file-invoice-dollar"></i>Invoice</a>
         </div>
       </div>

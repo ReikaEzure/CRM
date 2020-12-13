@@ -29,12 +29,14 @@ export class PromotionComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _service: PromotionService, private _projectService: ProjectService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
+    //get list of promotion that users company has
     this.getPromotions();
 
     this.promotionForm=this._fb.group({
       promotion: ['']
     });
 
+    // load project deatil
     const params = this._activate.snapshot.params;
     if(params.id){
       this._projectService.getProject(params.id).subscribe(
@@ -53,6 +55,7 @@ export class PromotionComponent implements OnInit {
     return this.promotionForm.get('promotion'); 
   }
 
+  //load promotions list
   getPromotions(){
     this._service.getPromotions().subscribe(
       res => {
@@ -68,6 +71,7 @@ export class PromotionComponent implements OnInit {
     })
   }
 
+  //change promotion that applied in certain project
   changePromotion(){
     const data={
       promoId: this.promotion.value,

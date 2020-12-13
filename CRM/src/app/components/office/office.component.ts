@@ -32,7 +32,9 @@ export class OfficeComponent implements OnInit {
     private _userService: UserService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
+    //get information of office where user is working
     this.getOffice(this._userService.loggedInUser.idUser);
+    //get list of office 
     this.getOffices();
     this.officeForm=this._fb.group({
       office: ['', [Validators.required]]
@@ -42,6 +44,7 @@ export class OfficeComponent implements OnInit {
     return this.officeForm.get('office'); 
   }
 
+  //get list of offices that is in database
   getOffices(){
     this._service.getOffices().subscribe(
       res => {
@@ -57,6 +60,7 @@ export class OfficeComponent implements OnInit {
     })
   }
 
+  // change office the user is working
   changeOffice(){
     this.emp.office_idOffice=this.office.value;
     this.emp.user_idUser=this._userService.loggedInUser.idUser;
@@ -70,6 +74,7 @@ export class OfficeComponent implements OnInit {
     );
   }
 
+  //insert new office detail
   addOffice(){
     this.emp.office_idOffice=this.office.value;
     this.emp.user_idUser=this._userService.loggedInUser.idUser;
@@ -84,6 +89,7 @@ export class OfficeComponent implements OnInit {
 
   }
 
+  //get office of this user
   getOffice(id){
     this._service.getOffice(id).subscribe(
       res => {

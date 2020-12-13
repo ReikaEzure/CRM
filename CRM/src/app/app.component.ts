@@ -4,6 +4,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from './services/user.service';
 import { Login } from './models/Login';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
   cookieValue: string;
 
   isLoggedin=false;
+  clientView=false;
   loginInfo: Login = {
     password: '',
     username: ''
@@ -44,7 +46,6 @@ export class AppComponent {
       //load data of user
       this._authService.login(this.loginInfo).subscribe(
         res => { 
-          console.log(res);
           this._authService.loginDetail=res;
           //load data of User table
           this.getUser();
@@ -58,8 +59,14 @@ export class AppComponent {
     this._router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
        this.isLoggedin = this._authService.isLoggedIn;
+       this.reLoad();
       }
     })
+
+  }
+  
+  reLoad(){
+    this._router.navigate([this._router.url]);
 
   }
 
@@ -72,6 +79,14 @@ export class AppComponent {
       res => {
         this._userService.loggedInUser=res;
         console.log(res);
+        let tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate()+1);
+        this._cookie.set('userID', this._userService.loggedInUser.idUser.toString(), tomorrow);
+        if(this._userService.loggedInUser.role==5){
+          this.clientView=true;
+          this._userService.clientView=false;
+        }
+        console.log(this.clientView);
       },
       error => console.log(error)
     );

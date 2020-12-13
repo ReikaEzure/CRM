@@ -39,6 +39,7 @@ export class InvoiceFormComponent implements OnInit {
       neto: [0, [Validators.required]]
     });
 
+    //load project information to be applied this invoice
     const params = this._activate.snapshot.params;
     if(params.id){
       this._pdfService.getInvoice(params.id).subscribe(
@@ -94,6 +95,7 @@ export class InvoiceFormComponent implements OnInit {
     );
   }
 
+  //insert invoice data to table Invoice
   saveNewInvoice(){
     delete this.invoice.idInvoice;
     this.invoice.total=this.total.value;

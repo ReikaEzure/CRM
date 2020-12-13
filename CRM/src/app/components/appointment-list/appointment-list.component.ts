@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/Appointment';
+import { UserService } from 'src/app/services/user.service';
 
 import { AppointmentService } from '../../services/appointment.service';
 
@@ -15,15 +16,16 @@ export class AppointmentListComponent implements OnInit {
   upcoming: Appointment[]=[];
   done: Appointment[]=[];
 
-  constructor(private _service: AppointmentService) { }
+  constructor(private _service: AppointmentService, private _userService: UserService) { }
 
   ngOnInit(): void {
     this.getAppointments();
     this._service.appointment=null;
   }
 
+  //get array of appointments to list up
   getAppointments(){
-    this._service.getAppointments().subscribe(
+    this._service.getAppointments(this._userService.loggedInUser.idUser).subscribe(
       res => {
         this.appointments = res;
         console.log(res);
@@ -33,6 +35,7 @@ export class AppointmentListComponent implements OnInit {
     );
   }
 
+  //divide appointment for filtering
   divideAppointments(){
     let today= new Date();
     for(let i =0; i<this.appointments.length; i++){
@@ -47,6 +50,7 @@ export class AppointmentListComponent implements OnInit {
     }
   }
 
+  //filter appointments depends on which tab has been pressed
   getTodaysAppointments(){
     this.appointments=this.today;
   }
@@ -58,6 +62,7 @@ export class AppointmentListComponent implements OnInit {
   
   }
 
+  //delete appointment
   deleteAppointment(id: String){
     console.log(id);
     this._service.deleteAppointment(id).subscribe(

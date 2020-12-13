@@ -32,6 +32,8 @@ export class AppointmentFormComponent implements OnInit {
       
     });
 
+    //if idAppointment has passed, use form for editting information 
+    //if not, for create new appointment
     if(this._service.appointment!=null){
       this.appointment=this._service.appointment;
       this.edit=true;
@@ -46,6 +48,7 @@ export class AppointmentFormComponent implements OnInit {
     return this.appointmentForm.get('description');
   }
 
+  //insert table appointment
   saveNewAppointment(){
     delete this.appointment.idAppointment;
     this.appointment.date=this.date.value;
@@ -65,6 +68,7 @@ export class AppointmentFormComponent implements OnInit {
 
   }
 
+  //update appointment
   updateAppointment(){
     this.appointment.date=this.date.value;
     this.appointment.description=this.description.value;

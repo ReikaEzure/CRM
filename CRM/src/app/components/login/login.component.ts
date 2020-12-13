@@ -3,9 +3,8 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Login } from 'src/app/models/Login';
+import { ClientService } from 'src/app/services/client.service';
 import { OfficeService } from 'src/app/services/office.service';
-
-
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserService } from '../../services/user.service';
 
@@ -26,10 +25,11 @@ export class LoginComponent implements OnInit {
   
 
   constructor(private _fb: FormBuilder, private _authService: AuthenticationService, 
-    private _userService: UserService, private _officeService: OfficeService,
+    private _userService: UserService, private _officeService: OfficeService, private _clientService: ClientService,
     private _cookie: CookieService, private _router: Router) { }
 
   ngOnInit(): void {
+    //load user roles and user status
     this.loadRoles();
     this.loadUserStatus();
 
@@ -80,7 +80,6 @@ export class LoginComponent implements OnInit {
     //load data from Login table
     this._authService.login(this.loginInfo).subscribe(
       res => { 
-        console.log(res);
         this._authService.loginDetail=res;
         this._authService.isLoggedIn=true;
         //load data of User table
@@ -91,7 +90,7 @@ export class LoginComponent implements OnInit {
         tomorrow.setDate(new Date().getDate()+1);
         this._cookie.set('password', this.loginInfo.password.toString(), tomorrow);
         this._cookie.set('username', this.loginInfo.username.toString(), tomorrow);
-        this._router.navigate(['/home']);
+        this._router.navigate(['/project']);
       },
       err => { 
         console.log(err); 
@@ -106,17 +105,37 @@ export class LoginComponent implements OnInit {
     this._userService.getUser(this._authService.loginDetail.idLogin).subscribe(
       res => {
         this._userService.loggedInUser=res;
-        this.getOffice(this._userService.loggedInUser.idUser);
+        console.log(res);
+        let tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate()+1);
+        this._cookie.set('userID', this._userService.loggedInUser.idUser.toString(), tomorrow);
+        if(this._userService.loggedInUser.role==5){
+          this._userService.clientView=true;
+          location.reload();
+          this.getClientCompany(this._userService.loggedInUser.idUser);
+        }else{
+          this.getOffice(this._userService.loggedInUser.idUser);
+        }
+      },
+      error => console.log(error)
+    );
+  }
+  reLoad(){
+    this._router.navigate([this._router.url])
+  }
+  getOffice(id){
+    this._officeService.getOffice(id).subscribe(
+      res => {
+        this._officeService.office=res;
         console.log(res);
       },
       error => console.log(error)
     );
   }
-
-  getOffice(id){
-    this._officeService.getOffice(id).subscribe(
+  getClientCompany(id){
+    this._clientService.getClientCompany(id).subscribe(
       res => {
-        this._officeService.office=res;
+        this._clientService.clientCompany=res;
         console.log(res);
       },
       error => console.log(error)
@@ -132,6 +151,7 @@ export class LoginComponent implements OnInit {
       error => console.log(error)
     );
   }
+  
   
 }
 

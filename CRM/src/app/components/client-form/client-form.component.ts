@@ -87,6 +87,7 @@ export class ClientFormComponent implements OnInit {
       otherSns: this._fb.array([])
     });
 
+    //if client is assigned, use this form for editting information of client
     if(this._service.clientCompany!=null){
       this.client=this._service.clientCompany;
       this.addr=this._service.addr;
@@ -169,10 +170,12 @@ export class ClientFormComponent implements OnInit {
     return this.clientForm.get('otherUrl') as FormArray;
   }
 
+  //add another input to add multiple phone number
   addAlternatePhones(){
     this.alternatePhones.push(this._fb.control(''));
   }
 
+  //add 2 more input to add multiple sns information
   addOtherSns(){
     this.otherSns.push(
       this._fb.group({
@@ -194,6 +197,7 @@ export class ClientFormComponent implements OnInit {
     })
   }
 
+  //load client types which are stored in database
   loadClientTypes(){
     this._service.loadClientTypes().subscribe(
       res => {
@@ -204,6 +208,7 @@ export class ClientFormComponent implements OnInit {
     );
   }
 
+  //insert new client to ClientCompany table
   saveNewClient(){
     delete this.client.idClient;
     this.client.companyName=this.companyName.value;
@@ -234,6 +239,7 @@ export class ClientFormComponent implements OnInit {
     );
   }
 
+  // insert phone number, address, sns to each tables
   saveMoreDetail(){
     this.phones.client_idClient=this.lastInserted[0].idClient;
     this.phones.phoneNumber=this.phone.value;
@@ -267,6 +273,7 @@ export class ClientFormComponent implements OnInit {
     this._router.navigate(['/client']);
   }
 
+  //call function from service to save phone number to databse
   savePhone(p: Phone){
     this._service.savePhone(p).subscribe(
       res => {
@@ -278,7 +285,6 @@ export class ClientFormComponent implements OnInit {
       }
     );
   }
-
   updatePhone(id){
     this._service.deletePhone(id).subscribe(
       res => {
@@ -302,6 +308,7 @@ export class ClientFormComponent implements OnInit {
     
   }
 
+  //call function from service to save address
   saveAddress(a: Address){
     this._service.saveAddress(a).subscribe(
       res => {
@@ -313,7 +320,6 @@ export class ClientFormComponent implements OnInit {
       }
     );
   }
-
   updateAddress(id, a: Address){
     this._service.updateAddress(id, a).subscribe(
       res=>{
@@ -325,6 +331,7 @@ export class ClientFormComponent implements OnInit {
     );
   }
 
+  //call function to save sns
   saveSns(s: Sns){
     this._service.saveSns(s).subscribe(
       res => {
@@ -336,7 +343,6 @@ export class ClientFormComponent implements OnInit {
       }
     );
   }
-
   updateSns(id){
     this._service.deleteSns(id).subscribe(
       res => {
@@ -361,6 +367,7 @@ export class ClientFormComponent implements OnInit {
     
   }
 
+  //update client information
   updateClient(){
     delete this.client.createdDate;
     this.client.companyName=this.companyName.value;

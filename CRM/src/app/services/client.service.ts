@@ -14,6 +14,7 @@ export class ClientService {
 
   clientCompanies : ClientCompany[];
   clientCompany : ClientCompany;
+  userCompany: any;
   phone : any; //Phone[];
   addr : Address;
   sns : any; //Sns[];
@@ -26,6 +27,10 @@ export class ClientService {
 
   getClient(id: number){
     return this._http.get(`${this._url}/client/${id}`);
+  }
+
+  getClientCompany(id: number){
+    return this._http.get(`${this._url}/client/byUser/${id}`);
   }
 
   saveClient(client: ClientCompany){

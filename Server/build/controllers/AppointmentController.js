@@ -17,12 +17,15 @@ const database_1 = __importDefault(require("../database"));
 class AppointmentController {
     load(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
             try {
-                const appointment = yield database_1.default.then((r) => r.query("SELECT * FROM Appointment"));
-                res.json(appointment);
+                const appointment = yield database_1.default.then((r) => r.query('SELECT * FROM Appointment app ' +
+                    'join Appointment_has_User au on app.idAppointment = au.appointment_idAppointment ' +
+                    'where au.user_idUser = ?', [id]));
+                return res.json(appointment);
             }
             catch (err) {
-                res.json({ text: "Error" + err.message });
+                res.status(404).json({ text: "The appointment does not exist" });
             }
         });
     }

@@ -179,6 +179,18 @@ class UserController {
             }
         });
     }
+    changeStatus(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            try {
+                yield database_1.default.then((r) => r.query('UPDATE User set status = ? WHERE idUser = ?', [req.body.status, req.body.id]));
+                res.json({ text: "User status was updated" + req.params.id });
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
     test(req, res) {
         res.json({ text: 'Hi! from UserController' });
     }
