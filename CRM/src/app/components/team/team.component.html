@@ -1,6 +1,6 @@
 <div class="header">
     <h3>Team</h3>
-    <a class="nav-link active" [routerLink]="['/teamForm', projectId]" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new team member</a>
+    <a [className]='setHideMenu()' class="nav-link active" [routerLink]="['/teamForm', projectId]" routerLinkActive="active"><i class="fas fa-calendar-check"></i>Add new team member</a>
 </div>  
 <div >
     <h3>{{ project.title }}</h3>

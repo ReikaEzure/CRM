@@ -7,6 +7,7 @@ import { ClientCompany } from 'src/app/models/ClientCompany';
 import { ClientService } from 'src/app/services/client.service';
 import { Promotion } from 'src/app/models/Promotion';
 import { PromotionService } from 'src/app/services/promotion.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -14,7 +15,7 @@ import { PromotionService } from 'src/app/services/promotion.service';
   styleUrls: ['./project-detail.component.scss']
 })
 export class ProjectDetailComponent implements OnInit {
-
+  clientView=false;
   project: Project = {
     idProject: 0,
     title: '',
@@ -54,11 +55,14 @@ export class ProjectDetailComponent implements OnInit {
 
   projectStatus;
 
-  constructor(private _activate: ActivatedRoute, private _service: ProjectService, 
+  constructor(private _activate: ActivatedRoute, private _service: ProjectService, private _userService: UserService, 
     private _cliService: ClientService, private _promoService: PromotionService) { }
 
   ngOnInit(): void {
     this.loadProjectStatus();
+    if(this._userService.loggedInUser.role==5){
+      this.clientView=true;
+    }
 
     //load project information using idProject from url
     const params = this._activate.snapshot.params;
@@ -109,6 +113,13 @@ export class ProjectDetailComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  setHideMenu(){
+    if(this.clientView){
+      return 'hideMenu';
+    }
+    return 'showMenu';
   }
 
 }

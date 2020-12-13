@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class TeamComponent implements OnInit {
   status;
   team : any;
-  
+  clientView=false;
 
   teamLeader : TeamLeader = {
     teamLeaderId : 0,
@@ -50,6 +50,9 @@ export class TeamComponent implements OnInit {
   constructor(private _service: TeamService, private _userService: UserService, private _projectService: ProjectService, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if(this._userService.loggedInUser.role==5){
+      this.clientView=true;
+    }
     const params = this._activate.snapshot.params;
 
     //get project by idProject which has passed from url
@@ -122,5 +125,10 @@ export class TeamComponent implements OnInit {
   }
 
   
-
+  setHideMenu(){
+    if(this.clientView){
+      return 'hideMenu';
+    }
+    return 'showMenu';
+  }
 }

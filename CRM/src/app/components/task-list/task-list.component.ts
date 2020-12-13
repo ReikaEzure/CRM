@@ -184,4 +184,11 @@ export class TaskListComponent implements OnInit {
     this.tasks=this.done;
     console.log(this.done);
   }
+
+  setHideMenu(){
+    if(this.clientView){
+      return 'hideMenu';
+    }
+    return 'showMenu';
+  }
 }
