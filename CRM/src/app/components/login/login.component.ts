@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
         tomorrow.setDate(new Date().getDate()+1);
         this._cookie.set('password', this.loginInfo.password.toString(), tomorrow);
         this._cookie.set('username', this.loginInfo.username.toString(), tomorrow);
-        this._router.navigate(['/project']);
+        this._router.navigate(['/home']);
       },
       err => { 
         console.log(err); 
@@ -114,6 +114,7 @@ export class LoginComponent implements OnInit {
           location.reload();
           this.getClientCompany(this._userService.loggedInUser.idUser);
         }else{
+          this._userService.clientView=false;
           this.getOffice(this._userService.loggedInUser.idUser);
         }
       },

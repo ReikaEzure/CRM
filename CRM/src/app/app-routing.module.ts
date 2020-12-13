@@ -9,6 +9,7 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
 import { TeamComponent } from './components/team/team.component';
+import { TeamFormComponent } from './components/team-form/team-form.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { AppointmentDetailComponent } from './components/appointment-detail/appointment-detail.component';
 import { AppointmentFormComponent } from './components/appointment-form/appointment-form.component';
@@ -50,6 +51,7 @@ const routes: Routes = [
   { path: 'projectDetail/:id', component: ProjectDetailComponent },
   { path: 'projectForm', component: ProjectFormComponent },
   { path: 'team/:id', component: TeamComponent },
+  { path: 'teamForm/:id', component: TeamFormComponent },
   { path: 'task/:id', component: TaskListComponent },
   { path: 'taskDetail/:id', component: TaskDetailComponent },
   { path: 'taskForm/:projectId', component: TaskFormComponent },
@@ -90,6 +92,7 @@ export const routingComponents = [
                                   ProjectFormComponent,
                                   ProjectDetailComponent,
                                   TeamComponent,
+                                  TeamFormComponent,
                                   TaskListComponent,
                                   TaskDetailComponent,
                                   TaskFormComponent,

@@ -72,7 +72,6 @@ export class UserDetailComponent implements OnInit {
       let imgs=[];
       imgs=this.loggedInUser.avatar.split(',');
       this.ava.imagenes=imgs;
-      console.log(imgs);
       this.merge(imgs);
     }
     
@@ -132,6 +131,7 @@ export class UserDetailComponent implements OnInit {
     this._service.changeStatus(this.data).subscribe(
       res => {
         console.log(res);
+        this.loggedInUser.status=this.data.status;
         confirm('Your status has been changed');
       },
       error => console.log(error)
@@ -141,7 +141,18 @@ export class UserDetailComponent implements OnInit {
   //log out function
   logout(event: Event): void {
     event.preventDefault(); // Prevents browser following the link
-
+    console.log(this.loggedInUser.status)
+    if(this.loggedInUser.status!=1){
+      this._service.loggedInUser=null;
+        this._authService.loginDetail=null;
+        this._authService.isLoggedIn=false;
+        this._service.clientView=false;
+        this._cookie.delete('password');
+        this._cookie.delete('username');
+        this._cookie.delete('userID');
+        //console.clear()
+        this._router.navigate(['/login']);
+    }else{
     this._service.logout(this.loggedInUser.idUser).subscribe(
       res => {
         // delete all saved user data from services and cookie
@@ -152,13 +163,14 @@ export class UserDetailComponent implements OnInit {
         this._cookie.delete('password');
         this._cookie.delete('username');
         this._cookie.delete('userID');
-        console.clear()
+        //console.clear()
         this._router.navigate(['/login']);
         
         console.log(res);
       },
       error => console.log(error)
     );
+    }
   }
 
   //change password
