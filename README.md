@@ -11,3 +11,4 @@ npm i @types/express @types/morgan @types/cors -D
 Database setup
 create schema and execute db.sql
 
+install npm merge images
