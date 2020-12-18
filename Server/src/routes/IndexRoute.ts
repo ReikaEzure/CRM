@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { indexController } from '../controllers/IndexController';
-
+import constants from '../constants';
 class IndexRoute {
 
     public router: Router = Router();
@@ -34,8 +34,8 @@ class IndexRoute {
           port: 587,
           secure: false, // true for 465, false for other ports
           auth: {
-            user: 'info.rootlets@gmail.com',
-            pass: 'Rootlets1234'
+            user: constants.mail.user,
+            pass: constants.mail.pass
           }
         });
       
@@ -47,7 +47,7 @@ class IndexRoute {
           <h3>We received a request to change your password.</h3>
           <p>Use the link below to set up a new password for your account.</p><br />
           <p>If you did not request to chage your password, ignore this email and the link will expire on its own.</p> 
-          <a href="http://localhost:4200/changePass/15">Click link</a>
+          <a href="http://localhost:4200/changePass/${user.idUser}">Click link</a>
           `
         };
       

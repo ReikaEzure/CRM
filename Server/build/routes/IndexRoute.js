@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const IndexController_1 = require("../controllers/IndexController");
+const constants_1 = __importDefault(require("../constants"));
 class IndexRoute {
     constructor() {
         this.router = express_1.Router();
@@ -36,8 +40,8 @@ class IndexRoute {
                 port: 587,
                 secure: false,
                 auth: {
-                    user: 'info.rootlets@gmail.com',
-                    pass: 'Rootlets1234'
+                    user: constants_1.default.mail.user,
+                    pass: constants_1.default.mail.pass
                 }
             });
             let mailOptions = {
@@ -48,7 +52,7 @@ class IndexRoute {
           <h3>We received a request to change your password.</h3>
           <p>Use the link below to set up a new password for your account.</p><br />
           <p>If you did not request to chage your password, ignore this email and the link will expire on its own.</p> 
-          <a href="http://localhost:4200/changePass/15">Click link</a>
+          <a href="http://localhost:4200/changePass/${user.idUser}">Click link</a>
           `
             };
             // send mail with defined transport object
