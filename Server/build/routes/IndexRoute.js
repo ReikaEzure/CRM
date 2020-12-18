@@ -48,7 +48,7 @@ class IndexRoute {
           <h3>We received a request to change your password.</h3>
           <p>Use the link below to set up a new password for your account.</p><br />
           <p>If you did not request to chage your password, ignore this email and the link will expire on its own.</p> 
-          <a href="http://localhost:4200/changePass/ ${user.idUser}">Click link</a>
+          <a href="http://localhost:4200/changePass/15">Click link</a>
           `
             };
             // send mail with defined transport object

@@ -83,6 +83,19 @@ class AppointmentController {
             console.log(req.body);
             try {
                 yield database_1.default.then((r) => r.query('INSERT INTO Appointment SET ?', [req.body]));
+                const lastInserted = yield database_1.default.then((r) => r.query('SELECT * from Appointment WHERE date = ? AND description = ?', [req.body.date, req.body.description]));
+                res.json(lastInserted[0]);
+            }
+            catch (err) {
+                res.json({ text: "Error" + err.message });
+            }
+        });
+    }
+    createAppo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            try {
+                yield database_1.default.then((r) => r.query('INSERT INTO Appointment_has_User SET ?', [req.body]));
             }
             catch (err) {
                 res.json({ text: "Error" + err.message });

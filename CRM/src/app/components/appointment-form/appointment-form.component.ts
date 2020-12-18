@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { UserService } from 'src/app/services/user.service';
 import { Appointment } from '../../models/Appointment';
 
 @Component({
@@ -23,7 +24,7 @@ export class AppointmentFormComponent implements OnInit {
     updatedDate: new Date()
   }
 
-  constructor(private _fb: FormBuilder, private _service: AppointmentService, private _router: Router, private _activate: ActivatedRoute) { }
+  constructor(private _fb: FormBuilder, private _userService: UserService, private _service: AppointmentService, private _router: Router, private _activate: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.appointmentForm=this._fb.group({
@@ -57,9 +58,22 @@ export class AppointmentFormComponent implements OnInit {
     delete this.appointment.updatedDate;
     console.log(this.appointment);
 
+
+
     this._service.saveAppointment(this.appointment).subscribe(
       res =>{
         console.log(res);
+        let lastInserted: Appointment=res;
+        let appo={
+          appointment_idAppointment: lastInserted.idAppointment,
+          user_idUser: this._userService.loggedInUser.idUser
+        }
+        this._service.createAppo(appo).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {console.log(err);}
+        );
         this._router.navigate(['/appointment']);
         
       },

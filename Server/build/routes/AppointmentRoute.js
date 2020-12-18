@@ -15,6 +15,7 @@ class AppointmentRoute {
         this.router.get('/done/', AppointmentController_1.appointmentController.listDone);
         this.router.get('/:id', AppointmentController_1.appointmentController.getOne);
         this.router.post('/', AppointmentController_1.appointmentController.create);
+        this.router.post('/create', AppointmentController_1.appointmentController.createAppo);
         this.router.put('/:id', AppointmentController_1.appointmentController.update);
         this.router.delete('/:id', AppointmentController_1.appointmentController.delete);
     }

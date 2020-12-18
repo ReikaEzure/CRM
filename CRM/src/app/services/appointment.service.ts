@@ -37,6 +37,10 @@ export class AppointmentService {
     return this._http.post(`${this._url}/appointment`, appointment);
   }
 
+  createAppo(appo: any){
+    return this._http.post(`${this._url}/appointment/create`, appo);
+  }
+
   deleteAppointment(id: String | number){
     return this._http.delete(`${this._url}/appointment/${id}`);
   }

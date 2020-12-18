@@ -65,6 +65,17 @@ class AppointmentController{
         console.log(req.body);
         try{
             await pool.then((r:any)=>r.query('INSERT INTO Appointment SET ?', [req.body]));
+            const lastInserted = await pool.then((r:any) => r.query('SELECT * from Appointment WHERE date = ? AND description = ?', [req.body.date, req.body.description]));
+            res.json(lastInserted[0]);
+        }catch(err){
+            res.json({text: "Error"+err.message});
+        }
+    }
+
+    public async createAppo(req: Request, res: Response): Promise<void>{
+        console.log(req.body);
+        try{
+            await pool.then((r:any)=>r.query('INSERT INTO Appointment_has_User SET ?', [req.body]));
         }catch(err){
             res.json({text: "Error"+err.message});
         }
