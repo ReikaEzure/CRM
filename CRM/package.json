@@ -23,7 +23,7 @@
     "@angular/router": "~11.0.2",
     "merge-images": "^2.0.0",
     "ngx-cookie-service": "^10.1.1",
-    "pdfmake": "^0.1.68",
+    "pdfmake": "^0.1.72",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
